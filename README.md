@@ -9,9 +9,7 @@ Project is created with:
 * HTML5
 * SCSS
 * JavaScript ES2019
-* JSX
-* React
-* Gatsby
+* Hexo
 
 ### Credits
 Built & designed by Tomasz Przyborowski.
