@@ -1,61 +1,61 @@
 ---
-title: Password visibility
+title: 01. Password visibility
 date: 2020-10-12
 ---
 
 <div class="output-container">
 
   <style type="text/css">
-      .label {
-        display: block;
-        width: 100%;
-        margin-bottom: 6px;
-      }
+    .label {
+      display: block;
+      width: 100%;
+      margin-bottom: 6px;
+    }
 
-      .input {
-        margin-bottom: 1em;
-        border: none;
-        border-radius: 3px;
-        padding: 3px 4px;
-        min-width: 100px;
-      }
+    .input {
+      margin-bottom: 1em;
+      border: none;
+      border-radius: 3px;
+      padding: 3px 4px;
+      min-width: 100px;
+    }
 
-      .input:focus {
-        outline: none;
-        box-shadow: 0 0 3px 1px #8e45ff;
-      }
+    .input:focus {
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
 
-      .checkbox:focus {
-        outline: none;
-        box-shadow: 0 0 3px 1px #8e45ff;
-      }
+    .checkbox:focus {
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
 
-      .button {
-        border-color: white;
-        outline: none;
-        border: none;
-        margin-top: 5px;
-        padding: 5px 10px;
-        border-radius: 3px;
-        font-weight: 600px;
-        cursor: pointer;
-      }
+    .button {
+      border-color: white;
+      outline: none;
+      border: none;
+      margin-top: 5px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-weight: 600px;
+      cursor: pointer;
+    }
 
-      .button:focus {
-        border: red;
-        outline: none;
-        box-shadow: 0 0 3px 1px #8e45ff;
-      }
+    .button:focus {
+      border: red;
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
 
-      .button:active {
-        color: #8e45ff;
-      }
+    .button:active {
+      color: #8e45ff;
+    }
 
-      [type="checkbox"] {
-        margin-bottom: 0;
-        margin-right: 0.25em;
-        cursor: pointer;
-      }
+    [type="checkbox"] {
+      margin-bottom: 0;
+      margin-right: 0.25em;
+      cursor: pointer;
+    }
   </style>
 
   <p>Enter your username and password below to login.</p>
@@ -71,7 +71,7 @@ date: 2020-10-12
     </div>
     <div>
       <label class="label" for="show-password">
-        <input autocomplete="off" class="checkbox" type="checkbox" name="show-passwords" id="show-password">
+        <input class="checkbox" type="checkbox" name="show-passwords" id="show-password">
         Show password
       </label>
     </div>
