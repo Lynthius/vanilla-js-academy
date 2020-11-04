@@ -1,6 +1,6 @@
 ---
-title: 07. Random Ron
-date: 2020-10-24
+title: 08. Random Ron without duplicates
+date: 2020-10-26
 ---
 
 <div class="output-container">
@@ -38,7 +38,6 @@ date: 2020-10-24
       padding: 8px;
       min-height: 200px;
       width: 98%;
-      font-size: 16px;
     }
 
     .quote-output {
@@ -81,6 +80,38 @@ date: 2020-10-24
     const quoteOutput = document.querySelector('.quote-output');
     const quoteContainer = document.querySelector('.quote-container');
 
+    const quotesArr = [];
+
+    // Get a fresh quote and render it into the DOM
+    var getQuote = function () {
+      // Get a Ron Swanson quote
+      fetch('http://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then(function (data) {
+        console.log(data[0]);
+        if (quotesArr.length === 50) {
+          quotesArr.shift()
+        }
+
+        if (quotesArr.indexOf(data[0]) > -1) {
+          getQuote()
+          alterGradient()
+          return;
+        }
+        quotesArr.push(data[0])
+        quoteOutput.innerHTML = `<p class="quote-paragraph"> ${quotesArr[quotesArr.length - 1]}</p>`;
+
+        console.log(quotesArr);
+      }).catch(function (error) {
+        quoteOutput.innerHTML =
+          '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
+      });
+    };
+
     function getQuote() {
       fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
         if (response.ok) {
@@ -97,17 +128,12 @@ date: 2020-10-24
       })
     }
 
-     function renderQuote(data) {
-      quoteOutput.innerHTML = `<p class="quote-paragraph"> ${data[0]}</p>` ;
-    }
-
     function alterGradient() {
       quoteContainer.style.background = `linear-gradient(${Math.floor(Math.random() * (90 - 35)) + 90}deg, rgba(142,69,${Math.floor(Math.random() * (255 - 100)) + 255},1), ${Math.floor(Math.random() * (20 - 10)) + 20}%, rgba(74,${Math.floor(Math.random() * (90 - 60)) + 90},${Math.floor(Math.random() * (280 - 140)) + 280},.8) ${Math.floor(Math.random() * (40 - 30)) + 40}%, rgba(142,69,255,1) 83%)`
     }
 
     getQuote()
-
-    fetchBtn.addEventListener('click', getQuote);
+    fetchBtn.addEventListener('click', getQuote, false);
   </script>
 
 </div>
@@ -140,6 +166,35 @@ const fetchBtn = document.querySelector('.fetch-button');
 const quoteOutput = document.querySelector('.quote-output');
 const quoteContainer = document.querySelector('.quote-container');
 
+const quotesArr = [];
+
+var getQuote = function () {
+  fetch('http://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      return Promise.reject(response);
+    }
+  }).then(function (data) {
+    console.log(data[0]);
+    if (quotesArr.length === 50) {
+      quotesArr.shift()
+    }
+
+    if (quotesArr.indexOf(data[0]) > -1) {
+      getQuote()
+      alterGradient()
+      return;
+    }
+    quotesArr.push(data[0])
+    quoteOutput.innerHTML = `<p class="quote-paragraph"> ${quotesArr[quotesArr.length - 1]}</p>`;
+
+    console.log(quotesArr);
+  }).catch(function (error) {
+      quoteOutput.innerHTML = '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
+  });
+};
+
 function getQuote() {
   fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
     if (response.ok) {
@@ -156,20 +211,12 @@ function getQuote() {
   })
 }
 
-  function renderQuote(data) {
-  quoteOutput.innerHTML = `<p class="quote-paragraph"> ${data[0]}</p>` ;
-}
-
 function alterGradient() {
-  quoteContainer.style.background = `linear-gradient(${Math.floor(Math.random() * (90 - 35)) + 90}deg, 
-    rgba(142,69,${Math.floor(Math.random() * (255 - 100)) + 255},1) ${Math.floor(Math.random() * (20 - 10)) + 20}%, 
-    rgba(74,${Math.floor(Math.random() * (90 - 60)) + 90},${Math.floor(Math.random() * (280 - 140)) + 280},.8) ${Math.floor(Math.random() * (40 - 30)) + 40}%, 
-    rgba(142,69,255,1) 83%)`
+  quoteContainer.style.background = `linear-gradient(${Math.floor(Math.random() * (90 - 35)) + 90}deg, rgba(142,69,${Math.floor(Math.random() * (255 - 100)) + 255},1), ${Math.floor(Math.random() * (20 - 10)) + 20}%, rgba(74,${Math.floor(Math.random() * (90 - 60)) + 90},${Math.floor(Math.random() * (280 - 140)) + 280},.8) ${Math.floor(Math.random() * (40 - 30)) + 40}%, rgba(142,69,255,1) 83%)`
 }
 
 getQuote()
-
-fetchBtn.addEventListener('click', getQuote);
+fetchBtn.addEventListener('click', getQuote, false);
 ```
 
 </dvi>
