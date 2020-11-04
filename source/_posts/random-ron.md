@@ -36,7 +36,7 @@ date: 2020-10-24
       background: linear-gradient(63deg, rgba(142,69,255,1) 16%, rgba(74,62,184,1) 49%, rgba(142,69,255,1) 83%);
       border-radius: 3px;
       padding: 8px;
-      min-height: 94px;
+      min-height: 104px;
       width: 98%;
     }
 
