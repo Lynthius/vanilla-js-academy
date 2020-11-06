@@ -63,6 +63,10 @@ date: 2020-10-22
 ## JavaScript
 
 ```JS
+/* Changes to the content in #word-count and #character-count 
+should be announced to screen reader users. Test this with an actual screen reader
+to hear how the announcements are actually made. */
+
 const textArea = document.querySelector('#text');
 const countCharOutput = document.querySelector('#character-count');
 const countWordOutput = document.querySelector('#word-count');

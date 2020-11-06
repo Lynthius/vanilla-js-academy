@@ -110,6 +110,11 @@ date: 2020-10-30
 ## JavaScript
 
 ```JS
+/* Get articles from three to five categories, then render the API data
+into markup and inject it into the #app element. Instead of rendering all of the articles,
+use the first five from each category. Add a heading before each section so that you know
+what category the articles are from. */
+
 const appOutput = document.querySelector('#app');
 const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
 const sections = ['Technology', 'Science', 'Magazine'];

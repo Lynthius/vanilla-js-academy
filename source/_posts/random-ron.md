@@ -136,6 +136,10 @@ date: 2020-10-24
 ## JavaScript
 
 ```JS
+/* When the page loads, a random quote from the Ron Swanson Quotes API
+should be displayed in the blockquote element. When the More Ron button is clicked,
+a new quote from the API should replace the current one. */
+
 const fetchBtn = document.querySelector('.fetch-button');
 const quoteOutput = document.querySelector('.quote-output');
 const quoteContainer = document.querySelector('.quote-container');

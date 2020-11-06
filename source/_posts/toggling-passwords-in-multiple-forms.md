@@ -187,11 +187,15 @@ date: 2020-10-16
 ## JavaScript
 
 ```JS
+/* In the first form, the #show-password checkbox should toggle 
+the #password field visibility. In the second form, the #show-passwords checkbox
+should toggle the visibility of the #current-password and #new-password fields. */
+
 document.addEventListener('click', function (e) {
   if (!e.target.matches('[data-pw-toggle]')) return;
 
-  const passwords = Array.prototype.slice.call(document.querySelectorAll(e.target.getAttribute(
-    'data-pw-toggle')));
+  const passwords = Array.prototype.slice.call(document.querySelectorAll(
+    e.target.getAttribute('data-pw-toggle')));
 
   passwords.forEach(password => {
     if (e.target.checked) {

@@ -90,6 +90,9 @@ date: 2020-10-28
 ## JavaScript
 
 ```JS
+/* For this project, get an array of stories from the New York Times API,
+turn them into markup, and inject them into the #app element. */
+
 const appOutput = document.querySelector('#app');
 const getStories = function () {
 fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(

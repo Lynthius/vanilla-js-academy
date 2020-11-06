@@ -130,6 +130,10 @@ date: 2020-10-12
 ## JavaScript
 
 ```JS
+/* When a user clicks the #show-password checkbox, 
+the #password field should display the password in plain text 
+if the box is checked, or mask it if it’s not. */
+
 const showPass = document.querySelector('#show-password');
 const passInput = document.querySelector('#password');
 

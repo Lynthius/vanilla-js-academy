@@ -56,6 +56,10 @@ date: 2020-10-18
 ## JavaScript
 
 ```JS
+/* As the user types or pastes text into the #text field, 
+the #character-count content should get updated in real time 
+to display how many characters are in the field. */
+
 let textArea = document.getElementById('text');
 let letterCounter = document.getElementById('character-count');
 

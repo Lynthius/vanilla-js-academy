@@ -162,15 +162,16 @@ date: 2020-10-26
 ## JavaScript
 
 ```JS
+/* Modify it so that if the same quote gets returned from the API
+in the last 50 quotes, you skip it and fetch another one instead. */
+
 const fetchBtn = document.querySelector('.fetch-button');
 const quoteOutput = document.querySelector('.quote-output');
 const quoteContainer = document.querySelector('.quote-container');
 
 const quotesArr = [];
 
-// Get a fresh quote and render it into the DOM
 var getQuote = function () {
-  // Get a Ron Swanson quote
   fetch('http://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
     if (response.ok) {
       return response.json();
