@@ -6,134 +6,59 @@ date: 2020-10-28
 <div class="output-container">
 
   <style type="text/css">
-    .fetch-button {
-      border-color: white;
-      outline: none;
-      border: none;
-      margin-top: 5px;
-      padding: 5px 10px;
-      border-radius: 3px;
-      font-weight: 600px;
-      cursor: pointer;
-    }
-
-    .fetch-button:focus {
-      border: red;
-      outline: none;
-      box-shadow: 0 0 3px 1px #8e45ff;
-    }
-
-    .fetch-button:active {
-      color: #8e45ff;
-    }
-
-     .quote-container {
-      position: relative;
+    .container {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgb(142,69,255);
-      background: linear-gradient(63deg, rgba(142,69,255,1) 16%, rgba(74,62,184,1) 49%, rgba(142,69,255,1) 83%);
-      border-radius: 3px;
-      padding: 8px;
-      min-height: 200px;
-      width: 98%;
+      flex-direction: column;
     }
 
-    .quote-output {
-      text-align: center;
+    .details {
+      margin-bottom: 10px;
+    }
+
+    .link {
+      text-decoration: none;
+      margin: 5px 0 14px;
       color: white;
-      font-size: 16px;
-      font-family: 'helvetica';
+      max-width: 80px;
     }
 
-    .quote-mark{
-      position: absolute;
-      top: 0;
-      left: 20px;
-      color: rgba(250,250,250 ,1);
-      font-size: 90px;
-      font-family: 'lato';
-    }
-
-    .quote-paragraph {
-      padding: 0 60px;
-      font-size: 16px;
-      font-family: 'helvetica';
+    .link:hover {
+      text-decoration: underline;
+      color: white;
     }
   </style>
 
-  <p>Show some random quote.</p>
-
-  <div class="quote-container">
-    <blockquote aria-live="polite">
-      <span class="quote-mark">&ldquo;</span><span class="quote-output">Waiting for a new quote...</span>
-    </blockquote>
-  </div>
-
-  <p>
-    <button class="fetch-button">More Ron</button>
-  </p>
+  <div id="app"></div>
 
   <script>
-    const fetchBtn = document.querySelector('.fetch-button');
-    const quoteOutput = document.querySelector('.quote-output');
-    const quoteContainer = document.querySelector('.quote-container');
-
-    const quotesArr = [];
-
-    // Get a fresh quote and render it into the DOM
-    var getQuote = function () {
-      // Get a Ron Swanson quote
-      fetch('http://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (data) {
-        console.log(data[0]);
-        if (quotesArr.length === 50) {
-          quotesArr.shift()
-        }
-
-        if (quotesArr.indexOf(data[0]) > -1) {
-          getQuote()
-          alterGradient()
-          return;
-        }
-        quotesArr.push(data[0])
-        quoteOutput.innerHTML = `<p class="quote-paragraph"> ${quotesArr[quotesArr.length - 1]}</p>`;
-
-        console.log(quotesArr);
-      }).catch(function (error) {
-        quoteOutput.innerHTML =
-          '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
+    const appOutput = document.querySelector('#app');
+    const getStories = function () {
+      fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
+        function (response, resolve) {
+          if (response.ok) {
+            return response.json()
+          } else {
+            return Promise.reject(response)
+          };
+        }).then(function (data) {
+        appOutput.innerHTML = data.results.map(function (result) {
+          return (`
+          <div class="container"> 
+            <h3 class="title">${result.title}</h3>
+            <div class="details">
+            </div>
+            <a class="link" href="${result.url}" target="_blank">Read more</a>
+          </div>
+          <br>
+          `);
+        }).join('')
+      }).catch(response => {
+        console.log("something went wrong", response);
+        appOutput.textContent = "Something went wrong...";
       });
     };
 
-    function getQuote() {
-      fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
-        if (response.ok) {
-          return response.json()
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (data) {
-        renderQuote(data)
-        alterGradient()
-      }).catch(function (err) {
-        console.log(err);
-        return err;
-      })
-    }
-
-    function alterGradient() {
-      quoteContainer.style.background = `linear-gradient(${Math.floor(Math.random() * (90 - 35)) + 90}deg, rgba(142,69,${Math.floor(Math.random() * (255 - 100)) + 255},1), ${Math.floor(Math.random() * (20 - 10)) + 20}%, rgba(74,${Math.floor(Math.random() * (90 - 60)) + 90},${Math.floor(Math.random() * (280 - 140)) + 280},.8) ${Math.floor(Math.random() * (40 - 30)) + 40}%, rgba(142,69,255,1) 83%)`
-    }
-
-    getQuote()
-    fetchBtn.addEventListener('click', getQuote, false);
+    getStories();
   </script>
 
 </div>
