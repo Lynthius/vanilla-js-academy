@@ -10,8 +10,17 @@ date: 2020-10-30
       margin-top: 10px;
     }
 
+    .article-entry ul, .article-entry ol, .article-entry dl {
+      margin-top: 0;
+    }
+
+    .category {
+      margin-top: 10px;
+    }
+
     .title {
-      margin-bottom: 0px;
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
     .container {
@@ -35,41 +44,52 @@ date: 2020-10-30
     }
   </style>
 
-  <div id="app">
-    <span id="placeholder">Loading latest stories...</span>
-  </div>
+  <div id="app"></div>
 
   <script>
-    const appOutput = document.querySelector('#app');
-    const getStories = function () {
-      fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
-        function (response, resolve) {
-          if (response.ok) {
-            return response.json()
-          } else {
-            return Promise.reject(response)
-          };
-        }).then(function (data) {
-          const allStories = [...data.results];
-          const lastFiveStories = allStories.slice(0, 5)
-          appOutput.innerHTML = lastFiveStories.map(function (result) {
-          return (`
-          <div class="container"> 
-            <ul class="title"><li>${result.title}</li></h3>
-            <div class="details">
-            </div>
-            <a class="link" href="${result.url}" target="_blank">Read more</a>
-          </div>
-          <br>
-          `);
-        }).join('')
-      }).catch(response => {
-        console.log("something went wrong", response);
-        appOutput.textContent = "Something went wrong...";
-      });
-    };
+  const appOutput = document.querySelector('#app');
+  const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
+  const sections = ['Technology', 'Science', 'Magazine'];
+  const articleNum = 3;
 
-    getStories();
+  const render = function (articles, section) {
+    appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
+      return (`
+            <div class="container">
+              <ul class="title">
+              <li>${article.title}</li>
+              <a class="link" href="${article.url}" target="_blank">Read more</a>
+              </ul>
+            </div>
+            <br>
+            `);
+    }).join('')
+  };
+
+  const getLastNStories = function (articles) {
+    return articles.slice(0, articleNum)
+  }
+
+  const getStories = function (section) {
+    fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
+      function (response, resolve) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        };
+      }).then(function (data) {
+      const lastNStories = getLastNStories(data.results);
+      render(lastNStories, section);
+    }).catch(response => {
+      console.log("something went wrong", response);
+      appOutput.textContent = "Something went wrong...";
+    });
+  };
+
+  sections.forEach(function (section) {
+    getStories(section);
+  });
   </script>
 
 </div>
@@ -80,7 +100,7 @@ date: 2020-10-30
 
 ```HTML
 <div id="app">
-  <span id="placeholder">Loading latest stories...</span>
+  <span id="placeholder"></span>
 </div>
 ```
 
@@ -91,35 +111,48 @@ date: 2020-10-30
 
 ```JS
 const appOutput = document.querySelector('#app');
-    const getStories = function () {
-      fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
-        function (response, resolve) {
-          if (response.ok) {
-            return response.json()
-          } else {
-            return Promise.reject(response)
-          };
-        }).then(function (data) {
-          const allStories = [...data.results];
-          const lastFiveStories = allStories.slice(0, 5)
-          appOutput.innerHTML = lastFiveStories.map(function (result) {
-          return (`
-          <div class="container"> 
-            <ul class="title"><li>${result.title}</li></h3>
-            <div class="details">
-            </div>
-            <a class="link" href="${result.url}" target="_blank">Read more</a>
+const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
+const sections = ['Technology', 'Science', 'Magazine'];
+const articleNum = 3;
+
+const render = function (articles, section) {
+  appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
+    return (`
+          <div class="container">
+            <ul class="title">
+            <li>${article.title}</li>
+            <a class="link" href="${article.url}" target="_blank">Read more</a>
+            </ul>
           </div>
           <br>
           `);
-        }).join('')
-      }).catch(response => {
-        console.log("something went wrong", response);
-        appOutput.textContent = "Something went wrong...";
-      });
-    };
+  }).join('')
+};
 
-    getStories();
+const getLastNStories = function (articles) {
+  return articles.slice(0, articleNum)
+}
+
+const getStories = function (section) {
+  fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
+    function (response, resolve) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      };
+    }).then(function (data) {
+    const lastNStories = getLastNStories(data.results);
+    render(lastNStories, section);
+  }).catch(response => {
+    console.log("something went wrong", response);
+    appOutput.textContent = "Something went wrong...";
+  });
+};
+
+sections.forEach(function (section) {
+  getStories(section);
+});
 ```
 
 </dvi>

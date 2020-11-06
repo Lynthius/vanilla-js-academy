@@ -36,7 +36,7 @@ date: 2020-10-28
   </style>
 
   <div id="app">
-    <span id="placeholder">Loading latest stories...</span>
+    <span id="placeholder"></span>
   </div>
 
   <script>
@@ -55,10 +55,10 @@ date: 2020-10-28
           appOutput.innerHTML = lastFiveStories.map(function (result) {
           return (`
           <div class="container"> 
-            <ul class="title"><li>${result.title}</li></h3>
-            <div class="details">
-            </div>
+            <ul class="title">
+            <li>${result.title}</li>
             <a class="link" href="${result.url}" target="_blank">Read more</a>
+            </ul>
           </div>
           <br>
           `);
@@ -80,7 +80,7 @@ date: 2020-10-28
 
 ```HTML
 <div id="app">
-  <span id="placeholder">Loading latest stories...</span>
+  <span id="placeholder"></span>
 </div>
 ```
 
@@ -105,10 +105,10 @@ const appOutput = document.querySelector('#app');
           appOutput.innerHTML = lastFiveStories.map(function (result) {
           return (`
           <div class="container"> 
-            <ul class="title"><li>${result.title}</li></h3>
-            <div class="details">
-            </div>
+            <ul class="title">
+            <li>${result.title}</li>
             <a class="link" href="${result.url}" target="_blank">Read more</a>
+            </ul>
           </div>
           <br>
           `);
