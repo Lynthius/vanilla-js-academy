@@ -109,19 +109,19 @@ date: 2020-10-16
 
 <script>
   document.addEventListener('click', function (e) {
-    if (!e.target.matches('[data-pw-toggle]')) return;
+  if (!e.target.matches('[data-pw-toggle]')) return;
 
-    const passwords = Array.prototype.slice.call(document.querySelectorAll(e.target.getAttribute(
-      'data-pw-toggle')));
+  const passwords = Array.prototype.slice.call(document.querySelectorAll(e.target.getAttribute(
+    'data-pw-toggle')));
 
-    passwords.forEach(password => {
-      if (e.target.checked) {
-        password.type = 'text';
-      } else {
-        password.type = 'password';
-      }
-    })
+  passwords.forEach(password => {
+    if (e.target.checked) {
+      password.type = 'text';
+    } else {
+      password.type = 'password';
+    }
   })
+});
 </script>
 
 </div>
@@ -190,7 +190,8 @@ date: 2020-10-16
 document.addEventListener('click', function (e) {
   if (!e.target.matches('[data-pw-toggle]')) return;
 
-  const passwords = Array.prototype.slice.call(document.querySelectorAll(e.target.getAttribute('data-pw-toggle')));
+  const passwords = Array.prototype.slice.call(document.querySelectorAll(e.target.getAttribute(
+    'data-pw-toggle')));
 
   passwords.forEach(password => {
     if (e.target.checked) {
@@ -199,7 +200,7 @@ document.addEventListener('click', function (e) {
       password.type = 'password';
     }
   })
-})
+});
 ```
 
 </dvi>

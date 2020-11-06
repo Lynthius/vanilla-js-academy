@@ -63,19 +63,19 @@ date: 2020-10-20
 ## JavaScript
 
 ```JS
-  const textArea = document.querySelector('#text');
-  const countCharOutput = document.querySelector('#character-count');
-  const countWordOutput = document.querySelector('#word-count');
+const textArea = document.querySelector('#text');
+const countCharOutput = document.querySelector('#character-count');
+const countWordOutput = document.querySelector('#word-count');
 
-  function counter() {
-    const wordsArr = textArea.value.split(/[\n\r\s]+/g).filter(item => {
-      return item.length > 0;
-    });
-    countCharOutput.textContent = textArea.value.length;
-    countWordOutput.textContent = wordsArr.length;
-  };
+function counter() {
+  const wordsArr = textArea.value.split(/[\n\r\s]+/g).filter(item => {
+    return item.length > 0;
+  });
+  countCharOutput.textContent = textArea.value.length;
+  countWordOutput.textContent = wordsArr.length;
+};
 
-  textArea.addEventListener('input', counter);
+textArea.addEventListener('input', counter);
 ```
 
 </dvi>

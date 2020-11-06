@@ -97,8 +97,8 @@ date: 2020-10-24
       })
     }
 
-     function renderQuote(data) {
-      quoteOutput.innerHTML = `<p class="quote-paragraph"> ${data[0]}</p>` ;
+    function renderQuote(data) {
+      quoteOutput.innerHTML = `<p class="quote-paragraph"> ${data[0]}</p>`;
     }
 
     function alterGradient() {
@@ -156,15 +156,12 @@ function getQuote() {
   })
 }
 
-  function renderQuote(data) {
-  quoteOutput.innerHTML = `<p class="quote-paragraph"> ${data[0]}</p>` ;
+function renderQuote(data) {
+  quoteOutput.innerHTML = `<p class="quote-paragraph"> ${data[0]}</p>`;
 }
 
 function alterGradient() {
-  quoteContainer.style.background = `linear-gradient(${Math.floor(Math.random() * (90 - 35)) + 90}deg, 
-    rgba(142,69,${Math.floor(Math.random() * (255 - 100)) + 255},1) ${Math.floor(Math.random() * (20 - 10)) + 20}%, 
-    rgba(74,${Math.floor(Math.random() * (90 - 60)) + 90},${Math.floor(Math.random() * (280 - 140)) + 280},.8) ${Math.floor(Math.random() * (40 - 30)) + 40}%, 
-    rgba(142,69,255,1) 83%)`
+  quoteContainer.style.background = `linear-gradient(${Math.floor(Math.random() * (90 - 35)) + 90}deg, rgba(142,69,${Math.floor(Math.random() * (255 - 100)) + 255},1), ${Math.floor(Math.random() * (20 - 10)) + 20}%, rgba(74,${Math.floor(Math.random() * (90 - 60)) + 90},${Math.floor(Math.random() * (280 - 140)) + 280},.8) ${Math.floor(Math.random() * (40 - 30)) + 40}%, rgba(142,69,255,1) 83%)`
 }
 
 getQuote()

@@ -47,49 +47,49 @@ date: 2020-10-30
   <div id="app"></div>
 
   <script>
-  const appOutput = document.querySelector('#app');
-  const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
-  const sections = ['Technology', 'Science', 'Magazine'];
-  const articleNum = 3;
+    const appOutput = document.querySelector('#app');
+    const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
+    const sections = ['Technology', 'Science', 'Magazine'];
+    const articleNum = 3;
 
-  const render = function (articles, section) {
-    appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
-      return (`
-            <div class="container">
-              <ul class="title">
-              <li>${article.title}</li>
-              <a class="link" href="${article.url}" target="_blank">Read more</a>
-              </ul>
-            </div>
-            <br>
-            `);
-    }).join('')
-  };
+    const render = function (articles, section) {
+      appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
+        return (`
+                <div class="container">
+                  <ul class="title">
+                  <li>${article.title}</li>
+                  <a class="link" href="${article.url}" target="_blank">Read more</a>
+                  </ul>
+                </div>
+                <br>
+                `);
+      }).join('')
+    };
 
-  const getLastNStories = function (articles) {
-    return articles.slice(0, articleNum)
-  }
+    const getLastNStories = function (articles) {
+      return articles.slice(0, articleNum)
+    }
 
-  const getStories = function (section) {
-    fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
-      function (response, resolve) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        };
-      }).then(function (data) {
-      const lastNStories = getLastNStories(data.results);
-      render(lastNStories, section);
-    }).catch(response => {
-      console.log("something went wrong", response);
-      appOutput.textContent = "Something went wrong...";
+    const getStories = function (section) {
+      fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
+        function (response, resolve) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            return Promise.reject(response);
+          };
+        }).then(function (data) {
+        const lastNStories = getLastNStories(data.results);
+        render(lastNStories, section);
+      }).catch(response => {
+        console.log("something went wrong", response);
+        appOutput.textContent = "Something went wrong...";
+      });
+    };
+
+    sections.forEach(function (section) {
+      getStories(section);
     });
-  };
-
-  sections.forEach(function (section) {
-    getStories(section);
-  });
   </script>
 
 </div>
@@ -118,14 +118,14 @@ const articleNum = 3;
 const render = function (articles, section) {
   appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
     return (`
-          <div class="container">
-            <ul class="title">
-            <li>${article.title}</li>
-            <a class="link" href="${article.url}" target="_blank">Read more</a>
-            </ul>
-          </div>
-          <br>
-          `);
+            <div class="container">
+              <ul class="title">
+              <li>${article.title}</li>
+              <a class="link" href="${article.url}" target="_blank">Read more</a>
+              </ul>
+            </div>
+            <br>
+            `);
   }).join('')
 };
 

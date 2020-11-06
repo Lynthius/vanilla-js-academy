@@ -42,34 +42,34 @@ date: 2020-10-28
   <script>
     const appOutput = document.querySelector('#app');
     const getStories = function () {
-      fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
-        function (response, resolve) {
-          if (response.ok) {
-            return response.json()
-          } else {
-            return Promise.reject(response)
-          };
-        }).then(function (data) {
-          const allStories = [...data.results];
-          const lastFiveStories = allStories.slice(0, 5)
-          appOutput.innerHTML = lastFiveStories.map(function (result) {
-          return (`
-          <div class="container"> 
-            <ul class="title">
-            <li>${result.title}</li>
-            <a class="link" href="${result.url}" target="_blank">Read more</a>
-            </ul>
-          </div>
-          <br>
-          `);
-        }).join('')
-      }).catch(response => {
-        console.log("something went wrong", response);
-        appOutput.textContent = "Something went wrong...";
-      });
-    };
+    fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
+      function (response, resolve) {
+        if (response.ok) {
+          return response.json()
+        } else {
+          return Promise.reject(response)
+        };
+      }).then(function (data) {
+      const allStories = [...data.results];
+      const lastFiveStories = allStories.slice(0, 5)
+      appOutput.innerHTML = lastFiveStories.map(function (result) {
+        return (`
+        <div class="container"> 
+          <ul class="title">
+          <li>${result.title}</li>
+          <a class="link" href="${result.url}" target="_blank">Read more</a>
+          </ul>
+        </div>
+        <br>
+        `);
+      }).join('')
+    }).catch(response => {
+      console.log("something went wrong", response);
+      appOutput.textContent = "Something went wrong...";
+    });
+  };
 
-    getStories();
+  getStories();
   </script>
 
 </div>
@@ -91,35 +91,35 @@ date: 2020-10-28
 
 ```JS
 const appOutput = document.querySelector('#app');
-    const getStories = function () {
-      fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
-        function (response, resolve) {
-          if (response.ok) {
-            return response.json()
-          } else {
-            return Promise.reject(response)
-          };
-        }).then(function (data) {
-          const allStories = [...data.results];
-          const lastFiveStories = allStories.slice(0, 5)
-          appOutput.innerHTML = lastFiveStories.map(function (result) {
-          return (`
-          <div class="container"> 
-            <ul class="title">
-            <li>${result.title}</li>
-            <a class="link" href="${result.url}" target="_blank">Read more</a>
-            </ul>
-          </div>
-          <br>
-          `);
-        }).join('')
-      }).catch(response => {
-        console.log("something went wrong", response);
-        appOutput.textContent = "Something went wrong...";
-      });
+const getStories = function () {
+fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
+  function (response, resolve) {
+    if (response.ok) {
+      return response.json()
+    } else {
+      return Promise.reject(response)
     };
+  }).then(function (data) {
+  const allStories = [...data.results];
+  const lastFiveStories = allStories.slice(0, 5)
+  appOutput.innerHTML = lastFiveStories.map(function (result) {
+    return (`
+    <div class="container"> 
+      <ul class="title">
+      <li>${result.title}</li>
+      <a class="link" href="${result.url}" target="_blank">Read more</a>
+      </ul>
+    </div>
+    <br>
+    `);
+  }).join('')
+}).catch(response => {
+  console.log("something went wrong", response);
+  appOutput.textContent = "Something went wrong...";
+});
+};
 
-    getStories();
+getStories();
 ```
 
 </dvi>

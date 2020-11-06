@@ -168,7 +168,9 @@ const quoteContainer = document.querySelector('.quote-container');
 
 const quotesArr = [];
 
+// Get a fresh quote and render it into the DOM
 var getQuote = function () {
+  // Get a Ron Swanson quote
   fetch('http://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
     if (response.ok) {
       return response.json();
@@ -191,7 +193,8 @@ var getQuote = function () {
 
     console.log(quotesArr);
   }).catch(function (error) {
-      quoteOutput.innerHTML = '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
+    quoteOutput.innerHTML =
+      '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
   });
 };
 

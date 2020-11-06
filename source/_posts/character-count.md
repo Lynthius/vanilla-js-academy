@@ -56,12 +56,12 @@ date: 2020-10-18
 ## JavaScript
 
 ```JS
-  let textArea = document.getElementById('text');
-  let letterCounter = document.getElementById('character-count');
-  
-  textArea.addEventListener('input', function (e) {
-    letterCounter.textContent = e.target.value.length
-  })
+let textArea = document.getElementById('text');
+let letterCounter = document.getElementById('character-count');
+
+textArea.addEventListener('input', function (e) {
+  letterCounter.textContent = e.target.value.length
+})
 ```
 
 </dvi>

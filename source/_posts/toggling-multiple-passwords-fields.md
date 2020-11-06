@@ -129,23 +129,6 @@ date: 2020-10-14
   </div>
   <button class="button" type="submit">Log In</button>
 </form>
-
-<script>
-  const togglePswrd = document.querySelector('#show-passwords');
-  const passInputs = document.querySelectorAll('.password');
-
-  togglePswrd.addEventListener('click', function () {
-    if (togglePswrd.checked) {
-      Array.prototype.slice.call(passInputs).forEach(passInput => {
-        passInput.type = "text";
-      });
-    } else {
-      Array.prototype.slice.call(passInputs).forEach(passInput => {
-        passInput.type = "password";
-      });
-    }
-  })
-</script>
 ```
 
 </div>
