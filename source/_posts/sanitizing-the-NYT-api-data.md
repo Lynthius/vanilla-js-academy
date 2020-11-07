@@ -116,10 +116,8 @@ date: 2020-11-01
 ## JavaScript
 
 ```JS
-/* Get articles from three to five categories, then render the API data
-into markup and inject it into the #app element. Instead of rendering all of the articles,
-use the first five from each category. Add a heading before each section so that you know
-what category the articles are from. */
+/* Before rendering API data into the DOM as markup, 
+sanitize it to protect yourself from any malicious code that might get sent back. */
 
 const appOutput = document.querySelector('#app');
 const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
@@ -131,8 +129,8 @@ const render = function (articles, section) {
     return (`
             <div class="container">
               <ul class="title">
-              <li>${article.title}</li>
-              <a class="link" href="${article.url}" target="_blank">Read more</a>
+              <li>${sanitizeHTML(article.url)}</li>
+              <a class="link" href="${sanitizeHTML(article.url)}" target="_blank">Read more</a>
               </ul>
             </div>
             <br>
