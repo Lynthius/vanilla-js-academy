@@ -53,9 +53,9 @@ date: 2020-11-01
     const articleNum = 3;
 
     const sanitizeHTML = function (str) {
-      return str.replace(/[^\w. ]/gi, function(c)) {
-        return '&#' + c.characterCodeAt(0) + ';';
-      }
+      return str.replace(/[^\w. ]/gi, function(c) {
+        return '&#' + c.charCodeAt(0) + ';';
+      });
     }
 
     const render = function (articles, section) {
@@ -63,8 +63,8 @@ date: 2020-11-01
         return (`
                 <div class="container">
                   <ul class="title">
-                  <li>${article.title}</li>
-                  <a class="link" href="${article.url}" target="_blank">Read more</a>
+                  <li>${sanitizeHTML(article.title)}</li>
+                  <a class="link" href="${sanitizeHTML(article.url)}" target="_blank">Read more</a>
                   </ul>
                 </div>
                 <br>
