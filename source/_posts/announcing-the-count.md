@@ -82,4 +82,4 @@ function counter() {
 textArea.addEventListener('input', counter);
 ```
 
-</dvi>
+</div>

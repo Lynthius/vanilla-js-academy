@@ -125,4 +125,4 @@ fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6
 getStories();
 ```
 
-</dvi>
+</div>

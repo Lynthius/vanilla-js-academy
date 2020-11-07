@@ -6,35 +6,11 @@ date: 2020-11-03
 <div class="output-container">
 
   <style type="text/css">
-    .label {
-    display: block;
-    width: 100%;
-    margin-bottom: 6px;
-    }
-
-    .textarea {
-      min-width: 400px;
-      min-height: 80px;
-    }
-
-     .textarea:focus {
-      outline: none;
-      box-shadow: 0 0 3px 1px #8e45ff;
-    }
   </style>
 
-  <label class="label" for="text">Enter your text below.</label>
-  <textarea class="textarea" id="text"></textarea>
-
-  <p>You've written <strong><span id="character-count">0</span> characters</strong>.</p>
 
   <script>
-    let textArea = document.getElementById('text');
-    let letterCounter = document.getElementById('character-count');
-    
-    textArea.addEventListener('input', function (e) {
-      letterCounter.textContent = e.target.value.length
-    })
+
   </script>
 
 </div>
@@ -56,9 +32,9 @@ date: 2020-11-03
 ## JavaScript
 
 ```JS
-/* As the user types or pastes text into the #text field, 
-the #character-count content should get updated in real time 
-to display how many characters are in the field. */
+/* Each monster (or sock) has a matching SVG in the source code.
+For example, there’s a monster3 in the array, and a monster3.svg in the source code.
+Shuffle the array of monsters, and render the matching SVG files into the #app element. */
 
 let textArea = document.getElementById('text');
 let letterCounter = document.getElementById('character-count');
@@ -68,4 +44,4 @@ textArea.addEventListener('input', function (e) {
 })
 ```
 
-</dvi>
+</div>

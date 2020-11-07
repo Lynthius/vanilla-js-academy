@@ -30,4 +30,4 @@ date: {{ date }}
 
 ```
 
-</dvi>
+</div>

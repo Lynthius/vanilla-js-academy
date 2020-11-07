@@ -173,4 +173,4 @@ getQuote()
 fetchBtn.addEventListener('click', getQuote);
 ```
 
-</dvi>
+</div>
