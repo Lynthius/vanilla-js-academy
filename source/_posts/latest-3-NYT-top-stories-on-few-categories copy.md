@@ -52,6 +52,12 @@ date: 2020-11-01
     const sections = ['Technology', 'Science', 'Magazine'];
     const articleNum = 3;
 
+    const sanitizeHTML = function (str) {
+      return str.replace(/[^\w. ]/gi, function(c)) {
+        return '&#' + c.characterCodeAt(0) + ';';
+      }
+    }
+
     const render = function (articles, section) {
       appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
         return (`
