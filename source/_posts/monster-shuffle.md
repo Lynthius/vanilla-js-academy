@@ -45,7 +45,7 @@ date: 2020-11-03
     }
   </style>
 
-  <button class="button">Shuffle!</button>
+  <button class="button" value="monsters">Shuffle!</button>
 
   <div id="app">
     <div class="row">
@@ -76,7 +76,7 @@ date: 2020-11-03
   <script>
     const shuffleBtn = document.querySelector('.button');
     const app = document.querySelector('#app');
-    
+
     const monsters = [
       'monster1',
       'monster2',
@@ -92,26 +92,33 @@ date: 2020-11-03
       'sock'
     ];
 
-    const render = function() {
-
-    }
+    const render = function () {
+      app.innerHTML = '<div class="row">' + monsters.map(monster => {
+        return (`
+          <div class="grid">${monster}</div>
+        `)
+      }).join('');
+    };
 
     const shuffleArr = function (arr) {
-      var currentIndex = array.length;
+      var currentIndex = arr.length;
       var temporaryValue, randomIndex;
 
       while (0 !== currentIndex) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = arr[currentIndex];
+        arr[currentIndex] = arr[randomIndex];
+        arr[randomIndex] = temporaryValue;
       }
-      return array;
+      render();
+      return arr;
     }
 
-    shuffleBtn.addEventListener('click', shuffleArr(monsters));
+    shuffleBtn.addEventListener('click', function() {
+      shuffleArr(monsters);
+    });
 
   </script>
 
