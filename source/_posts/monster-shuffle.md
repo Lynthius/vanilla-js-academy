@@ -22,7 +22,30 @@ date: 2020-11-03
       height: auto;
       max-width: 100%;
     }
+
+    .button {
+      border-color: white;
+      outline: none;
+      border: none;
+      margin-top: 5px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-weight: 600px;
+      cursor: pointer;
+    }
+
+    .button:focus {
+      border: red;
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .button:active {
+      color: #8e45ff;
+    }
   </style>
+
+  <button class="button">Shuffle!</button>
 
   <div id="app">
     <div class="row">
@@ -51,6 +74,9 @@ date: 2020-11-03
   </footer>
 
   <script>
+    const shuffleBtn = document.querySelector('.button');
+    const app = document.querySelector('#app');
+    
     const monsters = [
       'monster1',
       'monster2',
@@ -66,10 +92,26 @@ date: 2020-11-03
       'sock'
     ];
 
-    const shuffleArr = function (arr) {
-      
+    const render = function() {
+
     }
 
+    const shuffleArr = function (arr) {
+      var currentIndex = array.length;
+      var temporaryValue, randomIndex;
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
+    }
+
+    shuffleBtn.addEventListener('click', shuffleArr(monsters));
 
   </script>
 
