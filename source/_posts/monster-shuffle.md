@@ -46,23 +46,9 @@ date: 2020-11-03
     }
   </style>
 
-  <button class="button" value="monsters">Shuffle!</button>
+  <button class="button" value="monsters">Click to load and Shuffle!</button>
 
   <div id="app">
-    <div class="row">
-      <div class="grid"><img alt="A picture of monster1" src="../img/monster1.svg"/></div>
-      <div class="grid"><img alt="A picture of monster2" src="../img/monster2.svg"/></div>
-      <div class="grid"><img alt="A picture of monster3" src="../img/monster3.svg"/></div>
-      <div class="grid"><img alt="A picture of monster4" src="../img/monster4.svg"/></div>
-      <div class="grid"><img alt="A picture of monster5" src="../img/monster5.svg"/></div>
-      <div class="grid"><img alt="A picture of monster6" src="../img/monster6.svg"/></div>
-      <div class="grid"><img alt="A picture of monster7" src="../img/monster7.svg"/></div>
-      <div class="grid"><img alt="A picture of monster8" src="../img/monster8.svg"/></div>
-      <div class="grid"><img alt="A picture of monster9" src="../img/monster9.svg"/></div>
-      <div class="grid"><img alt="A picture of monster10" src="../img/monster10.svg"/></div>
-      <div class="grid"><img alt="A picture of monster11" src="../img/monster11.svg"/></div>
-      <div class="grid"><img alt="A picture of sock" src="../img/sock.svg"/></div>
-    </div>
   </div>
 
   <footer>
@@ -103,7 +89,7 @@ date: 2020-11-03
         return (`
           <div class="grid"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
         `)
-      }).join('');
+      }).join('') + '</div>';
     };
 
     const shuffleArr = function (arr) {
@@ -134,24 +120,9 @@ date: 2020-11-03
 ## HTML
 
 ```HTML
-<button class="button" value="monsters">Shuffle!</button>
+<button class="button" value="monsters">Click to load and Shuffle!</button>
 
-  <div id="app">
-    <div class="row">
-      <div class="grid"><img alt="A picture of monster1" src="../img/monster1.svg"/></div>
-      <div class="grid"><img alt="A picture of monster2" src="../img/monster2.svg"/></div>
-      <div class="grid"><img alt="A picture of monster3" src="../img/monster3.svg"/></div>
-      <div class="grid"><img alt="A picture of monster4" src="../img/monster4.svg"/></div>
-      <div class="grid"><img alt="A picture of monster5" src="../img/monster5.svg"/></div>
-      <div class="grid"><img alt="A picture of monster6" src="../img/monster6.svg"/></div>
-      <div class="grid"><img alt="A picture of monster7" src="../img/monster7.svg"/></div>
-      <div class="grid"><img alt="A picture of monster8" src="../img/monster8.svg"/></div>
-      <div class="grid"><img alt="A picture of monster9" src="../img/monster9.svg"/></div>
-      <div class="grid"><img alt="A picture of monster10" src="../img/monster10.svg"/></div>
-      <div class="grid"><img alt="A picture of monster11" src="../img/monster11.svg"/></div>
-      <div class="grid"><img alt="A picture of sock" src="../img/sock.svg"/></div>
-    </div>
-  </div>
+  <div id="app"></div>
 
   <footer>
     <p class="text-small text-muted">Icons by 
@@ -179,50 +150,50 @@ For example, there’s a monster3 in the array, and a monster3.svg in the source
 Shuffle the array of monsters, and render the matching SVG files into the #app element. */
 
 const shuffleBtn = document.querySelector('.button');
-const app = document.querySelector('#app');
+  const app = document.querySelector('#app');
 
-const monsters = [
-  'monster1',
-  'monster2',
-  'monster3',
-  'monster4',
-  'monster5',
-  'monster6',
-  'monster7',
-  'monster8',
-  'monster9',
-  'monster10',
-  'monster11',
-  'sock'
-];
+  const monsters = [
+    'monster1',
+    'monster2',
+    'monster3',
+    'monster4',
+    'monster5',
+    'monster6',
+    'monster7',
+    'monster8',
+    'monster9',
+    'monster10',
+    'monster11',
+    'sock'
+  ];
 
-const render = function () {
-  app.innerHTML = '<div class="row">' + monsters.map(monster => {
-    return (`
-      <div class="grid"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
-    `)
-  }).join('');
-};
+  const render = function () {
+    app.innerHTML = '<div class="row">' + monsters.map(monster => {
+      return (`
+        <div class="grid"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
+      `)
+    }).join('') + '</div>';
+  };
 
-const shuffleArr = function (arr) {
-  var currentIndex = arr.length;
-  var temporaryValue, randomIndex;
+  const shuffleArr = function (arr) {
+    var currentIndex = arr.length;
+    var temporaryValue, randomIndex;
 
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
 
-    temporaryValue = arr[currentIndex];
-    arr[currentIndex] = arr[randomIndex];
-    arr[randomIndex] = temporaryValue;
+      temporaryValue = arr[currentIndex];
+      arr[currentIndex] = arr[randomIndex];
+      arr[randomIndex] = temporaryValue;
+    }
+    render();
+    return arr;
   }
-  render();
-  return arr;
-}
 
-shuffleBtn.addEventListener('click', function() {
-  shuffleArr(monsters);
-});
+  shuffleBtn.addEventListener('click', function() {
+    shuffleArr(monsters);
+  });
 
 ```
 
