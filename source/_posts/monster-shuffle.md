@@ -10,7 +10,8 @@ date: 2020-11-03
       display: grid;
       grid-template-columns: auto auto auto;
       text-align: center;
-      margin-top: 60px;
+      padding: 20px;
+      background-color: wheat;
     }
 
     .grid {
@@ -19,8 +20,8 @@ date: 2020-11-03
     }
 
     img {
-      height: auto;
-      max-width: 100%;
+      height: 100%;
+      width: 24%;
     }
 
     .button {
@@ -49,17 +50,22 @@ date: 2020-11-03
 
   <div id="app">
     <div class="row">
-      <div class="grid">1</div>
-      <div class="grid">2</div>
-      <div class="grid">3</div>
-      <div class="grid">4</div>
-      <div class="grid">5</div>
-      <div class="grid">6</div>
+      <div class="grid"><img alt="monster1" src="../img/monster1.svg"/></div>
+      <div class="grid"><img alt="monster2" src="../img/monster2.svg"/></div>
+      <div class="grid"><img alt="monster3" src="../img/monster3.svg"/></div>
+      <div class="grid"><img alt="monster4" src="../img/monster4.svg"/></div>
+      <div class="grid"><img alt="monster5" src="../img/monster5.svg"/></div>
+      <div class="grid"><img alt="monster6" src="../img/monster6.svg"/></div>
+      <div class="grid"><img alt="monster7" src="../img/monster7.svg"/></div>
+      <div class="grid"><img alt="monster8" src="../img/monster8.svg"/></div>
+      <div class="grid"><img alt="monster9" src="../img/monster9.svg"/></div>
+      <div class="grid"><img alt="monster10" src="../img/monster10.svg"/></div>
+      <div class="grid"><img alt="monster11" src="../img/monster11.svg"/></div>
+      <div class="grid"><img alt="sock" src="../img/sock.svg"/></div>
     </div>
   </div>
 
   <footer>
-    <hr>
     <p class="text-small text-muted">Icons by 
       <a href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>, 
       <a href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, 
@@ -95,7 +101,7 @@ date: 2020-11-03
     const render = function () {
       app.innerHTML = '<div class="row">' + monsters.map(monster => {
         return (`
-          <div class="grid">${monster}</div>
+          <div class="grid"><img alt=${monster} src="../img/${monster}.svg"/></div>
         `)
       }).join('');
     };
@@ -119,7 +125,6 @@ date: 2020-11-03
     shuffleBtn.addEventListener('click', function() {
       shuffleArr(monsters);
     });
-
   </script>
 
 </div>
