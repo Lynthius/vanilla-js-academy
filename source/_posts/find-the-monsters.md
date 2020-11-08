@@ -46,7 +46,7 @@ date: 2020-11-06
     }
   </style>
 
-  <button class="button" value="monsters">Click to load and Shuffle!</button>
+  <button class="button" value="monsters">Click to load and play!</button>
 
   <div id="app">
   </div>
@@ -120,7 +120,7 @@ date: 2020-11-06
 ## HTML
 
 ```HTML
-<button class="button" value="monsters">Click to load and Shuffle!</button>
+<button class="button" value="monsters">Click to load and play!</button>
 
   <div id="app"></div>
 
@@ -145,9 +145,9 @@ date: 2020-11-06
 ## JavaScript
 
 ```JS
-/* Each monster (or sock) has a matching SVG in the source code.
-For example, there’s a monster3 in the array, and a monster3.svg in the source code.
-Shuffle the array of monsters, and render the matching SVG files into the #app element. */
+/* Display this image by default, and reveal the monster behind it after it’s clicked. 
+People who navigate the web with a keyboard or use a screen reader
+should still be able to play this game. */
 
 const shuffleBtn = document.querySelector('.button');
   const app = document.querySelector('#app');
