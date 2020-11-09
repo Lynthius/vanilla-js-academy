@@ -106,7 +106,6 @@ date: 2020-11-05
     ];
 
     const render = function () {
-
       app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
         return (`
           <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
@@ -199,7 +198,6 @@ const monsters = [
 ];
 
 const render = function () {
-
   app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
     return (`
       <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>

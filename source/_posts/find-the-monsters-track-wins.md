@@ -72,7 +72,7 @@ date: 2020-11-07
 
   </style>
 
-<button class="button" value="monsters">Click to load and play!</button>
+  <button class="button" value="monsters">Click to load and play!</button>
 
   <p class="score" aria-live="polite">Score: 0</p>
   <div id="app"></div>
@@ -113,7 +113,6 @@ date: 2020-11-07
     ];
 
     const render = function () {
-
       app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
         return (`
           <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
@@ -189,6 +188,7 @@ date: 2020-11-07
 ```HTML
 <button class="button" value="monsters">Click to load and play!</button>
 
+<p class="score" aria-live="polite">Score: 0</p>
 <div id="app"></div>
 
 <footer>
@@ -219,6 +219,8 @@ Either way, show a button that they can click to play again. */
 
 const shuffleBtn = document.querySelector('.button');
 const app = document.querySelector('#app');
+const scoreInfo = document.querySelector('.score');
+let score = 0;
 
 const monsters = [
   'monster1',
@@ -236,11 +238,10 @@ const monsters = [
 ];
 
 const render = function () {
-
   app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
     return (`
-      <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
-    `)
+          <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
+        `)
   }).join('') + '</div>';
 };
 
@@ -256,6 +257,8 @@ const shuffleArr = function (arr) {
     arr[currentIndex] = arr[randomIndex];
     arr[randomIndex] = temporaryValue;
   }
+  score = 0;
+  scoreInfo.textContent = `Score: ${score}`;
   render();
   return arr;
 }
@@ -265,6 +268,33 @@ const replaceTargetElement = function (e) {
   if (!monster) return;
   const monsterID = monster.getAttribute('data-id');
   monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="../img/${monsterID}.svg"/>`
+  if (monsterID !== "sock") {
+    goodPick();
+  } else {
+    wrongPick();
+  }
+}
+
+const goodPick = function () {
+  score++
+  if (score >= 11) {
+    scoreInfo.innerHTML = `<p class="score">Score: ${score}, Congrats, you have won!</p>`;
+    endGame();
+    return;
+  }
+  scoreInfo.textContent = `Score: ${score}`;
+}
+
+const wrongPick = function () {
+  score = 0;
+  scoreInfo.innerHTML = `<p class="score">Score: ${score}, Ups, you have lose. Try again.</p>`;
+  endGame();
+  return;
+}
+
+const endGame = function () {
+  const pickLeft = Array.from(document.querySelectorAll('[data-id]'));
+  pickLeft.forEach(pick => pick.remove());
 }
 
 document.addEventListener('click', replaceTargetElement);
