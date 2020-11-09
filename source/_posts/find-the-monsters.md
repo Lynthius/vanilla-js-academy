@@ -21,10 +21,6 @@ date: 2020-11-06
       padding: 1em;
     }
 
-    .grid:hover {
-      filter: hue-rotate(240deg);
-    }
-
     img {
       height: 100%;
     }
@@ -53,9 +49,19 @@ date: 2020-11-06
       cursor: pointer;
       border: 0;
       background-color: transparent;
+      padding: .5rem .5rem;
+    }
+
+    .show_button:active {
+      color: #8e45ff;
     }
 
     .show_button:focus {
+      outline: 0; 
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .show_button:hover {
       outline: 0; 
       box-shadow: 0 0 3px 1px #8e45ff;
     }
