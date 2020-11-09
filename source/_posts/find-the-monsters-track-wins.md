@@ -1,6 +1,6 @@
 ---
-title: 13. Find the Monsters
-date: 2020-11-06
+title: 14. Find the Monsters - Track Wins
+date: 2020-11-07
 ---
 
 <div class="output-container">
@@ -66,10 +66,15 @@ date: 2020-11-06
       box-shadow: 0 0 3px 1px #8e45ff;
     }
 
+    .score {
+      font-weight: bold;
+    }
+
   </style>
 
-  <button class="button" value="monsters">Click to load and play!</button>
+<button class="button" value="monsters">Click to load and play!</button>
 
+  <p class="score" aria-live="polite">Score: 0</p>
   <div id="app"></div>
 
   <footer>
@@ -89,6 +94,8 @@ date: 2020-11-06
   <script>
     const shuffleBtn = document.querySelector('.button');
     const app = document.querySelector('#app');
+    const scoreInfo = document.querySelector('.score');
+    let score = 0;
 
     const monsters = [
       'monster1',
@@ -126,6 +133,8 @@ date: 2020-11-06
         arr[currentIndex] = arr[randomIndex];
         arr[randomIndex] = temporaryValue;
       }
+      score = 0;
+      scoreInfo.textContent = `Score: ${score}`;
       render();
       return arr;
     }
@@ -135,6 +144,33 @@ date: 2020-11-06
       if (!monster) return;
       const monsterID = monster.getAttribute('data-id');
       monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="../img/${monsterID}.svg"/>`
+      if (monsterID !== "sock") {
+        goodPick();
+      } else {
+        wrongPick();
+      }
+    }
+
+    const goodPick = function () {
+      score++
+      if (score >= 11) {
+        scoreInfo.innerHTML = `<p class="score">Score: ${score}, Congrats, you have won!</p>`;
+        endGame();
+        return;
+      }
+      scoreInfo.textContent = `Score: ${score}`;
+    }
+
+    const wrongPick = function () {
+      score = 0;
+      scoreInfo.innerHTML = `<p class="score">Score: ${score}, Ups, you have lose. Try again.</p>`;
+      endGame();
+      return;
+    }
+
+    const endGame = function () {
+      const pickLeft = Array.from(document.querySelectorAll('[data-id]'));
+      pickLeft.forEach(pick => pick.remove());
     }
 
     document.addEventListener('click', replaceTargetElement);
@@ -176,9 +212,10 @@ date: 2020-11-06
 ## JavaScript
 
 ```JS
-/* Display this image by default, and reveal the monster behind it after it’s clicked.
-People who navigate the web with a keyboard or use a screen reader
-should still be able to play this game. */
+/* If the user finds the sock before they’ve found all of the monsters,
+display a message letting them know they lost. If they find all of the monsters,
+display a message letting them know they’ve won.
+Either way, show a button that they can click to play again. */
 
 const shuffleBtn = document.querySelector('.button');
 const app = document.querySelector('#app');
