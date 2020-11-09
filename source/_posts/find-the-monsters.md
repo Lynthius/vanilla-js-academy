@@ -21,6 +21,10 @@ date: 2020-11-06
       padding: 1em;
     }
 
+    .grid:hover {
+      filter: hue-rotate(240deg);
+    }
+
     img {
       height: 100%;
     }
@@ -37,7 +41,6 @@ date: 2020-11-06
     }
 
     .button:focus {
-      border: red;
       outline: none;
       box-shadow: 0 0 3px 1px #8e45ff;
     }
@@ -46,16 +49,20 @@ date: 2020-11-06
       color: #8e45ff;
     }
 
-    .shuffle-and-show_button {
+    .show_button {
       cursor: pointer;
       border: 0;
       background-color: transparent;
-      /* height: 100%; */
+    }
+
+    .show_button:focus {
+      outline: 0; 
+      box-shadow: 0 0 3px 1px #8e45ff;
     }
 
   </style>
 
-<button class="button" value="monsters">Click to load and play!</button>
+  <button class="button" value="monsters">Click to load and play!</button>
 
   <div id="app"></div>
 
@@ -93,10 +100,10 @@ date: 2020-11-06
     ];
 
     const render = function () {
-      
+
       app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
         return (`
-          <div class="grid" aria-live="polite"><button class="shuffle-and-show_button" data-id="${monster}"><img class="show" alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
+          <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
         `)
       }).join('') + '</div>';
     };
@@ -117,7 +124,7 @@ date: 2020-11-06
       return arr;
     }
 
-    const replaceTargetElement = function(e) {
+    const replaceTargetElement = function (e) {
       const monster = e.target.closest('[data-id]');
       if (!monster) return;
       const monsterID = monster.getAttribute('data-id');
@@ -126,7 +133,7 @@ date: 2020-11-06
 
     document.addEventListener('click', replaceTargetElement);
 
-    shuffleBtn.addEventListener('click', function() {
+    shuffleBtn.addEventListener('click', function () {
       shuffleArr(monsters);
     });
   </script>
@@ -140,21 +147,21 @@ date: 2020-11-06
 ```HTML
 <button class="button" value="monsters">Click to load and play!</button>
 
-  <div id="app"></div>
+<div id="app"></div>
 
-  <footer>
-    <p class="text-small text-muted">Icons by
-      <a href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>,
-      <a href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>,
-      <a href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>,
-      <a href="https://thenounproject.com/term/monster/28460/">Eliricon</a>,
-      <a href="https://thenounproject.com/term/monster/82823/">April Yang</a>,
-      <a href="https://thenounproject.com/term/monster/1062009/">tk66</a>,
-      <a href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>,
-      <a href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>,
-      <a href="https://thenounproject.com/term/monster/2236082">iconcheese</a>,<br/>
-      and <a href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
-  </footer>
+<footer>
+  <p class="text-small text-muted">Icons by
+    <a href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>,
+    <a href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>,
+    <a href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>,
+    <a href="https://thenounproject.com/term/monster/28460/">Eliricon</a>,
+    <a href="https://thenounproject.com/term/monster/82823/">April Yang</a>,
+    <a href="https://thenounproject.com/term/monster/1062009/">tk66</a>,
+    <a href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>,
+    <a href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>,
+    <a href="https://thenounproject.com/term/monster/2236082">iconcheese</a>,<br/>
+    and <a href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
+</footer>
 ```
 
 </div>
@@ -168,51 +175,60 @@ People who navigate the web with a keyboard or use a screen reader
 should still be able to play this game. */
 
 const shuffleBtn = document.querySelector('.button');
-  const app = document.querySelector('#app');
+const app = document.querySelector('#app');
 
-  const monsters = [
-    'monster1',
-    'monster2',
-    'monster3',
-    'monster4',
-    'monster5',
-    'monster6',
-    'monster7',
-    'monster8',
-    'monster9',
-    'monster10',
-    'monster11',
-    'sock'
-  ];
+const monsters = [
+  'monster1',
+  'monster2',
+  'monster3',
+  'monster4',
+  'monster5',
+  'monster6',
+  'monster7',
+  'monster8',
+  'monster9',
+  'monster10',
+  'monster11',
+  'sock'
+];
 
-  const render = function () {
-    app.innerHTML = '<div class="row">' + monsters.map(monster => {
-      return (`
-        <div class="grid"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
-      `)
-    }).join('') + '</div>';
-  };
+const render = function () {
 
-  const shuffleArr = function (arr) {
-    var currentIndex = arr.length;
-    var temporaryValue, randomIndex;
+  app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
+    return (`
+      <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
+    `)
+  }).join('') + '</div>';
+};
 
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
+const shuffleArr = function (arr) {
+  var currentIndex = arr.length;
+  var temporaryValue, randomIndex;
 
-      temporaryValue = arr[currentIndex];
-      arr[currentIndex] = arr[randomIndex];
-      arr[randomIndex] = temporaryValue;
-    }
-    render();
-    return arr;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
   }
+  render();
+  return arr;
+}
 
-  shuffleBtn.addEventListener('click', function() {
-    shuffleArr(monsters);
-  });
+const replaceTargetElement = function (e) {
+  const monster = e.target.closest('[data-id]');
+  if (!monster) return;
+  const monsterID = monster.getAttribute('data-id');
+  monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="../img/${monsterID}.svg"/>`
+}
 
+document.addEventListener('click', replaceTargetElement);
+
+shuffleBtn.addEventListener('click', function () {
+  shuffleArr(monsters);
+});
 ```
 
 </div>
