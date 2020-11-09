@@ -87,7 +87,7 @@ date: 2020-11-03
     const render = function () {
       app.innerHTML = '<div class="row">' + monsters.map(monster => {
         return (`
-          <div class="grid"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
+          <div class="grid" aria-live="polite"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
         `)
       }).join('') + '</div>';
     };
@@ -170,7 +170,7 @@ const shuffleBtn = document.querySelector('.button');
   const render = function () {
     app.innerHTML = '<div class="row">' + monsters.map(monster => {
       return (`
-        <div class="grid"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
+        <div class="grid" aria-live="polite"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
       `)
     }).join('') + '</div>';
   };

@@ -66,7 +66,8 @@ date: 2020-11-06
 
   </style>
 
-<button class="button" value="monsters">Click to load and play!</button>
+  <button class="button" value="monsters">Click to load and play!</button>
+  <p>Click a door to reveal a monster. Try not to find the sock.</p>
 
   <div id="app"></div>
 
@@ -106,7 +107,7 @@ date: 2020-11-06
     const render = function () {
       app.innerHTML = '<div class="row">' + monsters.map(monster => {
         return (`
-          <div class="grid"><button class="shuffle-and-show_button" data-id="${monster}"><img class="show" alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
+          <div class="grid" aria-live="polite"><button class="shuffle-and-show_button" data-id="${monster}"><img class="show" alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
         `)
       }).join('') + '</div>';
     };
@@ -132,7 +133,7 @@ date: 2020-11-06
 
       const monsterID = e.target.closest('[data-id]').dataset.id;
       const currentElement = e.target;
-      
+
       currentElement.src = `../img/${monsterID}.svg`
     }
 
