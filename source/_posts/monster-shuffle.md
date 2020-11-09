@@ -8,10 +8,12 @@ date: 2020-11-03
   <style type="text/css">
     .row {
       display: grid;
-      grid-template-columns: auto auto auto;
-      text-align: center;
-      padding: 20px;
       background-color: wheat;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-auto-rows: 100px;
+      place-items: center;
+      padding: 2rem 0 2rem 0;
+      gap: 2rem 0;
     }
 
     .grid {

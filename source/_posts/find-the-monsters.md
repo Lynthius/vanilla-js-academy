@@ -8,10 +8,12 @@ date: 2020-11-06
   <style type="text/css">
     .row {
       display: grid;
-      grid-template-columns: auto auto auto;
-      text-align: center;
-      padding: 20px;
       background-color: wheat;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-auto-rows: 100px;
+      place-items: center;
+      padding: 2rem 0 2rem 0;
+      gap: 2rem 0;
     }
 
     .grid {
@@ -21,7 +23,6 @@ date: 2020-11-06
 
     img {
       height: 100%;
-      /* width: 24%; */
     }
 
     .button {
@@ -47,27 +48,14 @@ date: 2020-11-06
 
     .shuffle-and-show_button {
       cursor: pointer;
-      border: none;
+      border: 0;
       background-color: transparent;
-      /* height: auto; */
-      padding: 0;
-      margin: 0;
-    }
-
-    .show {
-      display: block;
-      opacity: 1;
-    }
-
-    .hidden {
-      display: none;
-      opacity: 0;
+      /* height: 100%; */
     }
 
   </style>
 
-  <button class="button" value="monsters">Click to load and play!</button>
-  <p>Click a door to reveal a monster. Try not to find the sock.</p>
+<button class="button" value="monsters">Click to load and play!</button>
 
   <div id="app"></div>
 
@@ -105,7 +93,8 @@ date: 2020-11-06
     ];
 
     const render = function () {
-      app.innerHTML = '<div class="row">' + monsters.map(monster => {
+      
+      app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
         return (`
           <div class="grid" aria-live="polite"><button class="shuffle-and-show_button" data-id="${monster}"><img class="show" alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
         `)
@@ -129,12 +118,10 @@ date: 2020-11-06
     }
 
     const replaceTargetElement = function(e) {
-      if (!(e.target.closest('[data-id]'))) return;
-
-      const monsterID = e.target.closest('[data-id]').dataset.id;
-      const currentElement = e.target;
-
-      currentElement.src = `../img/${monsterID}.svg`
+      const monster = e.target.closest('[data-id]');
+      if (!monster) return;
+      const monsterID = monster.getAttribute('data-id');
+      monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="../img/${monsterID}.svg"/>`
     }
 
     document.addEventListener('click', replaceTargetElement);
