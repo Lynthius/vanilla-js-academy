@@ -1,14 +1,23 @@
 ---
 title: 15. Table of Contents
-date: 2020-11-09 
+date: 2020-11-09
 ---
 
 <div class="output-container">
 
   <style type="text/css">
+    html {
+      scroll-behavior:smooth
+    }
+
+    h2:target {
+      text-decoration: underline;
+      color: white;
+    }
   </style>
 
   <div id="table-of-contents"></div>
+  <div class="html-container" style="border-top: .5px solid grey; margin-top: 26px;">
 	<h2 id="cat-o-nine-tails">Cat O'Nine Tails</h2>
 	<p>Cat o'nine tails Pieces of Eight swab carouser tackle. Pink hornswaggle gabion Sea Legs Davy Jones' Locker.</p>
 	<p>Hang the jib Nelsons folly trysail ahoy prow. Transom strike colors scallywag aft league.</p>
@@ -17,12 +26,14 @@ date: 2020-11-09
 	<h4 id="privateer">Privateer</h4>
 	<p>Tack topgallant draft line flogging. Maroon overhaul grog blossom Privateer main sheet.</p>
 	<p>Provost me cackle fruit Corsair Cat o'nine tails. Hempen halter Davy Jones' Locker clipper bring a spring upon her cable run a shot across the bow.</p>
+  <br/>
 	<h2 id="ahoy">Ahoy</h2>
 	<p>Booty squiffy wench overhaul ahoy. Parrel Pirate Round long clothes long boat come about.</p>
 	<p>Squiffy jack crow's nest bilged on her anchor barkadeer. Snow bucko mizzen six pounders tack.</p>
 	<h3 id="man-of-war">Man-of-War</h3>
 	<p>Lee lad nipperkin avast pressgang. Man-of-war prow ho Sail ho landlubber or just lubber.</p>
 	<p>Ho no prey, no pay fire ship salmagundi capstan. Hail-shot doubloon wherry loaded to the gunwalls cutlass.</p>
+  <br/>
 	<h2 id="corsair">Corsair</h2>
 	<p>Corsair chantey hardtack ahoy snow. Maroon cog galleon topmast tender.</p>
 	<h3 id="shiver-me-timbers">Shiver Me Timbers</h3>
@@ -34,12 +45,14 @@ date: 2020-11-09
 	<h4 id="sea-legs">Sea Legs</h4>
 	<p>Sea Legs to go on account skysail Yellow Jack heave down. Spanker heave down yawl starboard barque.</p>
 	<p>To go on account hulk swing the lead heave to tack. Fore fire in the hole prow run a rig Jack Ketch.</p>
+  <br/>
 	<h2 id="quarterdeck">On the Quarterdeck</h2>
 	<p>Tack chase red ensign league pinnace. Holystone quarterdeck me boatswain rope's end.</p>
 	<p>Sink me lanyard Pieces of Eight starboard black spot. Blimey heave down crimp mutiny matey.</p>
 	<h3 id="jolly-roger">Jolly Roger</h3>
 	<p>Belay piracy come about jolly boat transom. Heave to gally snow Arr wherry.</p>
 	<p>Sutler Davy Jones' Locker ahoy walk the plank lugger. Jolly Roger matey hornswaggle Privateer marooned.</p>
+  <br/>
 	<h2 id="davy-jones-locker">Davy Jones' Locker</h2>
 	<p>Davy Jones' Locker jib trysail bowsprit heave down. Transom square-rigged clipper Jack Ketch chandler.</p>
 	<p>Square-rigged yawl execution dock sloop American Main. Six pounders red ensign lugger heave to dead men tell no tales.</p>
@@ -51,13 +64,17 @@ date: 2020-11-09
 	</footer>
 
   <script>
-  /* The document contains an element with the #table-of-contents ID. 
-  There are also an assortment of heading elements with unique IDs. 
-  Get all of the h2 elements, create a list of anchor links, 
-  and inject it into the #table-of-contents element. */
+    const headings = document.querySelectorAll('h2');
+    const content = document.querySelector('#table-of-contents');
+    const headingsArr = Array.prototype.slice.call(headings);
 
-  const 
+    const render = function () {
+      content.innerHTML = '<ol>' + headingsArr.map(heading => {
+        return (`<li><a href="#${heading.id}">${heading.textContent}</a></li>`);
+      }).join('') + '</ol>';
+    };
 
+    render();
   </script>
 
 </div>
@@ -68,6 +85,7 @@ date: 2020-11-09
 
 ```HTML
 <div id="table-of-contents"></div>
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 26px;">
 <h2 id="cat-o-nine-tails">Cat O'Nine Tails</h2>
 <p>Cat o'nine tails Pieces of Eight swab carouser tackle. Pink hornswaggle gabion Sea Legs Davy Jones' Locker.</p>
 <p>Hang the jib Nelsons folly trysail ahoy prow. Transom strike colors scallywag aft league.</p>
@@ -116,7 +134,22 @@ date: 2020-11-09
 ## JavaScript
 
 ```JS
+/* The document contains an element with the #table-of-contents ID. 
+There are also an assortment of heading elements with unique IDs. 
+Get all of the h2 elements, create a list of anchor links, 
+and inject it into the #table-of-contents element. */
 
+const headings = document.querySelectorAll('h2');
+const content = document.querySelector('#table-of-contents');
+const headingsArr = Array.prototype.slice.call(headings);
+
+const render = function () {
+  content.innerHTML = '<ol>' + headingsArr.map(heading => {
+    return (`<li><a href="#${heading.id}">${heading.textContent}</a></li>`);
+  }).join('') + '</ol>';
+};
+
+render();
 ```
 
 </div>
