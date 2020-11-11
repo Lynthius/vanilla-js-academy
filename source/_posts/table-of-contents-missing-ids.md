@@ -63,13 +63,18 @@ date: 2020-11-11
     const headings = document.querySelectorAll('h2');
     const content = document.querySelector('#table-of-contents');
     const headingsArr = Array.prototype.slice.call(headings);
-		headings.forEach(heading => {console.log(heading.id)})
+		headings.forEach(heading => {console.log(heading)})
 
     const render = function () {
       content.innerHTML = '<ol>' + headingsArr.map(heading => {
-        return (`<li><a href="#${heading.id ? heading.id : "ups"}">${heading.textContent}</a></li>`);
+        return (`<li><a href="#${heading.id ? heading.id : createID(heading)}">${heading.textContent}</a></li>`);
       }).join('') + '</ol>';
     };
+
+		const createID = function (title) {
+			const id = `${title.innerText.replace(/\s/g, '-').toLowerCase()}`;
+			return title.id = id;
+		}
 
     render();
   </script>
@@ -131,10 +136,9 @@ date: 2020-11-11
 ## JavaScript
 
 ```JS
-/* The document contains an element with the #table-of-contents ID. 
-There are also an assortment of heading elements with unique IDs. 
-Get all of the h2 elements, create a list of anchor links, 
-and inject it into the #table-of-contents element. */
+/* The markup has been modified so that certain headings don’t have IDs on them. 
+When creating your table of contents, if the heading doesn’t have an ID to link to, 
+create one and assign it to the heading. */
 
 const headings = document.querySelectorAll('h2');
 const content = document.querySelector('#table-of-contents');
