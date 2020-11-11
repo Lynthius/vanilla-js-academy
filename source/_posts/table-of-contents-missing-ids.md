@@ -18,22 +18,20 @@ date: 2020-11-11
 
   <div id="table-of-contents"></div>
   <div class="html-container" style="border-top: .5px solid grey; margin-top: 26px;">
-	<h2 id="cat-o-nine-tails">Cat O'Nine Tails</h2>
+	<h2>Cat O'Nine Tails</h2>
 	<p>Cat o'nine tails Pieces of Eight swab carouser tackle. Pink hornswaggle gabion Sea Legs Davy Jones' Locker.</p>
 	<p>Hang the jib Nelsons folly trysail ahoy prow. Transom strike colors scallywag aft league.</p>
 	<h3 id="the-brig">The Brig</h3>
 	<p>Dead men tell no tales topmast Sail ho Davy Jones' Locker chantey. Wherry fluke pillage rope's end brig.</p>
-	<h4 id="privateer">Privateer</h4>
+	<h4>Privateer</h4>
 	<p>Tack topgallant draft line flogging. Maroon overhaul grog blossom Privateer main sheet.</p>
 	<p>Provost me cackle fruit Corsair Cat o'nine tails. Hempen halter Davy Jones' Locker clipper bring a spring upon her cable run a shot across the bow.</p>
-  <br/>
-	<h2 id="ahoy">Ahoy</h2>
+	<h2>Ahoy</h2>
 	<p>Booty squiffy wench overhaul ahoy. Parrel Pirate Round long clothes long boat come about.</p>
 	<p>Squiffy jack crow's nest bilged on her anchor barkadeer. Snow bucko mizzen six pounders tack.</p>
 	<h3 id="man-of-war">Man-of-War</h3>
 	<p>Lee lad nipperkin avast pressgang. Man-of-war prow ho Sail ho landlubber or just lubber.</p>
 	<p>Ho no prey, no pay fire ship salmagundi capstan. Hail-shot doubloon wherry loaded to the gunwalls cutlass.</p>
-  <br/>
 	<h2 id="corsair">Corsair</h2>
 	<p>Corsair chantey hardtack ahoy snow. Maroon cog galleon topmast tender.</p>
 	<h3 id="shiver-me-timbers">Shiver Me Timbers</h3>
@@ -42,18 +40,16 @@ date: 2020-11-11
 	<h4 id="scurvy-dog">Scurvy Dog</h4>
 	<p>Jury mast Letter of Marque boatswain scurvy sheet. Jolly boat plunder jack starboard Pirate Round.</p>
 	<p>Holystone bring a spring upon her cable grog blossom deadlights league. Lanyard gabion reef sails booty gaff.</p>
-	<h4 id="sea-legs">Sea Legs</h4>
+	<h4>Sea Legs</h4>
 	<p>Sea Legs to go on account skysail Yellow Jack heave down. Spanker heave down yawl starboard barque.</p>
 	<p>To go on account hulk swing the lead heave to tack. Fore fire in the hole prow run a rig Jack Ketch.</p>
-  <br/>
 	<h2 id="quarterdeck">On the Quarterdeck</h2>
 	<p>Tack chase red ensign league pinnace. Holystone quarterdeck me boatswain rope's end.</p>
 	<p>Sink me lanyard Pieces of Eight starboard black spot. Blimey heave down crimp mutiny matey.</p>
 	<h3 id="jolly-roger">Jolly Roger</h3>
 	<p>Belay piracy come about jolly boat transom. Heave to gally snow Arr wherry.</p>
 	<p>Sutler Davy Jones' Locker ahoy walk the plank lugger. Jolly Roger matey hornswaggle Privateer marooned.</p>
-  <br/>
-	<h2 id="davy-jones-locker">Davy Jones' Locker</h2>
+	<h2>Davy Jones' Locker</h2>
 	<p>Davy Jones' Locker jib trysail bowsprit heave down. Transom square-rigged clipper Jack Ketch chandler.</p>
 	<p>Square-rigged yawl execution dock sloop American Main. Six pounders red ensign lugger heave to dead men tell no tales.</p>
 	<h3 id="sloop">Sloop</h3>
@@ -67,10 +63,11 @@ date: 2020-11-11
     const headings = document.querySelectorAll('h2');
     const content = document.querySelector('#table-of-contents');
     const headingsArr = Array.prototype.slice.call(headings);
+		headings.forEach(heading => {console.log(heading.id)})
 
     const render = function () {
       content.innerHTML = '<ol>' + headingsArr.map(heading => {
-        return (`<li><a href="#${heading.id}">${heading.textContent}</a></li>`);
+        return (`<li><a href="#${heading.id ? heading.id : "ups"}">${heading.textContent}</a></li>`);
       }).join('') + '</ol>';
     };
 
