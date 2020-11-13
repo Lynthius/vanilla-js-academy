@@ -140,18 +140,18 @@ When creating your table of contents, if the heading doesn’t have an ID to lin
 create one and assign it to the heading. */
 
 const render = function () {
-	const headings = document.querySelectorAll('h2');
-	const content = document.querySelector('#table-of-contents');
-	const headingsArr = Array.prototype.slice.call(headings);
-	
-	content.innerHTML = '<ol>' + headingsArr.map(heading => {
-		return (`<li><a href="#${heading.id ? heading.id : createID(heading)}">${heading.textContent}</a></li>`);
-	}).join('') + '</ol>';
+  const headings = document.querySelectorAll('h2');
+  const content = document.querySelector('#table-of-contents');
+  const headingsArr = Array.prototype.slice.call(headings);
+
+  content.innerHTML = '<ol>' + headingsArr.map(heading => {
+    return (`<li><a href="#${heading.id ? heading.id : createID(heading)}">${heading.textContent}</a></li>`);
+  }).join('') + '</ol>';
 };
 
 const createID = function (title) {
-	const id = `${title.innerText.replace(/\s/g, '-').toLowerCase()}`;
-	return title.id = id;
+  const id = `${title.innerText.replace(/\s/g, '-').toLowerCase()}`;
+  return title.id = id;
 }
 
 render();
