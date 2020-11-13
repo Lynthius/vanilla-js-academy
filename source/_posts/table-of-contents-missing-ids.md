@@ -1,5 +1,5 @@
 ---
-title: 16. Table of Contents - missing IDs
+title: 16. Table of Contents - Missing IDs
 date: 2020-11-11
 ---
 
