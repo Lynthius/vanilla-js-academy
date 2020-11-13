@@ -63,7 +63,6 @@ date: 2020-11-11
     const headings = document.querySelectorAll('h2');
     const content = document.querySelector('#table-of-contents');
     const headingsArr = Array.prototype.slice.call(headings);
-		headings.forEach(heading => {console.log(heading)})
 
     const render = function () {
       content.innerHTML = '<ol>' + headingsArr.map(heading => {
@@ -143,7 +142,6 @@ create one and assign it to the heading. */
 const headings = document.querySelectorAll('h2');
     const content = document.querySelector('#table-of-contents');
     const headingsArr = Array.prototype.slice.call(headings);
-		headings.forEach(heading => {console.log(heading)})
 
     const render = function () {
       content.innerHTML = '<ol>' + headingsArr.map(heading => {
