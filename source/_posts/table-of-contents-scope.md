@@ -60,11 +60,11 @@ date: 2020-11-13
 	</footer>
 
   <script>
-    const headings = document.querySelectorAll('h2');
-    const content = document.querySelector('#table-of-contents');
-    const headingsArr = Array.prototype.slice.call(headings);
-
     const render = function () {
+			const headings = document.querySelectorAll('h2');
+    	const content = document.querySelector('#table-of-contents');
+			const headingsArr = Array.prototype.slice.call(headings);
+			
       content.innerHTML = '<ol>' + headingsArr.map(heading => {
         return (`<li><a href="#${heading.id ? heading.id : createID(heading)}">${heading.textContent}</a></li>`);
       }).join('') + '</ol>';
@@ -139,23 +139,22 @@ date: 2020-11-13
 When creating your table of contents, if the heading doesn’t have an ID to link to, 
 create one and assign it to the heading. */
 
-const headings = document.querySelectorAll('h2');
-    const content = document.querySelector('#table-of-contents');
-    const headingsArr = Array.prototype.slice.call(headings);
-		headings.forEach(heading => {console.log(heading)})
+const render = function () {
+	const headings = document.querySelectorAll('h2');
+	const content = document.querySelector('#table-of-contents');
+	const headingsArr = Array.prototype.slice.call(headings);
+	
+	content.innerHTML = '<ol>' + headingsArr.map(heading => {
+		return (`<li><a href="#${heading.id ? heading.id : createID(heading)}">${heading.textContent}</a></li>`);
+	}).join('') + '</ol>';
+};
 
-    const render = function () {
-      content.innerHTML = '<ol>' + headingsArr.map(heading => {
-        return (`<li><a href="#${heading.id ? heading.id : createID(heading)}">${heading.textContent}</a></li>`);
-      }).join('') + '</ol>';
-    };
+const createID = function (title) {
+	const id = `${title.innerText.replace(/\s/g, '-').toLowerCase()}`;
+	return title.id = id;
+}
 
-		const createID = function (title) {
-			const id = `${title.innerText.replace(/\s/g, '-').toLowerCase()}`;
-			return title.id = id;
-		}
-
-    render();
+render();
 ```
 
 </div>
