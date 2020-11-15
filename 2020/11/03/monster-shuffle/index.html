@@ -171,7 +171,7 @@
     const render = function () {
       app.innerHTML = '<div class="row">' + monsters.map(monster => {
         return (`
-          <div class="grid" aria-live="polite"><img alt= "A picture of ${monster}" src="/img/${monster}.svg"/></div>
+          <div class="grid" aria-live="polite"><img alt= "A picture of ${monster}" src="https://raw.githubusercontent.com/Lynthius/vanilla-js-academy/main/img/${monster}.svg"/></div>
         `)
       }).join('') + '</div>';
     };
