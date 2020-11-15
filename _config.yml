@@ -100,10 +100,10 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: syntaxJS
 
-# Deployment
-## Docs: http://hexo.io/docs/deployment.html
+Deployment
+# Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Lynthius/lynthius.github.io.git
+  repo: git@github.com:Lynthius/Lynthius.github.io.git
   branch: master
 
