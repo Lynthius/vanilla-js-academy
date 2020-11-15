@@ -104,6 +104,6 @@ theme: syntaxJS
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Lynthius/Lynthius.github.io.git
+  repo: git@github.com:lynthius/lynthius.github.io.git
   branch: master
 
