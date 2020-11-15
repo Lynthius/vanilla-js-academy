@@ -52,7 +52,7 @@ date: 2020-11-15
     const render = function (icon, temp, city, sky) {
       app.innerHTML = (`
       <div class="weather_container">
-        <div class="weather_icon"><img src="http://openweathermap.org/img/wn/${icon}@2x.png"></div>
+        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${icon}@2x.png"></div>
         <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
         <h4 class="weather_city-name">${city}</h4>
         <p class="weather_desc">${sky}</p>
@@ -69,7 +69,7 @@ date: 2020-11-15
         }
       }).then(function (data) {
         userCity = data.city;
-        return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=metric`);
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=metric`);
       }).then(function (response) {
         if (response.ok) {
           return response.json();
