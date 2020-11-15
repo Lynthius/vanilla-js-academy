@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: https://lynthius.github.io/vanilla-js-academy/
+url: http://lynthius.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -104,6 +104,6 @@ theme: syntaxJS
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:lynthius/lynthius.github.io.git
+  repo: git@github.com:Lynthius/lynthius.github.io.git
   branch: master
 
