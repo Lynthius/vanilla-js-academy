@@ -191,7 +191,7 @@
     const render = function () {
       app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
         return (`
-          <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="/img/door.svg"/></button></div>
+          <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="https://raw.githubusercontent.com/Lynthius/vanilla-js-academy/main/img/door.svg"/></button></div>
         `)
       }).join('') + '</div>';
     };
@@ -216,7 +216,7 @@
       const monster = e.target.closest('[data-id]');
       if (!monster) return;
       const monsterID = monster.getAttribute('data-id');
-      monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="../img/${monsterID}.svg"/>`
+      monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="https://raw.githubusercontent.com/Lynthius/vanilla-js-academy/main/img/${monsterID}.svg"/>`
     }
 
     document.addEventListener('click', replaceTargetElement);
