@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>08. Random Ron without duplicates | Vanilla JS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content=".fetch-button {       border-color: white;       outline: none;       border: none;       margin-top: 5px;       padding: 5px 10px;       border-radius: 3px;       font-weight: 600px;       c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="08. Random Ron without duplicates">
+<meta property="og:url" content="http://lynthius.github.io/2020/10/26/random-ron-without-duplicates/index.html">
+<meta property="og:site_name" content="Vanilla JS Academy">
+<meta property="og:description" content=".fetch-button {       border-color: white;       outline: none;       border: none;       margin-top: 5px;       padding: 5px 10px;       border-radius: 3px;       font-weight: 600px;       c">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-25T23:00:00.000Z">
+<meta property="article:modified_time" content="2020-11-07T19:49:10.318Z">
+<meta property="article:author" content="Tomasz Przyborowski">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Vanilla JS Academy" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+
+
+    <h1 id="logo-wrap">
+      <a href="/" id="logo">Vanilla JS Academy</a>
+    </h1>
+
+  <div id="header-inner" class="inner">
+    <nav id="main-nav">
+      
+    </nav>
+    <nav id="sub-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+      <a class="main-nav-link" href="/">Home</a>
+      
+      <a class="main-nav-link" href="/archives">Archives</a>
+      
+      <a href="https://github.com/Lynthius" target="_blank" id="nav-github-btn" class="nav-icon"></a>
+      <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+    </nav>
+    <div id="search-form-wrap">
+      <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lynthius.github.io"></form>
+    </div>
+  </div>
+
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-random-ron-without-duplicates" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/26/random-ron-without-duplicates/" class="article-date">
+  <time datetime="2020-10-25T23:00:00.000Z" itemprop="datePublished">2020-10-26</time>
+</a>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      08. Random Ron without duplicates
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="output-container">
+
+  <style type="text/css">
+    .fetch-button {
+      border-color: white;
+      outline: none;
+      border: none;
+      margin-top: 5px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-weight: 600px;
+      cursor: pointer;
+    }
+
+    .fetch-button:focus {
+      border: red;
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .fetch-button:active {
+      color: #8e45ff;
+    }
+
+     .quote-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(142,69,255);
+      background: linear-gradient(63deg, rgba(142,69,255,1) 16%, rgba(74,62,184,1) 49%, rgba(142,69,255,1) 83%);
+      border-radius: 3px;
+      padding: 8px;
+      min-height: 200px;
+      width: 98%;
+    }
+
+    .quote-output {
+      text-align: center;
+      color: white;
+      font-size: 16px;
+      font-family: 'helvetica';
+    }
+
+    .quote-mark{
+      position: absolute;
+      top: 0;
+      left: 20px;
+      color: rgba(250,250,250 ,1);
+      font-size: 90px;
+      font-family: 'lato';
+    }
+
+    .quote-paragraph {
+      padding: 0 60px;
+      font-size: 16px;
+      font-family: 'helvetica';
+    }
+  </style>
+
+  <p>Show some random quote.</p>
+
+  <div class="quote-container">
+    <blockquote aria-live="polite">
+      <span class="quote-mark">&ldquo;</span><span class="quote-output">Waiting for a new quote...</span>
+    </blockquote>
+  </div>
+
+  <p>
+    <button class="fetch-button">More Ron</button>
+  </p>
+
+  <script>
+    const fetchBtn = document.querySelector('.fetch-button');
+    const quoteOutput = document.querySelector('.quote-output');
+    const quoteContainer = document.querySelector('.quote-container');
+
+    const quotesArr = [];
+
+    // Get a fresh quote and render it into the DOM
+    var getQuote = function () {
+      // Get a Ron Swanson quote
+      fetch('http://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then(function (data) {
+        console.log(data[0]);
+        if (quotesArr.length === 50) {
+          quotesArr.shift()
+        }
+
+        if (quotesArr.indexOf(data[0]) > -1) {
+          getQuote()
+          alterGradient()
+          return;
+        }
+        quotesArr.push(data[0])
+        quoteOutput.innerHTML = `<p class="quote-paragraph"> ${quotesArr[quotesArr.length - 1]}</p>`;
+
+        console.log(quotesArr);
+      }).catch(function (error) {
+        quoteOutput.innerHTML =
+          '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
+      });
+    };
+
+    function getQuote() {
+      fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
+        if (response.ok) {
+          return response.json()
+        } else {
+          return Promise.reject(response);
+        }
+      }).then(function (data) {
+        renderQuote(data)
+        alterGradient()
+      }).catch(function (err) {
+        console.log(err);
+        return err;
+      })
+    }
+
+    function alterGradient() {
+      quoteContainer.style.background = `linear-gradient(${Math.floor(Math.random() * (90 - 35)) + 90}deg, rgba(142,69,${Math.floor(Math.random() * (255 - 100)) + 255},1), ${Math.floor(Math.random() * (20 - 10)) + 20}%, rgba(74,${Math.floor(Math.random() * (90 - 60)) + 90},${Math.floor(Math.random() * (280 - 140)) + 280},.8) ${Math.floor(Math.random() * (40 - 30)) + 40}%, rgba(142,69,255,1) 83%)`
+    }
+
+    getQuote()
+    fetchBtn.addEventListener('click', getQuote, false);
+  </script>
+
+</div>
+
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
+
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Show some random quote.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;quote-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">aria-live</span>=<span class="string">&quot;polite&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;quote-mark&quot;</span>&gt;</span><span class="symbol">&amp;ldquo;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;quote-output&quot;</span>&gt;</span>Waiting for a new quote...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;fetch-button&quot;</span>&gt;</span>More Ron<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</div>
+<div class="js-container">
+
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Modify it so that if the same quote gets returned from the API</span></span><br><span class="line"><span class="comment">in the last 50 quotes, you skip it and fetch another one instead. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fetchBtn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.fetch-button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> quoteOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.quote-output&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> quoteContainer = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.quote-container&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> quotesArr = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getQuote = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;http://ron-swanson-quotes.herokuapp.com/v2/quotes&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">if</span> (quotesArr.length === <span class="number">50</span>) &#123;</span><br><span class="line">      quotesArr.shift()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (quotesArr.indexOf(data[<span class="number">0</span>]) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      getQuote()</span><br><span class="line">      alterGradient()</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    quotesArr.push(data[<span class="number">0</span>])</span><br><span class="line">    quoteOutput.innerHTML = <span class="string">`&lt;p class=&quot;quote-paragraph&quot;&gt; <span class="subst">$&#123;quotesArr[quotesArr.length - <span class="number">1</span>]&#125;</span>&lt;/p&gt;`</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(quotesArr);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    quoteOutput.innerHTML =</span><br><span class="line">      <span class="string">&#x27;[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.&#x27;</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQuote</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;https://ron-swanson-quotes.herokuapp.com/v2/quotes&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    renderQuote(data)</span><br><span class="line">    alterGradient()</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span> err;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alterGradient</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  quoteContainer.style.background = <span class="string">`linear-gradient(<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">90</span> - <span class="number">35</span>)) + <span class="number">90</span>&#125;</span>deg, rgba(142,69,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">255</span> - <span class="number">100</span>)) + <span class="number">255</span>&#125;</span>,1), <span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">20</span> - <span class="number">10</span>)) + <span class="number">20</span>&#125;</span>%, rgba(74,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">90</span> - <span class="number">60</span>)) + <span class="number">90</span>&#125;</span>,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">280</span> - <span class="number">140</span>)) + <span class="number">280</span>&#125;</span>,.8) <span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">40</span> - <span class="number">30</span>)) + <span class="number">40</span>&#125;</span>%, rgba(142,69,255,1) 83%)`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getQuote()</span><br><span class="line">fetchBtn.addEventListener(<span class="string">&#x27;click&#x27;</span>, getQuote, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+</div>
+
+      
+    </div>
+  </div>
+
+</article></section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/15/weather-app/">18. Weather App</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/13/table-of-contents-scope/">17. Table of Contents - Scope</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/11/table-of-contents-missing-ids/">16. Table of Contents - Missing IDs</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/09/table-of-contents/">15. Table of Contents</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/07/find-the-monsters-track-wins/">14. Find the Monsters - Track Wins</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/05/find-the-monsters/">13. Find the Monsters</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/03/monster-shuffle/">12. Monster Shuffle</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/sanitizing-the-NYT-api-data/">11. Sanitizing the NYT API Data</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/30/latest-3-NYT-top-stories-on-few-categories/">10. Latest 3 top stories on few categories</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/28/latest-5-NYT-top-stories/">09. Latest 5 top stories</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/26/random-ron-without-duplicates/">08. Random Ron without duplicates</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/24/random-ron/">07. Random Ron</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/22/announcing-the-count/">06. Announcing the Count</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/20/character-and-word-count/">05. Character and Word Count</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/18/character-count/">04. Character Count</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/16/toggling-passwords-in-multiple-forms/">03. Toggling passwords in multiple forms</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/14/toggling-multiple-passwords-fields/">02. Toggling multiple passwords fields</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/12/password-visibility/">01. Password visibility</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Tomasz Przyborowski<br>
+      <a href="https://www.tomaszprzyborowski.pl/" target="_blank">www.tomaszprzyborowski.pl</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

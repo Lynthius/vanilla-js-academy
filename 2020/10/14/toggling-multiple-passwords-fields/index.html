@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>02. Toggling multiple passwords fields | Vanilla JS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content=".label {       display: block;       width: 100%;       margin-bottom: 6px;     }      .input {       margin-bottom: 1em;       border: none;       border-radius: 3px;       padding: 3px 4px;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02. Toggling multiple passwords fields">
+<meta property="og:url" content="http://lynthius.github.io/2020/10/14/toggling-multiple-passwords-fields/index.html">
+<meta property="og:site_name" content="Vanilla JS Academy">
+<meta property="og:description" content=".label {       display: block;       width: 100%;       margin-bottom: 6px;     }      .input {       margin-bottom: 1em;       border: none;       border-radius: 3px;       padding: 3px 4px;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-13T22:00:00.000Z">
+<meta property="article:modified_time" content="2020-11-07T19:48:55.343Z">
+<meta property="article:author" content="Tomasz Przyborowski">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Vanilla JS Academy" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+
+
+    <h1 id="logo-wrap">
+      <a href="/" id="logo">Vanilla JS Academy</a>
+    </h1>
+
+  <div id="header-inner" class="inner">
+    <nav id="main-nav">
+      
+    </nav>
+    <nav id="sub-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+      <a class="main-nav-link" href="/">Home</a>
+      
+      <a class="main-nav-link" href="/archives">Archives</a>
+      
+      <a href="https://github.com/Lynthius" target="_blank" id="nav-github-btn" class="nav-icon"></a>
+      <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+    </nav>
+    <div id="search-form-wrap">
+      <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lynthius.github.io"></form>
+    </div>
+  </div>
+
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-toggling-multiple-passwords-fields" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/14/toggling-multiple-passwords-fields/" class="article-date">
+  <time datetime="2020-10-13T22:00:00.000Z" itemprop="datePublished">2020-10-14</time>
+</a>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      02. Toggling multiple passwords fields
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="output-container">
+
+  <style type="text/css">
+    .label {
+      display: block;
+      width: 100%;
+      margin-bottom: 6px;
+    }
+
+    .input {
+      margin-bottom: 1em;
+      border: none;
+      border-radius: 3px;
+      padding: 3px 4px;
+      min-width: 100px;
+    }
+
+    .input:focus {
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .checkbox:focus {
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .button {
+      border-color: white;
+      outline: none;
+      border: none;
+      margin-top: 5px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-weight: 600px;
+      cursor: pointer;
+    }
+
+    .button:focus {
+      border: red;
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .button:active {
+      color: #8e45ff;
+    }
+
+    [type="checkbox"] {
+      margin-bottom: 0;
+      margin-right: 0.25em;
+      cursor: pointer;
+    }
+  </style>
+
+  <p>Enter your current password and new password below.</p>
+
+  <form>
+    <div>
+      <label class="label" for="username">Username:</label>
+      <input autocomplete="off" class="input" type="text" name="username" id="username">
+    </div>
+    <div>
+      <label class="label" for="current-password">Current Password:</label>
+      <input autocomplete="off" class="input password" type="password" name="password" id="current-password">
+    </div>
+    <div>
+      <label class="label" for="new-password">New Password:</label>
+      <input autocomplete="off" class="input password" type="password" name="password" id="new-password">
+    </div>
+    <div>
+      <label class="label" for="show-password">
+        <input class="checkbox" type="checkbox" name="show-passwords" id="show-passwords">
+        Show passwords
+      </label>
+    </div>
+    <button class="button" type="submit">Log In</button>
+  </form>
+
+  <script>
+    const togglePswrd = document.querySelector('#show-passwords');
+    const passInputs = document.querySelectorAll('.password');
+
+    togglePswrd.addEventListener('click', function () {
+      if (togglePswrd.checked) {
+        Array.prototype.slice.call(passInputs).forEach(passInput => {
+          passInput.type = "text";
+        });
+      } else {
+        Array.prototype.slice.call(passInputs).forEach(passInput => {
+          passInput.type = "password";
+        });
+      }
+    })
+  </script>
+
+</div>
+
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
+
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Enter your current password and new password below.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span>Username:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;current-password&quot;</span>&gt;</span>Current Password:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input password&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;current-password&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;new-password&quot;</span>&gt;</span>New Password:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input password&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;new-password&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;show-password&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;show-passwords&quot;</span> <span class="attr">id</span>=<span class="string">&quot;show-passwords&quot;</span>&gt;</span></span><br><span class="line">      Show passwords</span><br><span class="line">    <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Log In<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</div>
+<div class="js-container">
+
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* When a user clicks on the #show-passwords checkbox, </span></span><br><span class="line"><span class="comment">it should show the text for the #current-password and #new-password fields </span></span><br><span class="line"><span class="comment">if it’s checked, and mask it if it’s unchecked. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> togglePswrd = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#show-passwords&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> passInputs = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;.password&#x27;</span>);</span><br><span class="line"></span><br><span class="line">togglePswrd.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (togglePswrd.checked) &#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.slice.call(passInputs).forEach(<span class="function"><span class="params">passInput</span> =&gt;</span> &#123;</span><br><span class="line">      passInput.type = <span class="string">&quot;text&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.slice.call(passInputs).forEach(<span class="function"><span class="params">passInput</span> =&gt;</span> &#123;</span><br><span class="line">      passInput.type = <span class="string">&quot;password&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</div>
+
+      
+    </div>
+  </div>
+
+</article></section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/15/weather-app/">18. Weather App</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/13/table-of-contents-scope/">17. Table of Contents - Scope</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/11/table-of-contents-missing-ids/">16. Table of Contents - Missing IDs</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/09/table-of-contents/">15. Table of Contents</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/07/find-the-monsters-track-wins/">14. Find the Monsters - Track Wins</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/05/find-the-monsters/">13. Find the Monsters</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/03/monster-shuffle/">12. Monster Shuffle</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/sanitizing-the-NYT-api-data/">11. Sanitizing the NYT API Data</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/30/latest-3-NYT-top-stories-on-few-categories/">10. Latest 3 top stories on few categories</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/28/latest-5-NYT-top-stories/">09. Latest 5 top stories</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/26/random-ron-without-duplicates/">08. Random Ron without duplicates</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/24/random-ron/">07. Random Ron</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/22/announcing-the-count/">06. Announcing the Count</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/20/character-and-word-count/">05. Character and Word Count</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/18/character-count/">04. Character Count</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/16/toggling-passwords-in-multiple-forms/">03. Toggling passwords in multiple forms</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/14/toggling-multiple-passwords-fields/">02. Toggling multiple passwords fields</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/12/password-visibility/">01. Password visibility</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Tomasz Przyborowski<br>
+      <a href="https://www.tomaszprzyborowski.pl/" target="_blank">www.tomaszprzyborowski.pl</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
