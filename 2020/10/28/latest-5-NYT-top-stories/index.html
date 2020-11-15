@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>09. Latest 5 top stories | Vanilla JS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#app {       margin-top: 10px;     }      .title {       margin-bottom: 0px;     }      .container {       display: flex;       flex-direction: column;       max-height: 45px;     }      .det">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09. Latest 5 top stories">
+<meta property="og:url" content="http://lynthius.github.io/vanilla-js-academy/2020/10/28/latest-5-NYT-top-stories/index.html">
+<meta property="og:site_name" content="Vanilla JS Academy">
+<meta property="og:description" content="#app {       margin-top: 10px;     }      .title {       margin-bottom: 0px;     }      .container {       display: flex;       flex-direction: column;       max-height: 45px;     }      .det">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-27T23:00:00.000Z">
+<meta property="article:modified_time" content="2020-11-07T19:49:22.250Z">
+<meta property="article:author" content="Tomasz Przyborowski">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/vanilla-js-academy/atom.xml" title="Vanilla JS Academy" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/vanilla-js-academy/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+
+
+    <h1 id="logo-wrap">
+      <a href="/vanilla-js-academy/" id="logo">Vanilla JS Academy</a>
+    </h1>
+
+  <div id="header-inner" class="inner">
+    <nav id="main-nav">
+      
+    </nav>
+    <nav id="sub-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+      <a class="main-nav-link" href="/vanilla-js-academy/">Home</a>
+      
+      <a class="main-nav-link" href="/vanilla-js-academy/archives">Archives</a>
+      
+      <a href="https://github.com/Lynthius" target="_blank" id="nav-github-btn" class="nav-icon"></a>
+      <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+    </nav>
+    <div id="search-form-wrap">
+      <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lynthius.github.io/vanilla-js-academy"></form>
+    </div>
+  </div>
+
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-latest-5-NYT-top-stories" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/10/28/latest-5-NYT-top-stories/" class="article-date">
+  <time datetime="2020-10-27T23:00:00.000Z" itemprop="datePublished">2020-10-28</time>
+</a>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      09. Latest 5 top stories
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="output-container">
+
+  <style type="text/css">
+    #app {
+      margin-top: 10px;
+    }
+
+    .title {
+      margin-bottom: 0px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      max-height: 45px;
+    }
+
+    .details {
+      margin-bottom: 0;
+    }
+
+    .link {
+      text-decoration: none;
+      color: white;
+      max-width: 80px;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <div id="app">
+    <span id="placeholder"></span>
+  </div>
+
+  <script>
+    const appOutput = document.querySelector('#app');
+    const getStories = function () {
+    fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
+      function (response, resolve) {
+        if (response.ok) {
+          return response.json()
+        } else {
+          return Promise.reject(response)
+        };
+      }).then(function (data) {
+      const allStories = [...data.results];
+      const lastFiveStories = allStories.slice(0, 5)
+      appOutput.innerHTML = lastFiveStories.map(function (result) {
+        return (`
+        <div class="container"> 
+          <ul class="title">
+          <li>${result.title}</li>
+          <a class="link" href="${result.url}" target="_blank">Read more</a>
+          </ul>
+        </div>
+        <br>
+        `);
+      }).join('')
+    }).catch(response => {
+      console.log("something went wrong", response);
+      appOutput.textContent = "Something went wrong...";
+    });
+  };
+
+  getStories();
+  </script>
+
+</div>
+
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
+
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;placeholder&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</div>
+<div class="js-container">
+
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For this project, get an array of stories from the New York Times API,</span></span><br><span class="line"><span class="comment">turn them into markup, and inject them into the #app element. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> getStories = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">fetch(<span class="string">&#x27;https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R&#x27;</span>).then(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">response, resolve</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response)</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> allStories = [...data.results];</span><br><span class="line">  <span class="keyword">const</span> lastFiveStories = allStories.slice(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">  appOutput.innerHTML = lastFiveStories.map(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;container&quot;&gt; </span></span><br><span class="line"><span class="string">      &lt;ul class=&quot;title&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;li&gt;<span class="subst">$&#123;result.title&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;a class=&quot;link&quot; href=&quot;<span class="subst">$&#123;result.url&#125;</span>&quot; target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;</span></span><br><span class="line"><span class="string">      &lt;/ul&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;br&gt;</span></span><br><span class="line"><span class="string">    `</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;something went wrong&quot;</span>, response);</span><br><span class="line">  appOutput.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">getStories();</span><br></pre></td></tr></table></figure>
+
+</div>
+
+      
+    </div>
+  </div>
+
+</article></section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/13/table-of-contents-scope/">17. Table of Contents - Scope</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/11/table-of-contents-missing-ids/">16. Table of Contents - Missing IDs</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/09/table-of-contents/">15. Table of Contents</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/07/find-the-monsters-track-wins/">14. Find the Monsters - Track Wins</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/05/find-the-monsters/">13. Find the Monsters</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/03/monster-shuffle/">12. Monster Shuffle</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/01/sanitizing-the-NYT-api-data/">11. Sanitizing the NYT API Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/30/latest-3-NYT-top-stories-on-few-categories/">10. Latest 3 top stories on few categories</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/28/latest-5-NYT-top-stories/">09. Latest 5 top stories</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/26/random-ron-without-duplicates/">08. Random Ron without duplicates</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/24/random-ron/">07. Random Ron</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/22/announcing-the-count/">06. Announcing the Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/20/character-and-word-count/">05. Character and Word Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/18/character-count/">04. Character Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/16/toggling-passwords-in-multiple-forms/">03. Toggling passwords in multiple forms</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/14/toggling-multiple-passwords-fields/">02. Toggling multiple passwords fields</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/12/password-visibility/">01. Password visibility</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Tomasz Przyborowski<br>
+      <a href="https://www.tomaszprzyborowski.pl/" target="_blank">www.tomaszprzyborowski.pl</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/vanilla-js-academy/" class="mobile-nav-link">Home</a>
+  
+    <a href="/vanilla-js-academy/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/vanilla-js-academy/fancybox/jquery.fancybox.css">
+
+  
+<script src="/vanilla-js-academy/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/vanilla-js-academy/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
