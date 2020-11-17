@@ -49,13 +49,19 @@ date: 2020-11-17
     const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
     let userCity;
 
+    const sanitizeHTML = function (str) {
+      return str.replace(/[^\w. ]/gi, function (c) {
+        return '&#' + c.charCodeAt(0) + ';';
+      });
+    }
+
     const render = function (icon, temp, city, sky) {
       app.innerHTML = (`
       <div class="weather_container">
-        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${icon}@2x.png"></div>
+        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${sanitizeHTML(icon)}@2x.png"></div>
         <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${city}</h4>
-        <p class="weather_desc">${sky}</p>
+        <h4 class="weather_city-name">${sanitizeHTML(city)}</h4>
+        <p class="weather_desc">${sanitizeHTML(sky)}</p>
       </div>
       `)
     };
