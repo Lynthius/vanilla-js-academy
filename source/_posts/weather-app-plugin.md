@@ -44,32 +44,17 @@ date: 2020-11-17
 
   <script>
     // const app = document.querySelector('#app');
-    const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
-    const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
+    // const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
+    // const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
     let userCity;
 
-    const sanitizeHTML = function (str) {
-      return str.replace(/[^\w. ]/gi, function (c) {
-        return '&#' + c.charCodeAt(0) + ';';
-      });
-    }
+    // const sanitizeHTML = function (str) {
+    //   return str.replace(/[^\w. ]/gi, function (c) {
+    //     return '&#' + c.charCodeAt(0) + ';';
+    //   });
+    // }
 
-    const render = function (data) {
-
-      // cons app = document.querySelector(settings.selector);
-      // cons degree = document.querySelector(settings.degree);
-
-      app.innerHTML = (`
-      <div class="weather_container">
-        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${settings.icon}@2x.png"></div>
-        <h3 class="weather_temperature">${Math.round(settings.temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${settings.city}</h4>
-        <p class="weather_desc">${settings.conditions}</p>
-      </div>
-      `)
-    };
-
-    const getWeatherInfo = function (options) {
+    const getWeather = function (options) {
 
       // Default settings
       const defaults = {
@@ -77,15 +62,65 @@ date: 2020-11-17
         apiKeyWeather: null,
         selector: '#app',
         converTemp: false,
-        orderInfo: '{{temp}} {{city}} {{conditions}}',
+        buildInfoOrder: '{{temp}} {{city}} {{conditions}}',
         noWeather: 'Unable to get weather data at this time. Sorry!',
         showIcon: true
       };
 
       // Merge user settings into default
-      const settings = Object.assign(defaults, data);
+      const settings = Object.assign(defaults, options);
 
-      fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKeyIp}`).then(function (response) {
+      // Get the #app element
+      const app = document.querySelector(settings.selector);
+
+      const FarenheitToCelcius = function (temp) {
+				if (settings.convertTemp) {
+					return (parseFloat(temp) * 9/5) + 32;
+        }
+        
+				return temp;
+      };
+      
+      const getIcon = function (fetchData) {
+				if (!settings.showIcon) return '';
+
+        const html = `
+          <div class="weather_icon">
+            <img src="https://openweathermap.org/img/wn/${fetchData.weather[0].icon}@2x.png">
+          </div>`
+				return html;
+      };
+      
+      const buildInfoOrder = function (fetchData) {
+				return settings.buildInfoOrder
+					.replace('{{temp}}', fToC(sanitizeHTML(fetchData.temp)))
+					.replace('{{city}}', sanitizeHTML(fetchData.city_name))
+					.replace('{{conditions}}', sanitizeHTML(fetchData.weather.buildInfoOrder).toLowerCase())
+      };
+      
+      const renderWeather = function (fetchData) {
+      app.innerHTML = (`
+      <div class="weather_container">
+        ${getIcon(fetchData)}
+        <h3 class="weather_temperature">${Math.round(settings.temp)} &#x2103;</h3>
+        <h4 class="weather_city-name">${settings.city}</h4>
+        <p class="weather_desc">${settings.conditions}</p>
+      </div>
+      `)
+      };
+
+      const renderNoWeather = function () {
+				app.innerHTML = settings.noWeather;
+      };
+      
+      if (!settings.apiKeyIp || !settings.apiKeyWeather) {
+				console.warn('Please provide an API key.');
+				return;
+			}
+
+      // Get the user's location by IP address
+			// Then, pass that into the weather API and get the current weather
+      fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${settings.apiKeyIp}`).then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
@@ -93,30 +128,31 @@ date: 2020-11-17
         }
       }).then(function (data) {
         userCity = data.city;
-        userDegree = 'metric';
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=${userDegree}`);
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${settings.apiKeyWeather}&units=metric`);
       }).then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
           return Promise.reject(response);
         }
-      }).then(function (userData) {
-        // const defaults = {
-        //   userIcon: userData.weather[0].icon,
-        //   userTemp: userData.main.temp,
-        //   userCity: userData.name,
-        //   userSky: userData.weather[0].description
-        // }
-        
-        render(userData);
+      }).then(function (data) {
+        console.log(data);
+        renderWeather(data);
       }).catch(function (err) {
         console.warn(err);
-        app.textContent = "Something went wrong...";
+        renderNoWeather();
       })
     }
 
-    getWeatherInfo();
+    getWeather({
+			apiKeyIp: 'd9f7add9f68440818a0659381720a532', // Replace this with your API key
+      apiKeyWeather: '5e995a3338fe2917188f0f98d08abcec', // Replace this with your API key
+      selector: '#app',
+      converTemp: false,
+      buildInfoOrder: '{{temp}} {{city}} {{conditions}}',
+      noWeather: 'Unable to get weather data at this time. Sorry!',
+      showIcon: true
+		});
   </script>
 
 </div>
