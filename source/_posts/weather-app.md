@@ -28,8 +28,7 @@ date: 2020-11-15
     }
 
     .weather_city-name {
-      text-transform: uppercase;
-      font-size: 2em !important;
+      font-size: 2.4em !important;
       margin: 10px 0 0 !important;
     }
 

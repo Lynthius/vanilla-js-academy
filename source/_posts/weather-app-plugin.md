@@ -28,8 +28,7 @@ date: 2020-11-17
     }
 
     .weather_city-name {
-      text-transform: uppercase;
-      font-size: 2em !important;
+      font-size: 2.4em !important;
       margin: 10px 0 0 !important;
     }
 
@@ -44,7 +43,7 @@ date: 2020-11-17
   <div id="app">Checking the weather near you...</div>
 
   <script>
-    const app = document.querySelector('#app');
+    // const app = document.querySelector('#app');
     const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
     const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
     let userCity;
@@ -55,18 +54,37 @@ date: 2020-11-17
       });
     }
 
-    const render = function (icon, temp, city, sky) {
+    const render = function (data) {
+
+      // cons app = document.querySelector(settings.selector);
+      // cons degree = document.querySelector(settings.degree);
+
       app.innerHTML = (`
       <div class="weather_container">
-        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${sanitizeHTML(icon)}@2x.png"></div>
-        <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${sanitizeHTML(city)}</h4>
-        <p class="weather_desc">${sanitizeHTML(sky)}</p>
+        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${settings.icon}@2x.png"></div>
+        <h3 class="weather_temperature">${Math.round(settings.temp)} &#x2103;</h3>
+        <h4 class="weather_city-name">${settings.city}</h4>
+        <p class="weather_desc">${settings.conditions}</p>
       </div>
       `)
     };
 
-    const getWeatherInfo = function () {
+    const getWeatherInfo = function (options) {
+
+      // Default settings
+      const defaults = {
+        apiKeyIp: null,
+        apiKeyWeather: null,
+        selector: '#app',
+        converTemp: false,
+        orderInfo: '{{temp}} {{city}} {{conditions}}',
+        noWeather: 'Unable to get weather data at this time. Sorry!',
+        showIcon: true
+      };
+
+      // Merge user settings into default
+      const settings = Object.assign(defaults, data);
+
       fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKeyIp}`).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -75,7 +93,8 @@ date: 2020-11-17
         }
       }).then(function (data) {
         userCity = data.city;
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=metric`);
+        userDegree = 'metric';
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=${userDegree}`);
       }).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -83,12 +102,14 @@ date: 2020-11-17
           return Promise.reject(response);
         }
       }).then(function (userData) {
-        userIcon = userData.weather[0].icon;
-        userTemp = userData.main.temp;
-        userCity = userData.name;
-        userSky = userData.weather[0].description;
-
-        render(userIcon, userTemp, userCity, userSky);
+        // const defaults = {
+        //   userIcon: userData.weather[0].icon,
+        //   userTemp: userData.main.temp,
+        //   userCity: userData.name,
+        //   userSky: userData.weather[0].description
+        // }
+        
+        render(userData);
       }).catch(function (err) {
         console.warn(err);
         app.textContent = "Something went wrong...";
@@ -114,8 +135,11 @@ date: 2020-11-17
 ## JavaScript
 
 ```JS
-/* For today’s project, we’re going to build an app that gets a user’s location
-and displays their current weather information. */
+/* Modify the script to let developers:
+Pass in their own selector to render the weather into.
+Decide whether to show temperatures in Fahrenheit of Celsius.
+Change what message is shown (ex. It's currently {temperature} and {conditions} in {location}).
+Enable or disable the icon for the weather conditions.*/
 
 const app = document.querySelector('#app');
 const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
