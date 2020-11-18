@@ -48,12 +48,6 @@ date: 2020-11-17
     // const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
     let userCity;
 
-    // const sanitizeHTML = function (str) {
-    //   return str.replace(/[^\w. ]/gi, function (c) {
-    //     return '&#' + c.charCodeAt(0) + ';';
-    //   });
-    // }
-
     const getWeather = function (options) {
 
       // Default settings
@@ -62,9 +56,11 @@ date: 2020-11-17
         apiKeyWeather: null,
         selector: '#app',
         converTemp: false,
-        buildInfoOrder: '{{temp}} {{city}} {{conditions}}',
         noWeather: 'Unable to get weather data at this time. Sorry!',
-        showIcon: true
+        showIcon: true,
+        showTemp: true,
+        showCity: true,
+        showConditions: true,
       };
 
       // Merge user settings into default
@@ -72,6 +68,13 @@ date: 2020-11-17
 
       // Get the #app element
       const app = document.querySelector(settings.selector);
+
+
+      const sanitizeHTML = function (str) {
+    		const temp = document.createElement('div');
+				temp.textContent = str;
+				return temp.innerHTML;
+      }
 
       const FarenheitToCelcius = function (temp) {
 				if (settings.convertTemp) {
@@ -90,21 +93,44 @@ date: 2020-11-17
           </div>`
 				return html;
       };
-      
-      const buildInfoOrder = function (fetchData) {
-				return settings.buildInfoOrder
-					.replace('{{temp}}', fToC(sanitizeHTML(fetchData.temp)))
-					.replace('{{city}}', sanitizeHTML(fetchData.city_name))
-					.replace('{{conditions}}', sanitizeHTML(fetchData.weather.buildInfoOrder).toLowerCase())
+
+      const getTemp = function (fetchData) {
+				if (!settings.showTemp) return '';
+
+        const html = `
+          <h3 class="weather_temperature">
+            ${Math.round(fetchData.main.temp)} &#x2103;
+          </h3>`
+				return html;
+      };
+
+      const getCity = function (fetchData) {
+				if (!settings.showCity) return '';
+
+        const html = `
+          <h4 class="weather_city-name">
+            ${fetchData.name}
+          </h4>`
+				return html;
+      };
+
+      const getConditions = function (fetchData) {
+				if (!settings.showConditions) return '';
+
+        const html = `
+          <p class="weather_desc">
+            ${fetchData.weather[0].description}
+          </p>`
+				return html;
       };
       
       const renderWeather = function (fetchData) {
       app.innerHTML = (`
       <div class="weather_container">
         ${getIcon(fetchData)}
-        <h3 class="weather_temperature">${Math.round(settings.temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${settings.city}</h4>
-        <p class="weather_desc">${settings.conditions}</p>
+        ${getTemp(fetchData)}
+        ${getCity(fetchData)}
+        ${getConditions(fetchData)}
       </div>
       `)
       };
@@ -136,7 +162,6 @@ date: 2020-11-17
           return Promise.reject(response);
         }
       }).then(function (data) {
-        console.log(data);
         renderWeather(data);
       }).catch(function (err) {
         console.warn(err);
@@ -149,9 +174,11 @@ date: 2020-11-17
       apiKeyWeather: '5e995a3338fe2917188f0f98d08abcec', // Replace this with your API key
       selector: '#app',
       converTemp: false,
-      buildInfoOrder: '{{temp}} {{city}} {{conditions}}',
       noWeather: 'Unable to get weather data at this time. Sorry!',
-      showIcon: true
+      showIcon: true,
+      showTemp: true,
+      showCity: true,
+      showConditions: true
 		});
   </script>
 
@@ -174,7 +201,7 @@ date: 2020-11-17
 /* Modify the script to let developers:
 Pass in their own selector to render the weather into.
 Decide whether to show temperatures in Fahrenheit of Celsius.
-Change what message is shown (ex. It's currently {temperature} and {conditions} in {location}).
+Change what message is shown.
 Enable or disable the icon for the weather conditions.*/
 
 const app = document.querySelector('#app');
