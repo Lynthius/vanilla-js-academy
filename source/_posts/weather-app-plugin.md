@@ -43,11 +43,6 @@ date: 2020-11-17
   <div id="app">Checking the weather near you...</div>
 
   <script>
-    // const app = document.querySelector('#app');
-    // const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
-    // const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
-    let userCity;
-
     const getWeather = function (options) {
 
       // Default settings
@@ -55,7 +50,7 @@ date: 2020-11-17
         apiKeyIp: null,
         apiKeyWeather: null,
         selector: '#app',
-        converTemp: false,
+        convertTemp: false,
         noWeather: 'Unable to get weather data at this time. Sorry!',
         showIcon: true,
         showTemp: true,
@@ -78,10 +73,10 @@ date: 2020-11-17
 
       const FarenheitToCelcius = function (temp) {
 				if (settings.convertTemp) {
-					return (parseFloat(temp) * 9/5) + 32;
+					return `${(Math.round((temp) * 9/5)) + 32} &#x2109`;
         }
         
-				return temp;
+				return `${Math.round(temp)} &#x2103`;
       };
       
       const getIcon = function (fetchData) {
@@ -89,7 +84,7 @@ date: 2020-11-17
 
         const html = `
           <div class="weather_icon">
-            <img src="https://openweathermap.org/img/wn/${fetchData.weather[0].icon}@2x.png">
+            <img src="https://openweathermap.org/img/wn/${sanitizeHTML(fetchData.weather[0].icon)}@2x.png">
           </div>`
 				return html;
       };
@@ -99,7 +94,7 @@ date: 2020-11-17
 
         const html = `
           <h3 class="weather_temperature">
-            ${Math.round(fetchData.main.temp)} &#x2103;
+            ${FarenheitToCelcius(sanitizeHTML(fetchData.main.temp))};
           </h3>`
 				return html;
       };
@@ -109,7 +104,7 @@ date: 2020-11-17
 
         const html = `
           <h4 class="weather_city-name">
-            ${fetchData.name}
+            ${sanitizeHTML(fetchData.name)}
           </h4>`
 				return html;
       };
@@ -119,7 +114,7 @@ date: 2020-11-17
 
         const html = `
           <p class="weather_desc">
-            ${fetchData.weather[0].description}
+            ${sanitizeHTML(fetchData.weather[0].description)}
           </p>`
 				return html;
       };
@@ -153,8 +148,7 @@ date: 2020-11-17
           return Promise.reject(response);
         }
       }).then(function (data) {
-        userCity = data.city;
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${settings.apiKeyWeather}&units=metric`);
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${data.city}&appid=${settings.apiKeyWeather}&units=metric`);
       }).then(function (response) {
         if (response.ok) {
           return response.json();
@@ -173,12 +167,12 @@ date: 2020-11-17
 			apiKeyIp: 'd9f7add9f68440818a0659381720a532', // Replace this with your API key
       apiKeyWeather: '5e995a3338fe2917188f0f98d08abcec', // Replace this with your API key
       selector: '#app',
-      converTemp: false,
+      convertTemp: false,
       noWeather: 'Unable to get weather data at this time. Sorry!',
       showIcon: true,
       showTemp: true,
       showCity: true,
-      showConditions: true
+      showConditions: true,
 		});
   </script>
 
