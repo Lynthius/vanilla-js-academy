@@ -45,7 +45,7 @@ date: 2020-11-17
   <script>
     const getWeather = function (options) {
 
-      // Default settings
+      // Default settings for weather app
       const defaults = {
         apiKeyIp: null,
         apiKeyWeather: null,
@@ -61,16 +61,17 @@ date: 2020-11-17
       // Merge user settings into default
       const settings = Object.assign(defaults, options);
 
-      // Get the #app element
+      // Get the #app element to render content
       const app = document.querySelector(settings.selector);
 
-
+      // Secure your data
       const sanitizeHTML = function (str) {
     		const temp = document.createElement('div');
 				temp.textContent = str;
 				return temp.innerHTML;
       }
 
+      // Convert Celcius to Farenheit and round value
       const FarenheitToCelcius = function (temp) {
 				if (settings.convertTemp) {
 					return `${(Math.round((temp) * 9/5)) + 32} &#x2109`;
@@ -79,6 +80,7 @@ date: 2020-11-17
 				return `${Math.round(temp)} &#x2103`;
       };
       
+      // Get weather icon form fetch data
       const getIcon = function (fetchData) {
 				if (!settings.showIcon) return '';
 
@@ -89,6 +91,7 @@ date: 2020-11-17
 				return html;
       };
 
+      // Get weather temperature from fetch data
       const getTemp = function (fetchData) {
 				if (!settings.showTemp) return '';
 
@@ -99,6 +102,7 @@ date: 2020-11-17
 				return html;
       };
 
+      // Get weather city location from fetch data
       const getCity = function (fetchData) {
 				if (!settings.showCity) return '';
 
@@ -109,6 +113,7 @@ date: 2020-11-17
 				return html;
       };
 
+      // Get weather conditions from fetch data
       const getConditions = function (fetchData) {
 				if (!settings.showConditions) return '';
 
@@ -119,6 +124,7 @@ date: 2020-11-17
 				return html;
       };
       
+      // Render your weather data
       const renderWeather = function (fetchData) {
       app.innerHTML = (`
       <div class="weather_container">
@@ -130,10 +136,12 @@ date: 2020-11-17
       `)
       };
 
+      // Render warning info when renderWeather doesn't work
       const renderNoWeather = function () {
 				app.innerHTML = settings.noWeather;
       };
       
+      // Check for API
       if (!settings.apiKeyIp || !settings.apiKeyWeather) {
 				console.warn('Please provide an API key.');
 				return;
@@ -163,6 +171,7 @@ date: 2020-11-17
       })
     }
 
+    // Init function - customize your settings
     getWeather({
 			apiKeyIp: 'd9f7add9f68440818a0659381720a532', // Replace this with your API key
       apiKeyWeather: '5e995a3338fe2917188f0f98d08abcec', // Replace this with your API key
