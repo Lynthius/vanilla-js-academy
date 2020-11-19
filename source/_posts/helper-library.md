@@ -27,22 +27,62 @@ date: 2020-11-19 20:27:19
       color: #8e45ff;
     }
 
-  .btn-blue {
-    background-color: #0088cc;
-    color: #ffffff;
-  }
+    .btn-blue {
+      background-color: #0088cc;
+      color: #ffffff;
+    }
 
-  .btn-purple {
-    background-color: rebeccapurple;
-    color: #ffffff;
-  }
+    .btn-purple {
+      background-color: rebeccapurple;
+      color: #ffffff;
+    }
   </style>
   <p>
     <button class="btn-blue button" id="button-1">Button 1</button>
-    <button class="btn-blue button" id="button-2">Button 2</button>
+    <button class="btn-blue button here-is-johnny" id="button-2">Button 2</button>
     <button class="btn-blue button" id="button-3">Button 3</button>
   </p>
+
   <script>
+    const btns = document.querySelectorAll('.button');
+
+    const helperMethod = (function () {
+
+      // Hold public methdos here
+      const methods = {};
+
+      // Private methods
+      const nodeToArr = function (node) {
+        return Array.prototype.slice.call(node);
+      };
+
+      const getFirstMatch = function (elements, match) {
+        nodeToArr(elements).map(element => {
+          if (element.matches(match)) {
+            console.log(element);
+            return element;
+          } else {
+            console.log('Not a match');
+          };
+        })
+        };
+
+      // Public methods
+      methods.transformToArray = function (node) {
+        return nodeToArr(node);
+      };
+
+      methods.firstMatch = function (element, match) {
+        return getFirstMatch(element, match);
+      }
+
+      return methods;
+    })();
+
+    // Check the console logs in dev tools
+    helperMethod.transformToArray(btns);
+    helperMethod.firstMatch(btns, '.here-is-johnny');
+
   </script>
 
 </div>
