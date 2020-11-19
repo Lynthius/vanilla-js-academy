@@ -41,10 +41,14 @@ date: 2020-11-19 20:27:19
     <button class="btn-blue button" id="button-1">Button 1</button>
     <button class="btn-blue button here-is-johnny" id="button-2">Button 2</button>
     <button class="btn-blue button" id="button-3">Button 3</button>
+    <button class="btn-blue button" id="button-4">Button 4</button>
+    <button class="btn-blue button" id="button-5">Button 5</button>
+    <button class="btn-blue button here-is-johnny" id="button-6">Button 6</button>
   </p>
 
   <script>
     const btns = document.querySelectorAll('.button');
+    const btn2 = document.querySelector('#button-2');
 
     const helperMethod = (function () {
 
@@ -56,7 +60,12 @@ date: 2020-11-19 20:27:19
         return Array.prototype.slice.call(node);
       };
 
-      const getFirstMatch = function (elements, match) {
+      const getFirstMatch = function (element, match) {
+        console.log(element.closest(match));
+        return element.closest(match);
+      };
+
+      const getAllMatches = function (elements, match) {
         nodeToArr(elements).map(element => {
           if (element.matches(match)) {
             console.log(element);
@@ -65,7 +74,12 @@ date: 2020-11-19 20:27:19
             console.log('Not a match');
           };
         })
-        };
+      };
+
+      const addClassToElem = function (element, newClass) {
+        // console.log(`${class} class added to ${element}`);
+        return element.classList.add(newClass);
+      };
 
       // Public methods
       methods.transformToArray = function (node) {
@@ -74,15 +88,24 @@ date: 2020-11-19 20:27:19
 
       methods.firstMatch = function (element, match) {
         return getFirstMatch(element, match);
-      }
+      };
+
+      methods.allMatches = function (elements, match) {
+        return getAllMatches(elements, match);
+      };
+
+      methods.addClass = function (element, newClass) {
+        return addClassToElem(element, newClass);
+      };
 
       return methods;
     })();
 
     // Check the console logs in dev tools
-    helperMethod.transformToArray(btns);
-    helperMethod.firstMatch(btns, '.here-is-johnny');
-
+    // helperMethod.transformToArray(btns);
+    // helperMethod.firstMatch(btn2, '.here-is-johnny');
+    // helperMethod.allMatches(btns, '.here-is-johnny');
+    helperMethod.addClass(btn2, 'btn-purple');
   </script>
 
 </div>
