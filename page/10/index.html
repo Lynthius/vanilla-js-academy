@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-latest-5-NYT-top-stories" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-sanitizing-the-NYT-api-data" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/10/28/latest-5-NYT-top-stories/" class="article-date">
-  <time datetime="2020-10-27T23:00:00.000Z" itemprop="datePublished">2020-10-28</time>
+    <a href="/vanilla-js-academy/2020/11/01/sanitizing-the-NYT-api-data/" class="article-date">
+  <time datetime="2020-10-31T23:00:00.000Z" itemprop="datePublished">2020-11-01</time>
 </a>
   </div>
   <div class="article-inner">
@@ -74,7 +74,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/vanilla-js-academy/2020/10/28/latest-5-NYT-top-stories/">09. Latest 5 top stories</a>
+      <a class="article-title" href="/vanilla-js-academy/2020/11/01/sanitizing-the-NYT-api-data/">11. Sanitizing the NYT API Data</a>
     </h1>
   
 
@@ -89,8 +89,17 @@
       margin-top: 10px;
     }
 
+    .article-entry ul, .article-entry ol, .article-entry dl {
+      margin-top: 0;
+    }
+
+    .category {
+      margin-top: 10px;
+    }
+
     .title {
-      margin-bottom: 0px;
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
     .container {
@@ -114,41 +123,58 @@
     }
   </style>
 
-  <div id="app">
-    <span id="placeholder"></span>
-  </div>
+  <div id="app"></div>
 
   <script>
     const appOutput = document.querySelector('#app');
-    const getStories = function () {
-    fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R').then(
-      function (response, resolve) {
-        if (response.ok) {
-          return response.json()
-        } else {
-          return Promise.reject(response)
-        };
-      }).then(function (data) {
-      const allStories = [...data.results];
-      const lastFiveStories = allStories.slice(0, 5)
-      appOutput.innerHTML = lastFiveStories.map(function (result) {
-        return (`
-        <div class="container"> 
-          <ul class="title">
-          <li>${result.title}</li>
-          <a class="link" href="${result.url}" target="_blank">Read more</a>
-          </ul>
-        </div>
-        <br>
-        `);
-      }).join('')
-    }).catch(response => {
-      console.log("something went wrong", response);
-      appOutput.textContent = "Something went wrong...";
-    });
-  };
+    const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
+    const sections = ['Technology', 'Science', 'Magazine'];
+    const articleNum = 3;
 
-  getStories();
+    const sanitizeHTML = function (str) {
+      return str.replace(/[^\w. ]/gi, function(c) {
+        return '&#' + c.charCodeAt(0) + ';';
+      });
+    }
+
+    const render = function (articles, section) {
+      appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
+        return (`
+                <div class="container">
+                  <ul class="title">
+                  <li>${sanitizeHTML(article.title)}</li>
+                  <a class="link" href="${sanitizeHTML(article.url)}" target="_blank">Read more</a>
+                  </ul>
+                </div>
+                <br>
+                `);
+      }).join('')
+    };
+
+    const getLastNStories = function (articles) {
+      return articles.slice(0, articleNum)
+    }
+
+    const getStories = function (section) {
+      fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
+        function (response, resolve) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            return Promise.reject(response);
+          };
+        }).then(function (data) {
+        const lastNStories = getLastNStories(data.results);
+        render(lastNStories, section);
+      }).catch(response => {
+        console.log("something went wrong", response);
+        appOutput.textContent = "Something went wrong...";
+      });
+    };
+
+    sections.forEach(function (section) {
+      getStories(section);
+    });
   </script>
 
 </div>
@@ -160,7 +186,7 @@
 </div>
 <div class="js-container">
 
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For this project, get an array of stories from the New York Times API,</span></span><br><span class="line"><span class="comment">turn them into markup, and inject them into the #app element. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> getStories = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">fetch(<span class="string">&#x27;https://api.nytimes.com/svc/topstories/v2/science.json?api-key=T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R&#x27;</span>).then(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">response, resolve</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response)</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> allStories = [...data.results];</span><br><span class="line">  <span class="keyword">const</span> lastFiveStories = allStories.slice(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">  appOutput.innerHTML = lastFiveStories.map(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;container&quot;&gt; </span></span><br><span class="line"><span class="string">      &lt;ul class=&quot;title&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;li&gt;<span class="subst">$&#123;result.title&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;a class=&quot;link&quot; href=&quot;<span class="subst">$&#123;result.url&#125;</span>&quot; target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;</span></span><br><span class="line"><span class="string">      &lt;/ul&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;br&gt;</span></span><br><span class="line"><span class="string">    `</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;something went wrong&quot;</span>, response);</span><br><span class="line">  appOutput.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">getStories();</span><br></pre></td></tr></table></figure>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Before rendering API data into the DOM as markup, </span></span><br><span class="line"><span class="comment">sanitize it to protect yourself from any malicious code that might get sent back. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> apiKey = <span class="string">&#x27;T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> sections = [<span class="string">&#x27;Technology&#x27;</span>, <span class="string">&#x27;Science&#x27;</span>, <span class="string">&#x27;Magazine&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> articleNum = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">articles, section</span>) </span>&#123;</span><br><span class="line">  appOutput.innerHTML += <span class="string">&#x27;&lt;h3 class=&quot;category&quot;&gt;&#x27;</span> + section + <span class="string">&#x27;:&#x27;</span> + <span class="string">&#x27;&lt;/h3&gt;&#x27;</span> + articles.map(<span class="function"><span class="keyword">function</span> (<span class="params">article</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">            &lt;div class=&quot;container&quot;&gt;</span></span><br><span class="line"><span class="string">              &lt;ul class=&quot;title&quot;&gt;</span></span><br><span class="line"><span class="string">              &lt;li&gt;<span class="subst">$&#123;sanitizeHTML(article.url)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">              &lt;a class=&quot;link&quot; href=&quot;<span class="subst">$&#123;sanitizeHTML(article.url)&#125;</span>&quot; target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;</span></span><br><span class="line"><span class="string">              &lt;/ul&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;br&gt;</span></span><br><span class="line"><span class="string">            `</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getLastNStories = <span class="function"><span class="keyword">function</span> (<span class="params">articles</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> articles.slice(<span class="number">0</span>, articleNum)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getStories = <span class="function"><span class="keyword">function</span> (<span class="params">section</span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">`https://api.nytimes.com/svc/topstories/v2/<span class="subst">$&#123;section&#125;</span>.json?api-key=<span class="subst">$&#123;apiKey&#125;</span>`</span>).then(</span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">response, resolve</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">        <span class="keyword">return</span> response.json();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> lastNStories = getLastNStories(data.results);</span><br><span class="line">    render(lastNStories, section);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;something went wrong&quot;</span>, response);</span><br><span class="line">    appOutput.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">sections.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">section</span>) </span>&#123;</span><br><span class="line">  getStories(section);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 </div>
 
@@ -174,7 +200,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/9/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/8/">8</a><a class="page-number" href="/vanilla-js-academy/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/11/">Next</a>
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/9/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/8/">8</a><a class="page-number" href="/vanilla-js-academy/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/11/">Next</a>
   </nav>
 
 </section>
@@ -204,6 +230,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/17/weather-app-plugin/">19. Weather App Plugin</a>
+          </li>
         
           <li>
             <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>

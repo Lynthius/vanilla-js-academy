@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-sanitizing-the-NYT-api-data" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-find-the-monsters" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/11/01/sanitizing-the-NYT-api-data/" class="article-date">
-  <time datetime="2020-10-31T23:00:00.000Z" itemprop="datePublished">2020-11-01</time>
+    <a href="/vanilla-js-academy/2020/11/05/find-the-monsters/" class="article-date">
+  <time datetime="2020-11-04T23:00:00.000Z" itemprop="datePublished">2020-11-05</time>
 </a>
   </div>
   <div class="article-inner">
@@ -74,7 +74,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/vanilla-js-academy/2020/11/01/sanitizing-the-NYT-api-data/">11. Sanitizing the NYT API Data</a>
+      <a class="article-title" href="/vanilla-js-academy/2020/11/05/find-the-monsters/">13. Find the Monsters</a>
     </h1>
   
 
@@ -85,95 +85,139 @@
         <div class="output-container">
 
   <style type="text/css">
-    #app {
-      margin-top: 10px;
+    .row {
+      display: grid;
+      background-color: wheat;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-auto-rows: 100px;
+      place-items: center;
+      padding: 2rem 0 2rem 0;
+      gap: 2rem 0;
     }
 
-    .article-entry ul, .article-entry ol, .article-entry dl {
-      margin-top: 0;
+    .grid {
+      min-height: 6em;
+      padding: 1em;
     }
 
-    .category {
-      margin-top: 10px;
+    img {
+      height: 100%;
     }
 
-    .title {
-      margin-top: 0;
-      margin-bottom: 0;
+    .button {
+      border-color: white;
+      outline: none;
+      border: none;
+      margin-top: 5px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-weight: 600px;
+      cursor: pointer;
     }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      max-height: 45px;
+    .button:focus {
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
     }
 
-    .details {
-      margin-bottom: 0;
+    .button:active {
+      color: #8e45ff;
     }
 
-    .link {
-      text-decoration: none;
-      color: white;
-      max-width: 80px;
+    .show_button {
+      cursor: pointer;
+      border: 0;
+      background-color: transparent;
+      padding: .5rem .5rem;
     }
 
-    .link:hover {
-      text-decoration: underline;
+    .show_button:active {
+      color: #8e45ff;
     }
+
+    .show_button:focus {
+      outline: 0; 
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .show_button:hover {
+      outline: 0; 
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
   </style>
 
+<p>  <button class="button" value="monsters">Click to load and play!</button></p>
   <div id="app"></div>
 
+  <footer>
+    <p class="text-small text-muted">Icons by 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/28460/">Eliricon</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/82823/">April Yang</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1062009/">tk66</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>, 
+      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/2236082">iconcheese</a>,<br/> 
+      and <a target="_blank" rel="noopener" href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
+  </footer>
+
   <script>
-    const appOutput = document.querySelector('#app');
-    const apiKey = 'T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R';
-    const sections = ['Technology', 'Science', 'Magazine'];
-    const articleNum = 3;
+    const shuffleBtn = document.querySelector('.button');
+    const app = document.querySelector('#app');
 
-    const sanitizeHTML = function (str) {
-      return str.replace(/[^\w. ]/gi, function(c) {
-        return '&#' + c.charCodeAt(0) + ';';
-      });
-    }
+    const monsters = [
+      'monster1',
+      'monster2',
+      'monster3',
+      'monster4',
+      'monster5',
+      'monster6',
+      'monster7',
+      'monster8',
+      'monster9',
+      'monster10',
+      'monster11',
+      'sock'
+    ];
 
-    const render = function (articles, section) {
-      appOutput.innerHTML += '<h3 class="category">' + section + ':' + '</h3>' + articles.map(function (article) {
+    const render = function () {
+      app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
         return (`
-                <div class="container">
-                  <ul class="title">
-                  <li>${sanitizeHTML(article.title)}</li>
-                  <a class="link" href="${sanitizeHTML(article.url)}" target="_blank">Read more</a>
-                  </ul>
-                </div>
-                <br>
-                `);
-      }).join('')
+          <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
+        `)
+      }).join('') + '</div>';
     };
 
-    const getLastNStories = function (articles) {
-      return articles.slice(0, articleNum)
+    const shuffleArr = function (arr) {
+      var currentIndex = arr.length;
+      var temporaryValue, randomIndex;
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = arr[currentIndex];
+        arr[currentIndex] = arr[randomIndex];
+        arr[randomIndex] = temporaryValue;
+      }
+      render();
+      return arr;
     }
 
-    const getStories = function (section) {
-      fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
-        function (response, resolve) {
-          if (response.ok) {
-            return response.json();
-          } else {
-            return Promise.reject(response);
-          };
-        }).then(function (data) {
-        const lastNStories = getLastNStories(data.results);
-        render(lastNStories, section);
-      }).catch(response => {
-        console.log("something went wrong", response);
-        appOutput.textContent = "Something went wrong...";
-      });
-    };
+    const replaceTargetElement = function (e) {
+      const monster = e.target.closest('[data-id]');
+      if (!monster) return;
+      const monsterID = monster.getAttribute('data-id');
+      monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="../img/${monsterID}.svg"/>`
+    }
 
-    sections.forEach(function (section) {
-      getStories(section);
+    document.addEventListener('click', replaceTargetElement);
+
+    shuffleBtn.addEventListener('click', function () {
+      shuffleArr(monsters);
     });
   </script>
 
@@ -181,12 +225,12 @@
 
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;placeholder&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;monsters&quot;</span>&gt;</span>Click to load and play!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-small text-muted&quot;</span>&gt;</span>Icons by</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/door/311732/&quot;</span>&gt;</span>Jamie Dickinson<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/184225/&quot;</span>&gt;</span>Nicky Knicky<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/1510400/&quot;</span>&gt;</span>Alvaro Cabrera<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/28460/&quot;</span>&gt;</span>Eliricon<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/82823/&quot;</span>&gt;</span>April Yang<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/1062009/&quot;</span>&gt;</span>tk66<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/24990/&quot;</span>&gt;</span>Alex WaZa<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/37212/&quot;</span>&gt;</span>Husein Aziz<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/2236082&quot;</span>&gt;</span>iconcheese<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    and <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/socks/38451/&quot;</span>&gt;</span>Yazmin Alanis<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 </div>
 <div class="js-container">
 
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Before rendering API data into the DOM as markup, </span></span><br><span class="line"><span class="comment">sanitize it to protect yourself from any malicious code that might get sent back. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> apiKey = <span class="string">&#x27;T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> sections = [<span class="string">&#x27;Technology&#x27;</span>, <span class="string">&#x27;Science&#x27;</span>, <span class="string">&#x27;Magazine&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> articleNum = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">articles, section</span>) </span>&#123;</span><br><span class="line">  appOutput.innerHTML += <span class="string">&#x27;&lt;h3 class=&quot;category&quot;&gt;&#x27;</span> + section + <span class="string">&#x27;:&#x27;</span> + <span class="string">&#x27;&lt;/h3&gt;&#x27;</span> + articles.map(<span class="function"><span class="keyword">function</span> (<span class="params">article</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">            &lt;div class=&quot;container&quot;&gt;</span></span><br><span class="line"><span class="string">              &lt;ul class=&quot;title&quot;&gt;</span></span><br><span class="line"><span class="string">              &lt;li&gt;<span class="subst">$&#123;sanitizeHTML(article.url)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">              &lt;a class=&quot;link&quot; href=&quot;<span class="subst">$&#123;sanitizeHTML(article.url)&#125;</span>&quot; target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;</span></span><br><span class="line"><span class="string">              &lt;/ul&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;br&gt;</span></span><br><span class="line"><span class="string">            `</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getLastNStories = <span class="function"><span class="keyword">function</span> (<span class="params">articles</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> articles.slice(<span class="number">0</span>, articleNum)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getStories = <span class="function"><span class="keyword">function</span> (<span class="params">section</span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">`https://api.nytimes.com/svc/topstories/v2/<span class="subst">$&#123;section&#125;</span>.json?api-key=<span class="subst">$&#123;apiKey&#125;</span>`</span>).then(</span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">response, resolve</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">        <span class="keyword">return</span> response.json();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> lastNStories = getLastNStories(data.results);</span><br><span class="line">    render(lastNStories, section);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;something went wrong&quot;</span>, response);</span><br><span class="line">    appOutput.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">sections.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">section</span>) </span>&#123;</span><br><span class="line">  getStories(section);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Display this image by default, and reveal the monster behind it after it’s clicked.</span></span><br><span class="line"><span class="comment">People who navigate the web with a keyboard or use a screen reader</span></span><br><span class="line"><span class="comment">should still be able to play this game. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shuffleBtn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> monsters = [</span><br><span class="line">  <span class="string">&#x27;monster1&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster2&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster3&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster4&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster5&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster6&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster7&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster8&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster9&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster10&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster11&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;sock&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  app.innerHTML = <span class="string">&#x27;&lt;p&gt;Click a door to reveal a monster. Try not to find the sock.&lt;/p&gt;&lt;div class=&quot;row&quot;&gt;&#x27;</span> + monsters.map(<span class="function"><span class="params">monster</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div class=&quot;grid&quot; aria-live=&quot;polite&quot;&gt;&lt;button class=&quot;show_button&quot; data-id=&quot;<span class="subst">$&#123;monster&#125;</span>&quot;&gt;&lt;img alt= &quot;Click this picture of door to see monster&quot; src=&quot;../img/door.svg&quot;/&gt;&lt;/button&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>)</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shuffleArr = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> currentIndex = arr.length;</span><br><span class="line">  <span class="keyword">var</span> temporaryValue, randomIndex;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (<span class="number">0</span> !== currentIndex) &#123;</span><br><span class="line">    randomIndex = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * currentIndex);</span><br><span class="line">    currentIndex -= <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    temporaryValue = arr[currentIndex];</span><br><span class="line">    arr[currentIndex] = arr[randomIndex];</span><br><span class="line">    arr[randomIndex] = temporaryValue;</span><br><span class="line">  &#125;</span><br><span class="line">  render();</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> replaceTargetElement = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> monster = e.target.closest(<span class="string">&#x27;[data-id]&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (!monster) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">const</span> monsterID = monster.getAttribute(<span class="string">&#x27;data-id&#x27;</span>);</span><br><span class="line">  monster.parentNode.innerHTML = <span class="string">`&lt;img alt=&quot;A picture of <span class="subst">$&#123;monsterID&#125;</span>&quot; src=&quot;../img/<span class="subst">$&#123;monsterID&#125;</span>.svg&quot;/&gt;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;click&#x27;</span>, replaceTargetElement);</span><br><span class="line"></span><br><span class="line">shuffleBtn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  shuffleArr(monsters);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 </div>
 
@@ -200,7 +244,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/7/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/6/">6</a><a class="page-number" href="/vanilla-js-academy/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/vanilla-js-academy/page/9/">9</a><a class="page-number" href="/vanilla-js-academy/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/9/">Next</a>
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/7/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/6/">6</a><a class="page-number" href="/vanilla-js-academy/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/vanilla-js-academy/page/9/">9</a><a class="page-number" href="/vanilla-js-academy/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/9/">Next</a>
   </nav>
 
 </section>
@@ -230,6 +274,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/17/weather-app-plugin/">19. Weather App Plugin</a>
+          </li>
         
           <li>
             <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>

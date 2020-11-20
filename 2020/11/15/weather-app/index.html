@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="Vanilla JS Academy">
 <meta property="og:description" content="#app {       margin-top: 10px;     }      .weather_container {       display: flex;       flex-direction: column;       align-items: center;     }      .weather_icon {       margin: 0 !import">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://openweathermap.org/img/wn/${icon}@2x.png">
+<meta property="og:image" content="https://openweathermap.org/img/wn/${sanitizeHTML(icon)}@2x.png">
 <meta property="article:published_time" content="2020-11-14T23:00:00.000Z">
-<meta property="article:modified_time" content="2020-11-15T17:40:11.649Z">
+<meta property="article:modified_time" content="2020-11-17T19:42:09.649Z">
 <meta property="article:author" content="Tomasz Przyborowski">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://openweathermap.org/img/wn/${icon}@2x.png">
+<meta name="twitter:image" content="https://openweathermap.org/img/wn/${sanitizeHTML(icon)}@2x.png">
   
     <link rel="alternate" href="/vanilla-js-academy/atom.xml" title="Vanilla JS Academy" type="application/atom+xml">
   
@@ -111,8 +111,7 @@
     }
 
     .weather_city-name {
-      text-transform: uppercase;
-      font-size: 2em !important;
+      font-size: 2.4em !important;
       margin: 10px 0 0 !important;
     }
 
@@ -132,13 +131,19 @@
     const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
     let userCity;
 
+    const sanitizeHTML = function (str) {
+      return str.replace(/[^\w. ]/gi, function (c) {
+        return '&#' + c.charCodeAt(0) + ';';
+      });
+    }
+
     const render = function (icon, temp, city, sky) {
       app.innerHTML = (`
       <div class="weather_container">
-        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${icon}@2x.png"></div>
+        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${sanitizeHTML(icon)}@2x.png"></div>
         <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${city}</h4>
-        <p class="weather_desc">${sky}</p>
+        <h4 class="weather_city-name">${sanitizeHTML(city)}</h4>
+        <p class="weather_desc">${sanitizeHTML(sky)}</p>
       </div>
       `)
     };
@@ -219,6 +224,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/17/weather-app-plugin/">19. Weather App Plugin</a>
+          </li>
         
           <li>
             <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
