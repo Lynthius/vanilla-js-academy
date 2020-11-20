@@ -76,9 +76,24 @@ date: 2020-11-19 20:27:19
         })
       };
 
-      const addClassToElem = function (element, newClass) {
-        // console.log(`${class} class added to ${element}`);
-        return element.classList.add(newClass);
+      const addClassToElem = function (elements, newClass) {
+        if (nodeToArr(elements).length == 0) {
+        return elements.classList.add(newClass);
+        } else {
+          return nodeToArr(elements).map(element => {
+            element.classList.add(newClass);
+          })
+        }
+      };
+
+      const removeClassFromElement = function (elements, newClass) {
+        if (nodeToArr(elements).length == 0) {
+        return elements.classList.remove(newClass);
+        } else {
+          return nodeToArr(elements).map(element => {
+            element.classList.remove(newClass);
+          })
+        }
       };
 
       // Public methods
@@ -94,9 +109,13 @@ date: 2020-11-19 20:27:19
         return getAllMatches(elements, match);
       };
 
-      methods.addClass = function (element, newClass) {
-        return addClassToElem(element, newClass);
+      methods.addClass = function (elements, newClass) {
+        return addClassToElem(elements, newClass);
       };
+
+      methods.removeClass = function (elements, newClass) {
+        return removeClassFromElement(elements, newClass);
+      }
 
       return methods;
     })();
@@ -105,7 +124,8 @@ date: 2020-11-19 20:27:19
     // helperMethod.transformToArray(btns);
     // helperMethod.firstMatch(btn2, '.here-is-johnny');
     // helperMethod.allMatches(btns, '.here-is-johnny');
-    helperMethod.addClass(btn2, 'btn-purple');
+    // helperMethod.addClass(btns, 'btn-purple');
+    // helperMethod.removeClass(btn2, 'btn-purple');
   </script>
 
 </div>
@@ -126,6 +146,85 @@ date: 2020-11-19 20:27:19
 ```JS
 /* In today’s project, we’re going to create a helper library. */
 
+const btns = document.querySelectorAll('.button');
+const btn2 = document.querySelector('#button-2');
+
+const helperMethod = (function () {
+
+  // Hold public methdos here
+  const methods = {};
+
+  // Private methods
+  const nodeToArr = function (node) {
+    return Array.prototype.slice.call(node);
+  };
+
+  const getFirstMatch = function (element, match) {
+    console.log(element.closest(match));
+    return element.closest(match);
+  };
+
+  const getAllMatches = function (elements, match) {
+    nodeToArr(elements).map(element => {
+      if (element.matches(match)) {
+        console.log(element);
+        return element;
+      } else {
+        console.log('Not a match');
+      };
+    })
+  };
+
+  const addClassToElem = function (elements, newClass) {
+    if (nodeToArr(elements).length == 0) {
+    return elements.classList.add(newClass);
+    } else {
+      return nodeToArr(elements).map(element => {
+        element.classList.add(newClass);
+      })
+    }
+  };
+
+  const removeClassFromElement = function (elements, newClass) {
+    if (nodeToArr(elements).length == 0) {
+    return elements.classList.remove(newClass);
+    } else {
+      return nodeToArr(elements).map(element => {
+        element.classList.remove(newClass);
+      })
+    }
+  };
+
+  // Public methods
+  methods.transformToArray = function (node) {
+    return nodeToArr(node);
+  };
+
+  methods.firstMatch = function (element, match) {
+    return getFirstMatch(element, match);
+  };
+
+  methods.allMatches = function (elements, match) {
+    return getAllMatches(elements, match);
+  };
+
+  methods.addClass = function (elements, newClass) {
+    return addClassToElem(elements, newClass);
+  };
+
+  methods.removeClass = function (elements, newClass) {
+    return removeClassFromElement(elements, newClass);
+  }
+
+  return methods;
+})();
+
+// Check the console logs in dev tools
+// helperMethod.transformToArray(btns);
+// helperMethod.firstMatch(btn2, '.here-is-johnny');
+// helperMethod.allMatches(btns, '.here-is-johnny');
+// helperMethod.addClass(btns, 'btn-purple');
+// helperMethod.removeClass(btn2, 'btn-purple');
 ```
 
 </div>
