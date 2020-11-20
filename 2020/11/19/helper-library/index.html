@@ -5,17 +5,17 @@
   
 
   
-  <title>Vanilla JS Academy</title>
+  <title>20. Helper Library | Vanilla JS Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Vanilla JS Academy">
-<<<<<<< HEAD
-<meta property="og:url" content="http://lynthius.github.io/index.html">
-=======
-<meta property="og:url" content="http://lynthius.github.io/vanilla-js-academy/index.html">
->>>>>>> refs/remotes/origin/main
+  <meta name="description" content=".button {       border-color: white;       outline: none;       border: none;       margin-top: 5px;       padding: 5px 10px;       border-radius: 3px;       font-weight: 600px;       cursor:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20. Helper Library">
+<meta property="og:url" content="http://lynthius.github.io/vanilla-js-academy/2020/11/19/helper-library/index.html">
 <meta property="og:site_name" content="Vanilla JS Academy">
+<meta property="og:description" content=".button {       border-color: white;       outline: none;       border: none;       margin-top: 5px;       padding: 5px 10px;       border-radius: 3px;       font-weight: 600px;       cursor:">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-19T19:27:19.000Z">
+<meta property="article:modified_time" content="2020-11-20T16:58:40.057Z">
 <meta property="article:author" content="Tomasz Przyborowski">
 <meta name="twitter:card" content="summary">
   
@@ -57,29 +57,16 @@
       <a id="nav-search-btn" class="nav-icon" title="Search"></a>
     </nav>
     <div id="search-form-wrap">
-<<<<<<< HEAD
-      <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lynthius.github.io"></form>
-=======
       <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lynthius.github.io/vanilla-js-academy"></form>
->>>>>>> refs/remotes/origin/main
     </div>
   </div>
 
 </header>
       <div class="outer">
-        <section id="main">
-  
-<<<<<<< HEAD
-    <article id="post-weather-app" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/11/15/weather-app/" class="article-date">
-  <time datetime="2020-11-14T23:00:00.000Z" itemprop="datePublished">2020-11-15</time>
-=======
-    <article id="post-helper-library" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-helper-library" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/vanilla-js-academy/2020/11/19/helper-library/" class="article-date">
   <time datetime="2020-11-19T19:27:19.000Z" itemprop="datePublished">2020-11-19</time>
->>>>>>> refs/remotes/origin/main
 </a>
   </div>
   <div class="article-inner">
@@ -88,12 +75,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-<<<<<<< HEAD
-      <a class="article-title" href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
-=======
-      <a class="article-title" href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
->>>>>>> refs/remotes/origin/main
+    <h1 class="article-title" itemprop="name">
+      20. Helper Library
     </h1>
   
 
@@ -104,92 +87,6 @@
         <div class="output-container">
 
   <style type="text/css">
-<<<<<<< HEAD
-    #app {
-      margin-top: 10px;
-    }
-
-    .weather_container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .weather_icon {
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    .weather_temperature {
-      letter-spacing: 1.5px;
-      font-size: 3.2em !important;
-      margin: 0 !important;
-    }
-
-    .weather_city-name {
-      text-transform: uppercase;
-      font-size: 2em !important;
-      margin: 10px 0 0 !important;
-    }
-
-    .weather_desc {
-      text-transform: uppercase;
-      color: #8e45ff;
-      margin: 10px 0 0 !important;
-    }
-
-  </style>
-
-  <div id="app">Checking the weather near you...</div>
-
-  <script>
-    const app = document.querySelector('#app');
-    const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
-    const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
-    let userCity;
-
-    const render = function (icon, temp, city, sky) {
-      app.innerHTML = (`
-      <div class="weather_container">
-        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${icon}@2x.png"></div>
-        <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${city}</h4>
-        <p class="weather_desc">${sky}</p>
-      </div>
-      `)
-    };
-
-    const getWeatherInfo = function () {
-      fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKeyIp}`).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (data) {
-        userCity = data.city;
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=metric`);
-      }).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (userData) {
-        userIcon = userData.weather[0].icon;
-        userTemp = userData.main.temp;
-        userCity = userData.name;
-        userSky = userData.weather[0].description;
-
-        render(userIcon, userTemp, userCity, userSky);
-      }).catch(function (err) {
-        console.warn(err);
-        app.textContent = "Something went wrong...";
-      })
-    }
-
-    getWeatherInfo();
-=======
     .button {
       border-color: white;
       outline: none;
@@ -310,29 +207,18 @@
     // helperMethod.allMatches(btns, '.here-is-johnny');
     // helperMethod.addClass(btns, 'btn-purple');
     // helperMethod.removeClass(btn2, 'btn-purple');
->>>>>>> refs/remotes/origin/main
   </script>
 
 </div>
 
-<<<<<<< HEAD
-<div class="html-container" style="border-top: .5px solid grey; margin-top: 40px;">
-
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Checking the weather near you...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-=======
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-1&quot;</span>&gt;</span>Button 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button here-is-johnny&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-2&quot;</span>&gt;</span>Button 2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-3&quot;</span>&gt;</span>Button 3<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-4&quot;</span>&gt;</span>Button 4<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-5&quot;</span>&gt;</span>Button 5<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button here-is-johnny&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-6&quot;</span>&gt;</span>Button 6<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
->>>>>>> refs/remotes/origin/main
 
 </div>
 <div class="js-container">
 
-<<<<<<< HEAD
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For today’s project, we’re going to build an app that gets a user’s location</span></span><br><span class="line"><span class="comment">and displays their current weather information. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> apiKeyIp = <span class="string">&#x27;d9f7add9f68440818a0659381720a532&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> apiKeyWeather = <span class="string">&#x27;5e995a3338fe2917188f0f98d08abcec&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> userCity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">icon, temp, city, sky</span>) </span>&#123;</span><br><span class="line">  app.innerHTML = (<span class="string">`</span></span><br><span class="line"><span class="string">  &lt;div class=&quot;weather_container&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;weather_icon&quot;&gt;&lt;img src=&quot;http://openweathermap.org/img/wn/<span class="subst">$&#123;icon&#125;</span>@2x.png&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;h3 class=&quot;weather_temperature&quot;&gt;<span class="subst">$&#123;<span class="built_in">Math</span>.round(temp)&#125;</span> &amp;#x2103;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;h4 class=&quot;weather_city-name&quot;&gt;<span class="subst">$&#123;city&#125;</span>&lt;/h4&gt;</span></span><br><span class="line"><span class="string">    &lt;p class=&quot;weather_desc&quot;&gt;<span class="subst">$&#123;sky&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getWeatherInfo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">`https://api.ipgeolocation.io/ipgeo?apiKey=<span class="subst">$&#123;apiKeyIp&#125;</span>`</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    userCity = data.city;</span><br><span class="line">    <span class="keyword">return</span> fetch(<span class="string">`http://api.openweathermap.org/data/2.5/weather?q=<span class="subst">$&#123;userCity&#125;</span>&amp;appid=<span class="subst">$&#123;apiKeyWeather&#125;</span>&amp;units=metric`</span>);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">userData</span>) </span>&#123;</span><br><span class="line">    userIcon = userData.weather[<span class="number">0</span>].icon;</span><br><span class="line">    userTemp = userData.main.temp;</span><br><span class="line">    userCity = userData.name;</span><br><span class="line">    userSky = userData.weather[<span class="number">0</span>].description;</span><br><span class="line"></span><br><span class="line">    render(userIcon, userTemp, userCity, userSky);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(err);</span><br><span class="line">    app.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getWeatherInfo();</span><br></pre></td></tr></table></figure>
-=======
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* In today’s project, we’re going to create a helper library. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;.button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> btn2 = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#button-2&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> helperMethod = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Hold public methdos here</span></span><br><span class="line">  <span class="keyword">const</span> methods = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Private methods</span></span><br><span class="line">  <span class="keyword">const</span> nodeToArr = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(node);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> getFirstMatch = <span class="function"><span class="keyword">function</span> (<span class="params">element, match</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(element.closest(match));</span><br><span class="line">    <span class="keyword">return</span> element.closest(match);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> getAllMatches = <span class="function"><span class="keyword">function</span> (<span class="params">elements, match</span>) </span>&#123;</span><br><span class="line">    nodeToArr(elements).map(<span class="function"><span class="params">element</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (element.matches(match)) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(element);</span><br><span class="line">        <span class="keyword">return</span> element;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Not a match&#x27;</span>);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> addClassToElem = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nodeToArr(elements).length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> elements.classList.add(newClass);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> nodeToArr(elements).map(<span class="function"><span class="params">element</span> =&gt;</span> &#123;</span><br><span class="line">        element.classList.add(newClass);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> removeClassFromElement = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nodeToArr(elements).length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> elements.classList.remove(newClass);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> nodeToArr(elements).map(<span class="function"><span class="params">element</span> =&gt;</span> &#123;</span><br><span class="line">        element.classList.remove(newClass);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Public methods</span></span><br><span class="line">  methods.transformToArray = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> nodeToArr(node);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.firstMatch = <span class="function"><span class="keyword">function</span> (<span class="params">element, match</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getFirstMatch(element, match);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.allMatches = <span class="function"><span class="keyword">function</span> (<span class="params">elements, match</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getAllMatches(elements, match);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.addClass = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> addClassToElem(elements, newClass);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.removeClass = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> removeClassFromElement(elements, newClass);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> methods;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the console logs in dev tools</span></span><br><span class="line"><span class="comment">// helperMethod.transformToArray(btns);</span></span><br><span class="line"><span class="comment">// helperMethod.firstMatch(btn2, &#x27;.here-is-johnny&#x27;);</span></span><br><span class="line"><span class="comment">// helperMethod.allMatches(btns, &#x27;.here-is-johnny&#x27;);</span></span><br><span class="line"><span class="comment">// helperMethod.addClass(btns, &#x27;btn-purple&#x27;);</span></span><br><span class="line"><span class="comment">// helperMethod.removeClass(btn2, &#x27;btn-purple&#x27;);</span></span><br></pre></td></tr></table></figure>
->>>>>>> refs/remotes/origin/main
 
 </div>
 
@@ -340,20 +226,7 @@
     </div>
   </div>
 
-</article>
-  
-
-
-  <nav id="page-nav">
-    
-<<<<<<< HEAD
-    <span class="page-number current">1</span><a class="page-number" href="/vanilla-js-academy/page/2/">2</a><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/2/">Next</a>
-=======
-    <span class="page-number current">1</span><a class="page-number" href="/vanilla-js-academy/page/2/">2</a><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/2/">Next</a>
->>>>>>> refs/remotes/origin/main
-  </nav>
-
-</section>
+</article></section>
         
           <aside id="sidebar">
   
@@ -382,8 +255,6 @@
       <ul>
         
           <li>
-<<<<<<< HEAD
-=======
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
           </li>
         
@@ -392,7 +263,6 @@
           </li>
         
           <li>
->>>>>>> refs/remotes/origin/main
             <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
           </li>
         
