@@ -58,60 +58,33 @@ date: 2020-11-21 20:27:19
       };
 
       // Immutable copy of the matching elements
-      Constructor.prototype.items {
+      Constructor.prototype.items = function () {
         return Array.prototype.slice.call(this.elements);
       };
 
       // Get first item
-      Constructor.prototype.first {
+      Constructor.prototype.first = function () {
         return this.elements[0];
       }
 
       // Get last item
-      Constructor.prototype.first {
+      Constructor.prototype.last = function () {
         return this.elements[this.elements.length - 1];
       }
 
-      const addClassToElem = function (elements, newClass) {
-        if (nodeToArr(elements).length == 0) {
-        return elements.classList.add(newClass);
-        } else {
-          return nodeToArr(elements).map(element => {
-            element.classList.add(newClass);
-          })
-        }
+      // Add class to element
+      Constructor.prototype.addClass = function (newClass) {
+        this.items().forEach(element => {
+          element.classList.add(newClass)
+        })
       };
 
-      const removeClassFromElement = function (elements, newClass) {
-        if (nodeToArr(elements).length == 0) {
-        return elements.classList.remove(newClass);
-        } else {
-          return nodeToArr(elements).map(element => {
-            element.classList.remove(newClass);
-          })
-        }
+      // Remove class from element
+      Constructor.prototype.addClass = function (newClass) {
+        this.items().forEach(element => {
+          element.classList.remove(newClass)
+        })
       };
-
-      // Public methods
-      methods.transformToArray = function (node) {
-        return nodeToArr(node);
-      };
-
-      methods.firstMatch = function (element, match) {
-        return getFirstMatch(element, match);
-      };
-
-      methods.allMatches = function (elements, match) {
-        return getAllMatches(elements, match);
-      };
-
-      methods.addClass = function (elements, newClass) {
-        return addClassToElem(elements, newClass);
-      };
-
-      methods.removeClass = function (elements, newClass) {
-        return removeClassFromElement(elements, newClass);
-      }
 
       return Constructor;
     })();
