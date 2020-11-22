@@ -125,85 +125,55 @@ date: 2020-11-21 20:27:19
 /* For today’s project, we’re going to build a small DOM manipulation library
 (a bit like a small, personal jQuery). */
 
-const btns = document.querySelectorAll('.button');
-const btn2 = document.querySelector('#button-2');
+const $ = (function () {
 
-const helperMethod = (function () {
-
-  // Hold public methdos here
-  const methods = {};
-
-  // Private methods
-  const nodeToArr = function (node) {
-    return Array.prototype.slice.call(node);
+  // Create Constructor function here
+  const Constructor = function (selector) {
+    this.elements = document.querySelectorAll(selector)
   };
 
-  const getFirstMatch = function (element, match) {
-    console.log(element.closest(match));
-    return element.closest(match);
+  // Immutable copy of the matching elements
+  Constructor.prototype.items = function () {
+    return Array.prototype.slice.call(this.elements);
   };
 
-  const getAllMatches = function (elements, match) {
-    nodeToArr(elements).map(element => {
-      if (element.matches(match)) {
-        console.log(element);
-        return element;
-      } else {
-        console.log('Not a match');
-      };
+  // Get first item
+  Constructor.prototype.first = function () {
+    return this.elements[0];
+  }
+
+  // Get last item
+  Constructor.prototype.last = function () {
+    return this.elements[this.elements.length - 1];
+  }
+
+  // Add class to element
+  Constructor.prototype.addClass = function (newClass) {
+    this.items().forEach(element => {
+      element.classList.add(newClass)
     })
   };
 
-  const addClassToElem = function (elements, newClass) {
-    if (nodeToArr(elements).length == 0) {
-    return elements.classList.add(newClass);
-    } else {
-      return nodeToArr(elements).map(element => {
-        element.classList.add(newClass);
-      })
-    }
+  // Remove class from element
+  Constructor.prototype.removeClass = function (newClass) {
+    this.items().forEach(element => {
+      element.classList.remove(newClass)
+    })
   };
 
-  const removeClassFromElement = function (elements, newClass) {
-    if (nodeToArr(elements).length == 0) {
-    return elements.classList.remove(newClass);
-    } else {
-      return nodeToArr(elements).map(element => {
-        element.classList.remove(newClass);
-      })
-    }
-  };
-
-  // Public methods
-  methods.transformToArray = function (node) {
-    return nodeToArr(node);
-  };
-
-  methods.firstMatch = function (element, match) {
-    return getFirstMatch(element, match);
-  };
-
-  methods.allMatches = function (elements, match) {
-    return getAllMatches(elements, match);
-  };
-
-  methods.addClass = function (elements, newClass) {
-    return addClassToElem(elements, newClass);
-  };
-
-  methods.removeClass = function (elements, newClass) {
-    return removeClassFromElement(elements, newClass);
-  }
-
-  return methods;
+  return Constructor;
 })();
 
-// Check the console logs in dev tools
-// helperMethod.transformToArray(btns);
-// helperMethod.firstMatch(btn2, '.here-is-johnny');
-// helperMethod.allMatches(btns, '.here-is-johnny');
-// helperMethod.addClass(btns, 'btn-purple');
-// helperMethod.removeClass(btn2, 'btn-purple');
-```
+// Create new instance
+const btns = new $('.button')
 
+// Check the console logs in dev tools
+console.log('$.items()', btns.items())
+console.log('$.first()', btns.first())
+console.log('$.last()', btns.last())
+
+// Add and remove class
+btns.addClass('btn-purple');
+btns.removeClass('btn-blue');
+```
 </div>
