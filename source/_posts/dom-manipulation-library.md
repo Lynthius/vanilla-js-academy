@@ -57,26 +57,20 @@ date: 2020-11-21 20:27:19
         this.elements = document.querySelectorAll(selector)
       };
 
-      // Private methods
-      const nodeToArr = function (node) {
-        return Array.prototype.slice.call(node);
+      // Immutable copy of the matching elements
+      Constructor.prototype.items {
+        return Array.prototype.slice.call(this.elements);
       };
 
-      const getFirstMatch = function (element, match) {
-        console.log(element.closest(match));
-        return element.closest(match);
-      };
+      // Get first item
+      Constructor.prototype.first {
+        return this.elements[0];
+      }
 
-      const getAllMatches = function (elements, match) {
-        nodeToArr(elements).map(element => {
-          if (element.matches(match)) {
-            console.log(element);
-            return element;
-          } else {
-            console.log('Not a match');
-          };
-        })
-      };
+      // Get last item
+      Constructor.prototype.first {
+        return this.elements[this.elements.length - 1];
+      }
 
       const addClassToElem = function (elements, newClass) {
         if (nodeToArr(elements).length == 0) {
@@ -119,7 +113,7 @@ date: 2020-11-21 20:27:19
         return removeClassFromElement(elements, newClass);
       }
 
-      return methods;
+      return Constructor;
     })();
 
     // Check the console logs in dev tools
