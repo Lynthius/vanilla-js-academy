@@ -50,10 +50,12 @@ date: 2020-11-21 20:27:19
     const btns = document.querySelectorAll('.button');
     const btn2 = document.querySelector('#button-2');
 
-    const helperMethod = (function () {
+    const $ = (function () {
 
-      // Hold public methdos here
-      const methods = {};
+      // Create Constructor function here
+      const Constructor = function (selector) {
+        this.elements = document.querySelectorAll(selector)
+      };
 
       // Private methods
       const nodeToArr = function (node) {
