@@ -61,19 +61,11 @@ date: 2020-11-19 20:27:19
       };
 
       const getFirstMatch = function (element, match) {
-        console.log(element.closest(match));
         return element.closest(match);
       };
 
-      const getAllMatches = function (elements, match) {
-        nodeToArr(elements).map(element => {
-          if (element.matches(match)) {
-            console.log(element);
-            return element;
-          } else {
-            console.log('Not a match');
-          };
-        })
+      const getAllMatches = function (match) {
+        return nodeToArr(document.querySelectorAll(match));
       };
 
       const addClassToElem = function (elements, newClass) {
@@ -105,8 +97,8 @@ date: 2020-11-19 20:27:19
         return getFirstMatch(element, match);
       };
 
-      methods.allMatches = function (elements, match) {
-        return getAllMatches(elements, match);
+      methods.allMatches = function (match) {
+        return getAllMatches(match);
       };
 
       methods.addClass = function (elements, newClass) {
@@ -121,11 +113,13 @@ date: 2020-11-19 20:27:19
     })();
 
     // Check the console logs in dev tools
-    // helperMethod.transformToArray(btns);
-    // helperMethod.firstMatch(btn2, '.here-is-johnny');
-    // helperMethod.allMatches(btns, '.here-is-johnny');
-    // helperMethod.addClass(btns, 'btn-purple');
-    // helperMethod.removeClass(btn2, 'btn-purple');
+    console.log('helperMethod.transformToArray(btns)', helperMethod.transformToArray(btns));
+    console.log('helperMethod.firstMatch(btn2, ".here-is-johnny")', helperMethod.firstMatch(btn2, '.here-is-johnny'));
+    console.log('helperMethod.allMatches(".here-is-johnny")', helperMethod.allMatches('.here-is-johnny'));
+
+    // Add and remove classes
+    helperMethod.addClass(btns, 'btn-purple');
+    helperMethod.removeClass(btn2, 'btn-purple');
   </script>
 
 </div>
@@ -167,19 +161,11 @@ const helperMethod = (function () {
   };
 
   const getFirstMatch = function (element, match) {
-    console.log(element.closest(match));
     return element.closest(match);
   };
 
-  const getAllMatches = function (elements, match) {
-    nodeToArr(elements).map(element => {
-      if (element.matches(match)) {
-        console.log(element);
-        return element;
-      } else {
-        console.log('Not a match');
-      };
-    })
+  const getAllMatches = function (match) {
+    return nodeToArr(document.querySelectorAll(match));
   };
 
   const addClassToElem = function (elements, newClass) {
@@ -211,8 +197,8 @@ const helperMethod = (function () {
     return getFirstMatch(element, match);
   };
 
-  methods.allMatches = function (elements, match) {
-    return getAllMatches(elements, match);
+  methods.allMatches = function (match) {
+    return getAllMatches(match);
   };
 
   methods.addClass = function (elements, newClass) {
@@ -227,11 +213,13 @@ const helperMethod = (function () {
 })();
 
 // Check the console logs in dev tools
-// helperMethod.transformToArray(btns);
-// helperMethod.firstMatch(btn2, '.here-is-johnny');
-// helperMethod.allMatches(btns, '.here-is-johnny');
-// helperMethod.addClass(btns, 'btn-purple');
-// helperMethod.removeClass(btn2, 'btn-purple');
+console.log('helperMethod.transformToArray(btns)', helperMethod.transformToArray(btns));
+console.log('helperMethod.firstMatch(btn2, ".here-is-johnny")', helperMethod.firstMatch(btn2, '.here-is-johnny'));
+console.log('helperMethod.allMatches(".here-is-johnny")', helperMethod.allMatches('.here-is-johnny'));
+
+// Add and remove classes
+helperMethod.addClass(btns, 'btn-purple');
+helperMethod.removeClass(btn2, 'btn-purple');
 ```
 
 </div>

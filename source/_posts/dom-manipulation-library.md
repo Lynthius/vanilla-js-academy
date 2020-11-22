@@ -51,7 +51,7 @@ date: 2020-11-21 20:27:19
 
       // Create Constructor function here
       const Constructor = function (selector) {
-        this.elements = document.querySelectorAll(selector)
+        this.elements = document.querySelectorAll(selector);
       };
 
       // Immutable copy of the matching elements
@@ -72,14 +72,14 @@ date: 2020-11-21 20:27:19
       // Add class to element
       Constructor.prototype.addClass = function (newClass) {
         this.items().forEach(element => {
-          element.classList.add(newClass)
+          element.classList.add(newClass);
         })
       };
 
       // Remove class from element
       Constructor.prototype.removeClass = function (newClass) {
         this.items().forEach(element => {
-          element.classList.remove(newClass)
+          element.classList.remove(newClass);
         })
       };
 
@@ -87,12 +87,12 @@ date: 2020-11-21 20:27:19
     })();
 
     // Create new instance
-    const btns = new $('.button')
+    const btns = new $('.button');
 
     // Check the console logs in dev tools
-    console.log('$.items()', btns.items())
-    console.log('$.first()', btns.first())
-    console.log('$.last()', btns.last())
+    console.log('$.items()', btns.items());
+    console.log('$.first()', btns.first());
+    console.log('$.last()', btns.last());
 
     // Add and remove class
     btns.addClass('btn-purple');
@@ -129,7 +129,7 @@ const $ = (function () {
 
   // Create Constructor function here
   const Constructor = function (selector) {
-    this.elements = document.querySelectorAll(selector)
+    this.elements = document.querySelectorAll(selector);
   };
 
   // Immutable copy of the matching elements
@@ -150,14 +150,14 @@ const $ = (function () {
   // Add class to element
   Constructor.prototype.addClass = function (newClass) {
     this.items().forEach(element => {
-      element.classList.add(newClass)
+      element.classList.add(newClass);
     })
   };
 
   // Remove class from element
   Constructor.prototype.removeClass = function (newClass) {
     this.items().forEach(element => {
-      element.classList.remove(newClass)
+      element.classList.remove(newClass);
     })
   };
 
@@ -168,9 +168,9 @@ const $ = (function () {
 const btns = new $('.button')
 
 // Check the console logs in dev tools
-console.log('$.items()', btns.items())
-console.log('$.first()', btns.first())
-console.log('$.last()', btns.last())
+console.log('$.items()', btns.items());
+console.log('$.first()', btns.first());
+console.log('$.last()', btns.last());
 
 // Add and remove class
 btns.addClass('btn-purple');
