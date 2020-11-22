@@ -47,9 +47,6 @@ date: 2020-11-21 20:27:19
   </p>
 
   <script>
-    const btns = document.querySelectorAll('.button');
-    const btn2 = document.querySelector('#button-2');
-
     const $ = (function () {
 
       // Create Constructor function here
@@ -80,7 +77,7 @@ date: 2020-11-21 20:27:19
       };
 
       // Remove class from element
-      Constructor.prototype.addClass = function (newClass) {
+      Constructor.prototype.removeClass = function (newClass) {
         this.items().forEach(element => {
           element.classList.remove(newClass)
         })
@@ -89,12 +86,17 @@ date: 2020-11-21 20:27:19
       return Constructor;
     })();
 
+    // Create new instance
+    const btns = new $('.button')
+
     // Check the console logs in dev tools
-    // helperMethod.transformToArray(btns);
-    // helperMethod.firstMatch(btn2, '.here-is-johnny');
-    // helperMethod.allMatches(btns, '.here-is-johnny');
-    // helperMethod.addClass(btns, 'btn-purple');
-    // helperMethod.removeClass(btn2, 'btn-purple');
+    console.log('$.items()', btns.items())
+    console.log('$.first()', btns.first())
+    console.log('$.last()', btns.last())
+
+    // Add and remove class
+    btns.addClass('btn-purple');
+    btns.removeClass('btn-blue');
   </script>
 
 </div>
