@@ -153,6 +153,7 @@ const $ = (function () {
     this.items().forEach(element => {
       element.classList.add(newClass);
     })
+    return this;
   };
 
   // Remove class from element
@@ -160,6 +161,7 @@ const $ = (function () {
     this.items().forEach(element => {
       element.classList.remove(newClass);
     })
+    return this;
   };
 
   return Constructor;
@@ -174,7 +176,6 @@ console.log('$.first()', btns.first());
 console.log('$.last()', btns.last());
 
 // Add and remove class
-btns.addClass('btn-purple');
-btns.removeClass('btn-blue');
+btns.addClass('btn-purple').removeClass('btn-blue');
 ```
 </div>
