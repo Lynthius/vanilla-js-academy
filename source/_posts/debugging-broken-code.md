@@ -103,7 +103,7 @@ date: 2020-11-25 19:05:32
           var html =
             '<div class="grid">' +
             '<button data-monster-id="' + index + '">' +
-            '<img alt="Click the door to see what\'s behind it" src="door.svg">' +
+            '<img alt="Click the door to see what\'s behind it" src="./img/door.svg">' +
             '</button>' +
             '</div>';
           return html;
@@ -139,27 +139,30 @@ date: 2020-11-25 19:05:32
     */
     var clickHandler = function (event) {
       // If a "play again" button was clicked, reset the UI and end the callback function
-      if (event.target.hasAttribute('[data-monster-play-again]')) {
+      // if (event.target.hasAttribute('[data-monster-play-again]')) { <---- broken code !!!
+      if (event.target.hasAttribute('data-monster-play-again')) {
         renderMonsters();
         return;
       }
       // Check if clicked element or it's parent has a [data-monster-id] attribute
       // If not, it's not a monster
       // return and stop running our callback function
-      var monster = event.target.closest('data-monster-id');
+      // var monster = event.target.closest('data-monster-id'); <---- broken code !!!
+      var monster = event.target.closest('[data-monster-id]');
       if (!monster) return;
       // Get the monster's index in the array
       var id = monster.getAttribute('data-monster-id');
       // If the door reveals a sock, render the lost UI
       // Then, end the callback function
-      if (monsters[id] = 'socks') {
+      // if (monsters[id] = 'socks') { <---- broken code !!!
+      if (monsters[id] === 'sock') {
         renderLost();
         return;
       }
       // Update the HTML for the button's parent element
       // This will replace the button so that the content can't be clicked again
       // We'll use the id to get the monster from our shuffled array
-      monster.parentNode.innerHTML = '<img alt="' + monsters[id] + '" src="' + monsters[id] + '.svg">';
+      monster.parentNode.innerHTML = '<img alt="' + monsters[id] + '" src="./img/' + monsters[id] + '.svg">';
       // Increase the number of monsters who have been found by 1
       found++;
       // If the number of monsters found is equal to the total number (-1 for the sock)
