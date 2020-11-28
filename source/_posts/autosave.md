@@ -130,26 +130,15 @@ date: 2020-11-27 16:45:14
 that automatically saves form field data as a user types. */
 
 const form = document.querySelector('#save-me');
-const name = document.querySelector('#name');
-const address = document.querySelector('#address');
-const email = document.querySelector('#email');
-const textarea = document.querySelector('#more');
+let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
 function saveInputValue (e) {
   if (e.target.length < 0 ) return;
-  // let nameValue = name.value;
-  let addressalue = address.value;
-  let emailValue = email.value;
-  let textareaValue = textarea.value;
-  localStorage.setItem(`form-${e.target.value}`, e.target.value);
-  localStorage.setItem('address', addressalue);
-  localStorage.setItem('email', emailValue);
-  localStorage.setItem('textarea', textareaValue);
+  localStorage.setItem(`form-${e.target.id}`, e.target.value);
 }
 function getInputsFromLocalStorage () {
-  // name.value = localStorage.getItem('name');
-  address.value = localStorage.getItem('address');
-  email.value = localStorage.getItem('email');
-  textarea.value = localStorage.getItem('textarea');
+  inputs.forEach(function (input){
+    input.value = localStorage.getItem(`form-${input.id}`);
+  })
 }
 function clearDataOnSubmit () {
   localStorage.clear();
