@@ -102,7 +102,11 @@ date: 2020-11-27 16:45:14
       textarea.value = localStorage.getItem('textarea');
       console.log(localStorage.getItem('email'));
     }
+    function clearDataOnSubmit () {
+      localStorage.clear();
+    }
     form.addEventListener('input', saveInputValue);
+    form.addEventListener('submit', clearDataOnSubmit);
     getInputsFromLocalStorage ();
   </script>
 
