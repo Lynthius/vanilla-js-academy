@@ -80,7 +80,30 @@ date: 2020-11-27 16:45:14
     </p>
   </form>
   <script>
-    console.log(e.target.value)
+    const form = document.querySelector('#save-me');
+    const name = document.querySelector('#name');
+    const address = document.querySelector('#address');
+    const email = document.querySelector('#email');
+    const textarea = document.querySelector('#more');
+    function saveInputValue () {
+      let nameValue = name.value;
+      let addressalue = address.value;
+      let emailValue = email.value;
+      let textareaValue = textarea.value;
+      localStorage.setItem('name', nameValue);
+      localStorage.setItem('address', addressalue);
+      localStorage.setItem('email', emailValue);
+      localStorage.setItem('textarea', textareaValue);
+    }
+    function getInputsFromLocalStorage () {
+      name.value = localStorage.getItem('name');
+      address.value = localStorage.getItem('address');
+      email.value = localStorage.getItem('email');
+      textarea.value = localStorage.getItem('textarea');
+      console.log(localStorage.getItem('email'));
+    }
+    form.addEventListener('input', saveInputValue);
+    getInputsFromLocalStorage ();
   </script>
 
 </div>
