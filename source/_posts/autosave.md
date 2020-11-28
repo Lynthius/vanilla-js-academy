@@ -100,7 +100,6 @@ date: 2020-11-27 16:45:14
       address.value = localStorage.getItem('address');
       email.value = localStorage.getItem('email');
       textarea.value = localStorage.getItem('textarea');
-      console.log(localStorage.getItem('email'));
     }
     function clearDataOnSubmit () {
       localStorage.clear();
