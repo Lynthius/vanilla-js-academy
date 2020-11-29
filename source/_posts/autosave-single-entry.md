@@ -126,8 +126,9 @@ date: 2020-11-27 16:45:14
 ## JavaScript
 
 ```JS
-/* For today’s project, we’re going to write a script
-that automatically saves form field data as a user types. */
+/* Modify the script to store all of the fields into a single array or object
+that you save and retrieve from locationStorage. To avoid conflicts with yesterday’s project,
+you might want to give the localStorage item a different key name. */
 
 const form = document.querySelector('#save-me');
 let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
