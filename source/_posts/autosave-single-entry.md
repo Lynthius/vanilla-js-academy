@@ -135,13 +135,16 @@ you might want to give the localStorage item a different key name. */
 
 const form = document.querySelector('#save-me');
 let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
+let savedInputs = {}
 function saveInputValue (e) {
   if (e.target.length < 0 ) return;
-  localStorage.setItem(`form-${e.target.id}`, e.target.value);
+  savedInputs[e.target.id] = `${e.target.value}`;
+  localStorage.setItem('form-inputs', JSON.stringify(savedInputs));
 }
 function getInputsFromLocalStorage () {
-  inputs.forEach(function (input){
-    input.value = localStorage.getItem(`form-${input.id}`);
+  savedInputs = JSON.parse(localStorage.getItem(`form-inputs`));
+  inputs.forEach(function(input) {
+    input.value = savedInputs[input.id]
   })
 }
 function clearDataOnSubmit () {
@@ -150,7 +153,6 @@ function clearDataOnSubmit () {
 form.addEventListener('input', saveInputValue);
 form.addEventListener('submit', clearDataOnSubmit);
 getInputsFromLocalStorage ();
-
 ```
 
 </div>
