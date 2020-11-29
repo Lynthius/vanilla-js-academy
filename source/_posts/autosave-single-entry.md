@@ -1,6 +1,6 @@
 ---
 title: 25. Autosave - Single Entry
-date: 2020-11-27 16:45:14
+date: 2020-11-29 16:45:14
 ---
 
 <div class="output-container">
@@ -78,11 +78,13 @@ date: 2020-11-27 16:45:14
     </p>
   </form>
   <script>
+    const savedInputs = {}
     const form = document.querySelector('#save-me');
     let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
     function saveInputValue (e) {
       if (e.target.length < 0 ) return;
-      localStorage.setItem(`form-${e.target.id}`, e.target.value);
+      savedInputs[e.target.id] = `${e.target.value}`;
+      console.log(savedInputs)
     }
     function getInputsFromLocalStorage () {
       inputs.forEach(function (input){
