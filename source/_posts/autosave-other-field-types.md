@@ -121,10 +121,10 @@ date: 2020-12-01 16:45:14
     function saveInputValue (e) {
       if (e.target.length < 0 ) return;
       savedInputs[e.target.id] = `${e.target.value}`;
-      localStorage.setItem('form-inputs', JSON.stringify(savedInputs));
+      localStorage.setItem('autosave-form-inputs', JSON.stringify(savedInputs));
     }
     function getInputsFromLocalStorage () {
-      savedInputs = JSON.parse(localStorage.getItem(`form-inputs`));
+      savedInputs = JSON.parse(localStorage.getItem(`autosave-form-inputs`));
       inputs.forEach(function(input) {
         input.value = savedInputs[input.id]
       })
@@ -197,9 +197,8 @@ date: 2020-12-01 16:45:14
 ## JavaScript
 
 ```JS
-/* Modify the script to store all of the fields into a single array or object
-that you save and retrieve from locationStorage. To avoid conflicts with yesterday’s project,
-you might want to give the localStorage item a different key name. */
+/* In today’s project, we’re going to modify our form saver script
+to handle field types beyond text inputs. */
 
 const form = document.querySelector('#save-me');
 let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
