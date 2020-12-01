@@ -62,6 +62,12 @@ date: 2020-12-01 16:45:14
       outline: none;
       box-shadow: 0 0 3px 1px #8e45ff;
     }
+
+    .select {
+      border-radius: 3px;
+      height: 22px;
+      padding: 3px 4px;
+    }
   </style>
   <p>Fill the form below.</p>
   <form class="save-me" id="save-me" autocomplete="off">
@@ -72,13 +78,14 @@ date: 2020-12-01 16:45:14
     <label class="label" for="email">Email</label>
     <input data-type="input" class="input" type="email" name="email" id="email">
     <label for="hear-about-us">How did you hear about us?</label>
-	  <select name="hear-about-us" id="hear-about-us">
+	  <select class="select" name="hear-about-us" id="hear-about-us">
       <option value=""></option>
       <option value="google">Google</option>
       <option value="referral">Referred by a Friend</option>
       <option value="tv">A TV Ad</option>
       <option value="radio">A Radio Ad</option>
 	  </select>
+    <br><br>
     <label class="label" for="more">Additional thoughts?</label>
     <textarea data-type="input" class="textarea" name="more" id="more"></textarea>
     <p><strong>Do you agree to our terms of service?</strong></p>
@@ -140,13 +147,44 @@ date: 2020-12-01 16:45:14
 <p>Fill the form below.</p>
 <form class="save-me" id="save-me" autocomplete="off">
   <label class="label" for="name">Name</label>
-  <input class="input" type="text" name="name" id="name" autocomplete="off">
+  <input data-type="input" class="input" type="text" name="name" id="name" autocomplete="off">
   <label class="label" for="address">Address</label>
-  <input class="input" type="text" name="address" id="address">
+  <input data-type="input" class="input" type="text" name="address" id="address">
   <label class="label" for="email">Email</label>
-  <input class="input" type="email" name="email" id="email">
+  <input data-type="input" class="input" type="email" name="email" id="email">
+  <label for="hear-about-us">How did you hear about us?</label>
+  <select class="select" name="hear-about-us" id="hear-about-us">
+    <option value=""></option>
+    <option value="google">Google</option>
+    <option value="referral">Referred by a Friend</option>
+    <option value="tv">A TV Ad</option>
+    <option value="radio">A Radio Ad</option>
+  </select>
+  <br><br>
   <label class="label" for="more">Additional thoughts?</label>
-  <textarea class="textarea" name="more" id="more"></textarea>
+  <textarea data-type="input" class="textarea" name="more" id="more"></textarea>
+  <p><strong>Do you agree to our terms of service?</strong></p>
+<label>
+  <input type="radio" name="tos" value="yes">
+  Yes
+</label>
+<label>
+  <input type="radio" name="tos" value="no">
+  No
+</label>
+<p><strong>Pick your favorite super heros.</strong></p>
+<label>
+  <input type="checkbox" name="spiderman">
+  Spiderman
+</label>
+<label>
+  <input type="checkbox" name="wonderwoman">
+  Wonder Woman
+</label>
+<label>
+  <input type="checkbox" name="blackpanther">
+  Black Panther
+</label>
   <p>
     <button class="button" type="submit">Submit</button>
   </p>
