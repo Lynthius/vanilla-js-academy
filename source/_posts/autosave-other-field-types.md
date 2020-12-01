@@ -117,11 +117,12 @@ date: 2020-12-01 16:45:14
   <script>
     const form = document.querySelector('#save-me');
     let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
-    let savedInputs = {}
+    let savedInputs2 = {};
     function saveInputValue (e) {
       if (e.target.length < 0 ) return;
       savedInputs[e.target.id] = `${e.target.value}`;
       localStorage.setItem('autosave-form-inputs', JSON.stringify(savedInputs));
+      console.log(savedInputs)
     }
     function getInputsFromLocalStorage () {
       savedInputs = JSON.parse(localStorage.getItem(`autosave-form-inputs`));

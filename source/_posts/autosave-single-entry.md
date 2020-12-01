@@ -79,17 +79,19 @@ date: 2020-11-29 16:45:14
   </form>
   <script>
     const form = document.querySelector('#save-me');
-    let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
-    let savedInputs = {}
     function saveInputValue (e) {
-      if (e.target.length < 0 ) return;
+      let savedInputs = localStorage.getItem('form-inputs');
+      savedInputs = savedInputs ? JSON.parse(savedInputs) : {};
       savedInputs[e.target.id] = `${e.target.value}`;
       localStorage.setItem('form-inputs', JSON.stringify(savedInputs));
     }
     function getInputsFromLocalStorage () {
-      savedInputs = JSON.parse(localStorage.getItem(`form-inputs`));
+      let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
+      let savedInputs = localStorage.getItem('form-inputs');
+      savedInputs = savedInputs ? JSON.parse(savedInputs) : {};
       inputs.forEach(function(input) {
-        input.value = savedInputs[input.id]
+      if (!savedInputs[input.id]) return;
+        input.value = savedInputs[input.id];
       })
     }
     function clearDataOnSubmit () {
