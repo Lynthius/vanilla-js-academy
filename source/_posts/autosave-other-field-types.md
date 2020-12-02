@@ -78,7 +78,7 @@ date: 2020-12-01 16:45:14
     <label class="label" for="email">Email</label>
     <input data-type="input" class="input" type="email" name="email" id="email">
     <label for="hear-about-us">How did you hear about us?</label>
-	  <select class="select" name="hear-about-us" id="hear-about-us">
+	  <select data-type="input" class="select" name="hear-about-us" id="hear-about-us">
       <option value=""></option>
       <option value="google">Google</option>
       <option value="referral">Referred by a Friend</option>
@@ -89,25 +89,23 @@ date: 2020-12-01 16:45:14
     <label class="label" for="more">Additional thoughts?</label>
     <textarea data-type="input" class="textarea" name="more" id="more"></textarea>
     <p><strong>Do you agree to our terms of service?</strong></p>
-	<label>
-		<input type="radio" name="tos" value="yes">
+	<label class="label" for="tos">
+		<input data-type="input" type="radio" name="tos" value="yes">
 		Yes
-	</label>
-	<label>
-		<input type="radio" name="tos" value="no">
+		<input data-type="input" type="radio" name="tos" value="no">
 		No
 	</label>
 	<p><strong>Pick your favorite super heros.</strong></p>
 	<label>
-		<input type="checkbox" name="spiderman">
+		<input data-type="input" type="checkbox" name="spiderman">
 		Spiderman
 	</label>
 	<label>
-		<input type="checkbox" name="wonderwoman">
+		<input data-type="input" type="checkbox" name="wonderwoman">
 		Wonder Woman
 	</label>
 	<label>
-		<input type="checkbox" name="blackpanther">
+		<input data-type="input" type="checkbox" name="blackpanther">
 		Black Panther
 	</label>
     <p>
@@ -116,26 +114,37 @@ date: 2020-12-01 16:45:14
   </form>
   <script>
     const form = document.querySelector('#save-me');
-    let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
-    let savedInputs2 = {};
-    function saveInputValue (e) {
-      if (e.target.length < 0 ) return;
-      savedInputs[e.target.id] = `${e.target.value}`;
+    function saveInputValue(e) {
+      let savedInputs = localStorage.getItem('autosave-form-inputs');
+      savedInputs = savedInputs ? JSON.parse(savedInputs) : {};
+      if (e.target.type === "checkbox") {
+        savedInputs[e.target.name] = e.target.checked ? "on" : "off";
+      } else {
+        savedInputs[e.target.name] = e.target.value;
+      }
       localStorage.setItem('autosave-form-inputs', JSON.stringify(savedInputs));
-      console.log(savedInputs)
     }
-    function getInputsFromLocalStorage () {
-      savedInputs = JSON.parse(localStorage.getItem(`autosave-form-inputs`));
-      inputs.forEach(function(input) {
-        input.value = savedInputs[input.id]
+    function getInputsFromLocalStorage() {
+      let inputs = Array.prototype.slice.call(document.querySelectorAll('[data-type="input"]'));
+      let savedInputs = localStorage.getItem('autosave-form-inputs');
+      savedInputs = savedInputs ? JSON.parse(savedInputs) : {};
+      inputs.forEach(function (input) {
+        if (!savedInputs[input.name]) return;
+        if (input.type === "checkbox") {
+          input.checked = savedInputs[input.name] === "on" ? true : false;
+        } else if (input.type === "radio") {
+          input.checked = savedInputs[input.name] === input.value ? true : false;
+        } else {
+          input.value = savedInputs[input.name];
+        }
       })
     }
-    function clearDataOnSubmit () {
+    function clearDataOnSubmit() {
       localStorage.clear();
     }
     form.addEventListener('input', saveInputValue);
     form.addEventListener('submit', clearDataOnSubmit);
-    getInputsFromLocalStorage ();
+    getInputsFromLocalStorage();
   </script>
 
 </div>
