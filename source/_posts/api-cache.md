@@ -15,8 +15,9 @@ date: 2020-12-03 18:48:32
     }
 
     .title {
-      margin-top: 0;
-      margin-bottom: 0;
+      list-style-type: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
 
     .container {
@@ -29,19 +30,28 @@ date: 2020-12-03 18:48:32
   </div>
   <script>
     const appOutput = document.querySelector('#app');
+    var numberOfArticles = 2;
     const sanitizeHTML = function (str) {
       return str.replace(/[^\w. ]/gi, function (c) {
         return '&#' + c.charCodeAt(0) + ';';
       })
     };
+    const saveToLocalStorage = function (articles) {
+      if (!articles) return;
+      localStorage.setItem('pirate-news', JSON.stringify(articles));
+    }
+    const getArticleFromLocalStorage = function () {
+      const articles = localStorage.getItem('pirate-news')
+      render(JSON.parse(articles));
+    }
     const render = function (articles) {
       appOutput.innerHTML = '<h3 class="category">Pirate articles:</h3>' + articles.map(function(article) {
         return (`
             <div class="container">
               <ul class="title">
-              <li> <strong>Title:</strong> ${sanitizeHTML(article.title)}</li>
-              <li> <strong>Author:</strong> ${sanitizeHTML(article.author)}</li>
-              <li> <strong>Publication date:</strong> ${sanitizeHTML(article.pubdate)}</li>
+                <li> <strong>Title:</strong> ${sanitizeHTML(article.title)}</li>
+                <li> <strong>Author:</strong> ${sanitizeHTML(article.author)}</li>
+                <li> <strong>Publication date:</strong> ${sanitizeHTML(article.pubdate)}</li>
               </ul>
               <div class="article"><p>${sanitizeHTML(article.article)}</p></div>
             </div>
@@ -49,6 +59,9 @@ date: 2020-12-03 18:48:32
             <br>
             `);
       }).join('');
+    }
+    const getFirstFewArticles = function (articles) {
+      return articles.slice(0, numberOfArticles);
     }
     const getNews = function () {
       fetch('https://vanillajsacademy.com/api/pirates.json').then(function(response) {
@@ -58,15 +71,15 @@ date: 2020-12-03 18:48:32
           return Promise.reject(response);
         }
       }).then(function(data) {
-        const articles = data.articles;
-        console.log(articles);
-        render(articles)
+        const articles = getFirstFewArticles(data.articles);
+        saveToLocalStorage(articles);
       }).catch(function (error) {
         console.log("something went wrong", error);
         appOutput.textContent = "Something went wrong...";
       })
     }
     getNews();
+    getArticleFromLocalStorage();
   </script>
 
 </div>
