@@ -6,21 +6,31 @@ date: 2020-12-03 18:48:32
 <div class="output-container">
 
   <style type="text/css">
+    #app {
+        margin-top: 10px;
+      }
   </style>
   <div id="app">
     Loading...
   </div>
   <script>
-    const app = document.querySelector('#app');
+    const appOutput = document.querySelector('#app');
     const getNews = function () {
       fetch('https://vanillajsacademy.com/api/pirates.json').then(function(response) {
         if (response.ok) {
           return response.json();
         } else {
-          reutrn Promise.reject(response);
+          return Promise.reject(response);
         }
-      });
+      }).then(function(data) {
+        console.log(data)
+        return data.results;
+      }).catch(function (error) {
+        console.log("something went wrong", error);
+        appOutput.textContent = "Something went wrong...";
+      })
     }
+    getNews();
   </script>
 
 </div>
