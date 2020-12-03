@@ -7,15 +7,11 @@ date: 2020-12-03 18:48:32
 
   <style type="text/css">
     #app {
-        margin-top: 10px;
-      }
-
-    .article-entry ul, .article-entry ol, .article-entry dl {
-      margin-top: 0;
+      margin-top: 10px;
     }
 
-    .category {
-      margin-top: 10px;
+    .article {
+      margin: 0;
     }
 
     .title {
@@ -26,21 +22,6 @@ date: 2020-12-03 18:48:32
     .container {
       display: flex;
       flex-direction: column;
-      max-height: 45px;
-    }
-
-    .details {
-      margin-bottom: 0;
-    }
-
-    .link {
-      text-decoration: none;
-      color: white;
-      max-width: 80px;
-    }
-
-    .link:hover {
-      text-decoration: underline;
     }
   </style>
   <div id="app">
@@ -49,23 +30,25 @@ date: 2020-12-03 18:48:32
   <script>
     const appOutput = document.querySelector('#app');
     const sanitizeHTML = function (str) {
-      return str.replace(/[^\w. ]/gi, function(c) {
+      return str.replace(/[^\w. ]/gi, function (c) {
         return '&#' + c.charCodeAt(0) + ';';
       })
     };
     const render = function (articles) {
-      appOutput.innerHTML = articles.map(function(article) {
+      appOutput.innerHTML = '<h3 class="category">Pirate articles:</h3>' + articles.map(function(article) {
         return (`
             <div class="container">
               <ul class="title">
-              <li>${sanitizeHTML(article.url)}</li>
-              <a class="link" href="${sanitizeHTML(article.url)}" target="_blank">Read more</a>
+              <li> <strong>Title:</strong> ${sanitizeHTML(article.title)}</li>
+              <li> <strong>Author:</strong> ${sanitizeHTML(article.author)}</li>
+              <li> <strong>Publication date:</strong> ${sanitizeHTML(article.pubdate)}</li>
               </ul>
+              <div class="article"><p>${sanitizeHTML(article.article)}</p></div>
             </div>
+            <hr>
             <br>
             `);
-      })
-      console.log('rendering...');
+      }).join('');
     }
     const getNews = function () {
       fetch('https://vanillajsacademy.com/api/pirates.json').then(function(response) {
@@ -75,8 +58,8 @@ date: 2020-12-03 18:48:32
           return Promise.reject(response);
         }
       }).then(function(data) {
-        console.log(data)
-        const articles = data.results;
+        const articles = data.articles;
+        console.log(articles);
         render(articles)
       }).catch(function (error) {
         console.log("something went wrong", error);
