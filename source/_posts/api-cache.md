@@ -7,8 +7,20 @@ date: 2020-12-03 18:48:32
 
   <style type="text/css">
   </style>
-
+  <div id="app">
+    Loading...
+  </div>
   <script>
+    const app = document.querySelector('#app');
+    const getNews = function () {
+      fetch('https://vanillajsacademy.com/api/pirates.json').then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          reutrn Promise.reject(response);
+        }
+      });
+    }
   </script>
 
 </div>

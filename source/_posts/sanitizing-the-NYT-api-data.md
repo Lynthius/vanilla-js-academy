@@ -78,7 +78,7 @@ date: 2020-11-01
 
     const getStories = function (section) {
       fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
-        function (response, resolve) {
+        function (response) {
           if (response.ok) {
             return response.json();
           } else {
@@ -144,7 +144,7 @@ const getLastNStories = function (articles) {
 
 const getStories = function (section) {
   fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`).then(
-    function (response, resolve) {
+    function (response) {
       if (response.ok) {
         return response.json();
       } else {
