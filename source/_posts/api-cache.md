@@ -36,13 +36,23 @@ date: 2020-12-03 18:48:32
         return '&#' + c.charCodeAt(0) + ';';
       })
     };
+    const isDataValid = function (saved, expirationDate) {
+      if (!saved || !saved.data || !saved.timestamp) return false;
+      const difference = new Date().getTime() - saved.timestamp;
+      return difference < expirationDate;
+    }
     const saveToLocalStorage = function (articles) {
       if (!articles) return;
       localStorage.setItem('pirate-news', JSON.stringify(articles));
     }
     const getArticleFromLocalStorage = function () {
-      const articles = localStorage.getItem('pirate-news')
-      render(JSON.parse(articles));
+      const articles = JSON.parse(localStorage.getItem('pirate-news'));
+      if(isDataValid(articles, 1000 * 60)) {
+        render(articles);
+      } else {
+        console.log("Nope, fetch another one");
+        // render(articles);
+      }
     }
     const render = function (articles) {
       appOutput.innerHTML = '<h3 class="category">Pirate articles:</h3>' + articles.map(function(article) {
@@ -72,6 +82,7 @@ date: 2020-12-03 18:48:32
         }
       }).then(function(data) {
         const articles = getFirstFewArticles(data.articles);
+        console.log(articles);
         saveToLocalStorage(articles);
       }).catch(function (error) {
         console.log("something went wrong", error);
