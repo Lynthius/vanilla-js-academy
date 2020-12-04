@@ -30,6 +30,7 @@ date: 2020-12-03 18:48:32
   </div>
   <script>
     const appOutput = document.querySelector('#app');
+    let storageID;
     var numberOfArticles = 2;
     const sanitizeHTML = function (str) {
       return str.replace(/[^\w. ]/gi, function (c) {
@@ -41,17 +42,18 @@ date: 2020-12-03 18:48:32
       const difference = new Date().getTime() - saved.timestamp;
       return difference < expirationDate;
     }
-    const saveToLocalStorage = function (articles) {
-      if (!articles) return;
-      localStorage.setItem('pirate-news', JSON.stringify(articles));
+    const saveData = function (data) {
+      const cache = {
+        data: data,
+        timestamp: new Date().getTime()
+      }
+      localStorage.setItem(storageID, JSON.stringify(cache));
     }
-    const getArticleFromLocalStorage = function () {
-      const articles = JSON.parse(localStorage.getItem('pirate-news'));
-      if(isDataValid(articles, 1000 * 60)) {
-        render(articles);
-      } else {
-        console.log("Nope, fetch another one");
-        // render(articles);
+    const getData = function () {
+      const saved = JSON.parse(localStorage.getItem(storageID));
+      if (!saved) return;
+      if(isDataValid(saved, 1000 * 10)) {
+        return saved.data;
       }
     }
     const render = function (articles) {
@@ -74,6 +76,14 @@ date: 2020-12-03 18:48:32
       return articles.slice(0, numberOfArticles);
     }
     const getNews = function () {
+      // Check for valid cached data,
+      // If exist, use it
+      const saved = getData();
+      if (saved) {
+        render(saved);
+        console.log("Loaded from cache");
+        return;
+      }
       fetch('https://vanillajsacademy.com/api/pirates.json').then(function(response) {
         if (response.ok) {
           return response.json();
@@ -82,15 +92,15 @@ date: 2020-12-03 18:48:32
         }
       }).then(function(data) {
         const articles = getFirstFewArticles(data.articles);
-        console.log(articles);
-        saveToLocalStorage(articles);
+        saveData(articles);
+        render(articles);
+        console.log("Fetched from API");
       }).catch(function (error) {
         console.log("something went wrong", error);
         appOutput.textContent = "Something went wrong...";
       })
     }
     getNews();
-    getArticleFromLocalStorage();
   </script>
 
 </div>
