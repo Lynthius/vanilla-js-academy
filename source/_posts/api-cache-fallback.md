@@ -116,7 +116,9 @@ date: 2020-12-05 18:48:32
 ## HTML
 
 ```HTML
-
+<div id="app">
+  Loading...
+</div>
 ```
 
 </div>
