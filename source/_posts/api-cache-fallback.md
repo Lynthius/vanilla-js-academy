@@ -43,7 +43,7 @@ date: 2020-12-05 18:48:32
       return difference < expirationDate;
     }
     const getEndpoint = function () {
-      const endpoint = 'https://vanillajsacademy.com/apix/';
+      const endpoint = 'https://vanillajsacademy.com/api/';
       const random = Math.random();
       if (random < 0.5) return endpoint + 'pirates.json';
       return endpoint + 'fail.json';
@@ -55,11 +55,14 @@ date: 2020-12-05 18:48:32
       }
       localStorage.setItem(storageID, JSON.stringify(cache));
     }
-    const getData = function () {
+    const getData = function (status) {
       const saved = JSON.parse(localStorage.getItem(storageID));
       if (!saved) return;
-      if(isDataValid(saved, 1000 * 5)) {
+      if(isDataValid(saved, 1000 * 3)) {
         return saved.data;
+      } else if (status) {
+        console.log("Fallback function worked. Data loaded from cache.");
+        render(saved.data);
       }
     }
     const render = function (articles) {
@@ -104,6 +107,8 @@ date: 2020-12-05 18:48:32
       }).catch(function (error) {
         console.log("something went wrong", error);
         appOutput.textContent = "Something went wrong...";
+        const status = true;
+        getData(status);
       })
     }
     getNews();
