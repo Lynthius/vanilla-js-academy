@@ -42,6 +42,12 @@ date: 2020-12-05 18:48:32
       const difference = new Date().getTime() - saved.timestamp;
       return difference < expirationDate;
     }
+    const getEndpoint = function () {
+      const endpoint = 'https://vanillajsacademy.com/api/';
+      const random = Math.random();
+      if (random < 0.5) return endpoint + 'pirates.json';
+      return endpoint + 'fail.json';
+    };
     const saveData = function (data) {
       const cache = {
         data: data,
@@ -84,7 +90,7 @@ date: 2020-12-05 18:48:32
         console.log("Loaded from cache");
         return;
       }
-      fetch('https://vanillajsacademy.com/api/pirates.json').then(function(response) {
+      fetch(getEndpoint()).then(function(response) {
         if (response.ok) {
           return response.json();
         } else {
