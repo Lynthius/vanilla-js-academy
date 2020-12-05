@@ -43,7 +43,7 @@ date: 2020-12-05 18:48:32
       return difference < expirationDate;
     }
     const getEndpoint = function () {
-      const endpoint = 'https://vanillajsacademy.com/api/';
+      const endpoint = 'https://vanillajsacademy.com/apix/';
       const random = Math.random();
       if (random < 0.5) return endpoint + 'pirates.json';
       return endpoint + 'fail.json';
@@ -58,7 +58,7 @@ date: 2020-12-05 18:48:32
     const getData = function () {
       const saved = JSON.parse(localStorage.getItem(storageID));
       if (!saved) return;
-      if(isDataValid(saved, 1000 * 10)) {
+      if(isDataValid(saved, 1000 * 5)) {
         return saved.data;
       }
     }
