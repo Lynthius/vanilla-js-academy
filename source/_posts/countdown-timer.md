@@ -6,9 +6,64 @@ date: 2020-12-07 18:25:46
 <div class="output-container">
 
   <style type="text/css">
-  </style>
+    #app {
+      margin-top: 20px;
+    }
 
+    .button {
+        border-color: white;
+        outline: none;
+        border: none;
+        margin-top: 5px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-weight: 600px;
+        cursor: pointer;
+      }
+
+      .button:focus {
+        border: red;
+        outline: none;
+        box-shadow: 0 0 3px 1px #8e45ff;
+      }
+
+      .button:active {
+        color: #8e45ff;
+      }
+
+      .counter {
+        color: #8e45ff;
+      }
+  </style>
+  <div id="app"></div>
   <script>
+    const Rue = function(selector, options) {
+      this.elem = document.querySelector(selector);
+      this.data = options.data;
+      this.template = options.template;
+    };
+    Rue.prototype.render = function () {
+      this.elem.innerHTML = this.template(this.data);
+    };
+    const app = new Rue('#app', {
+      data: {
+        count: 6,
+        },
+      template: function (props) {
+        if (!props) return;
+        let html = `<h2>You've got only <span class="counter">${props.count}</span> seconds!</h2>`;
+        if (props.count < 0) {
+          clearInterval(renderCountdown)
+          let html = `<h2>It's over, start again:</h2><button class="button">Start Again</button>`
+          return html;
+        }
+        props.count--
+        return html;
+      }
+    })
+    const renderCountdown = setInterval(function() {
+      app.render();
+    }, 1000);
   </script>
 
 </div>
@@ -18,7 +73,7 @@ date: 2020-12-07 18:25:46
 ## HTML
 
 ```HTML
-
+<div id="app"></div>
 ```
 
 </div>
@@ -27,6 +82,8 @@ date: 2020-12-07 18:25:46
 ## JavaScript
 
 ```JS
+/* Use state-based UI to create the timer, and countdown from 60 seconds to 0 once a second. 
+When the timer is done, stop the countdown and provide a way for users to start it again. */
 
 ```
 
