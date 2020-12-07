@@ -37,37 +37,37 @@ date: 2020-12-07 18:25:46
   </style>
   <div id="app"></div>
   <script>
-    const Rue = function(selector, options) {
-      this.elem = document.querySelector(selector);
-      this.data = options.data;
-      this.template = options.template;
-    };
-    Rue.prototype.render = function () {
-      this.elem.innerHTML = this.template(this.data);
-    };
-    Rue.prototype.count = function () {
-      this.data.count = 6;
-      this.data.counter = setInterval(function() {
+  const Rue = function (selector, options) {
+    this.elem = document.querySelector(selector);
+    this.data = options.data;
+    this.template = options.template;
+  };
+  Rue.prototype.render = function () {
+    this.elem.innerHTML = this.template(this.data);
+  };
+  Rue.prototype.counting = function () {
+    this.data.count = 6;
+    this.data.counter = setInterval(function () {
       app.render();
     }, 1000);
-    };
-    const app = new Rue('#app', {
-      data: {
-        count: 6,
-        },
-      template: function (props) {
-        if (!props) return;
-        let html = `<h2>You've got only <span class="counter">${props.count}</span> seconds!</h2>`;
-        if (props.count < 0) {
-          clearInterval(props.counter)
-          let html = `<h2>It's over, start again:</h2><button onclick="app.count()" class="button">Start Again</button>`
-          return html;
-        }
-        props.count--
+  };
+  const app = new Rue('#app', {
+    data: {
+      count: 6,
+    },
+    template: function (props) {
+      if (!props) return;
+      let html = `<h2>You've got only <span class="counter">${props.count}</span> seconds!</h2>`;
+      if (props.count < 0) {
+        clearInterval(props.counter)
+        let html = `<h2>It's over, start again:</h2><button onclick="app.counting()" class="button">Start Again</button>`
         return html;
       }
-    })
-    app.count();
+      props.count--
+      return html;
+    }
+  })
+  app.counting();
   </script>
 
 </div>
@@ -89,6 +89,37 @@ date: 2020-12-07 18:25:46
 /* Use state-based UI to create the timer, and countdown from 60 seconds to 0 once a second. 
 When the timer is done, stop the countdown and provide a way for users to start it again. */
 
+const Rue = function (selector, options) {
+  this.elem = document.querySelector(selector);
+  this.data = options.data;
+  this.template = options.template;
+};
+Rue.prototype.render = function () {
+  this.elem.innerHTML = this.template(this.data);
+};
+Rue.prototype.counting = function () {
+  this.data.count = 6;
+  this.data.counter = setInterval(function () {
+    app.render();
+  }, 1000);
+};
+const app = new Rue('#app', {
+  data: {
+    count: 6,
+  },
+  template: function (props) {
+    if (!props) return;
+    let html = `<h2>You've got only <span class="counter">${props.count}</span> seconds!</h2>`;
+    if (props.count < 0) {
+      clearInterval(props.counter)
+      let html = `<h2>It's over, start again:</h2><button onclick="app.counting()" class="button">Start Again</button>`
+      return html;
+    }
+    props.count--
+    return html;
+  }
+})
+app.counting();
 ```
 
 </div>
