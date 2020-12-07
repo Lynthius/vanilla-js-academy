@@ -45,6 +45,12 @@ date: 2020-12-07 18:25:46
     Rue.prototype.render = function () {
       this.elem.innerHTML = this.template(this.data);
     };
+    Rue.prototype.count = function () {
+      this.data.count = 6;
+      this.data.counter = setInterval(function() {
+      app.render();
+    }, 1000);
+    };
     const app = new Rue('#app', {
       data: {
         count: 6,
@@ -53,17 +59,15 @@ date: 2020-12-07 18:25:46
         if (!props) return;
         let html = `<h2>You've got only <span class="counter">${props.count}</span> seconds!</h2>`;
         if (props.count < 0) {
-          clearInterval(renderCountdown)
-          let html = `<h2>It's over, start again:</h2><button class="button">Start Again</button>`
+          clearInterval(props.counter)
+          let html = `<h2>It's over, start again:</h2><button onclick="app.count()" class="button">Start Again</button>`
           return html;
         }
         props.count--
         return html;
       }
     })
-    const renderCountdown = setInterval(function() {
-      app.render();
-    }, 1000);
+    app.count();
   </script>
 
 </div>
