@@ -37,6 +37,7 @@ date: 2020-12-07 18:25:46
   </style>
   <div id="app" aria-live="polite"></div>
   <script>
+  const duration = 6;
   const Rue = function (selector, options) {
     this.elem = document.querySelector(selector);
     this.data = options.data;
@@ -46,24 +47,24 @@ date: 2020-12-07 18:25:46
     this.elem.innerHTML = this.template(this.data);
   };
   Rue.prototype.counting = function () {
-    this.data.count = 6;
+    this.data.time = 6;
     this.data.counter = setInterval(function () {
       app.render();
     }, 1000);
   };
   const app = new Rue('#app', {
     data: {
-      count: 6,
+      time: duration,
     },
     template: function (props) {
       if (!props) return;
-      let html = `<h2>You've got only <span class="counter">${props.count}</span> seconds!</h2>`;
-      if (props.count < 0) {
+      let html = `<h2>You've got only <span class="counter">${props.time}</span> seconds!</h2>`;
+      if (props.time < 0) {
         clearInterval(props.counter)
         let html = `<h2>It's over, start again:</h2><button onclick="app.counting()" class="button">Start Again</button>`
         return html;
       }
-      props.count--
+      props.time--
       return html;
     }
   })
