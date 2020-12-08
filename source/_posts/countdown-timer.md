@@ -35,7 +35,7 @@ date: 2020-12-07 18:25:46
         color: #8e45ff;
       }
   </style>
-  <div id="app"></div>
+  <div id="app" aria-live="polite"></div>
   <script>
   const Rue = function (selector, options) {
     this.elem = document.querySelector(selector);
@@ -77,7 +77,7 @@ date: 2020-12-07 18:25:46
 ## HTML
 
 ```HTML
-<div id="app"></div>
+<div id="app" aria-live="polite"></div>
 ```
 
 </div>
