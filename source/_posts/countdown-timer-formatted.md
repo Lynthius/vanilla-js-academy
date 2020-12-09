@@ -101,7 +101,7 @@ date: 2020-12-09 18:25:46
 ```JS
 /* Before rendering the time into the UI, convert it into M:SS format. For example, the starting time should be displayed at 2:00. When the remaining time is 5 seconds, it should be displayed as 0:05. */
 
-const timeValue = 6;
+const timeValue = 120;
 const Rue = function (selector, options) {
   this.elem = document.querySelector(selector);
   this.data = options.data;
@@ -129,13 +129,18 @@ Rue.prototype.timer = function () {
   }, 1000);
     app.render();
 };
+Rue.prototype.formatTime = function (time) {
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+  return `${(minutes.toString().padStart(2,'0'))}:${seconds.toString().padStart(2,'0')}`;
+}
 const app = new Rue('#app', {
   data: {
     time: timeValue,
   },
   template: function (props) {
     if (!props) return;
-    let html = `<h2>You've got only <span class="counter">${props.time}</span> seconds!</h2>`;
+    let html = `<h2>You've got only <span class="counter">${app.formatTime(props.time)}</span> seconds!</h2>`;
     return html;
   }
 })
