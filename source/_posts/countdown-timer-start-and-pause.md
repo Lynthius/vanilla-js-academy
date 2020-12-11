@@ -1,5 +1,5 @@
 ---
-title: 31. Countdown Timer - Start and Pause Buttons
+title: 31. Countdown Timer - Start and Pause
 date: 2020-12-11 18:25:46
 ---
 

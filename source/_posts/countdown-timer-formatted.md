@@ -68,7 +68,7 @@ date: 2020-12-09 18:25:46
   Rue.prototype.formatTime = function (time) {
     let minutes = Math.floor(time / 60);
     let seconds = time % 60;
-    return `${(minutes.toString().padStart(2,'0'))}:${seconds.toString().padStart(2,'0')}`;
+    return `${(minutes.toString())}:${seconds.toString().padStart(2,'0')}`;
   }
   const app = new Rue('#app', {
     data: {
