@@ -135,11 +135,12 @@ date: 2020-12-11 18:25:46
 ## JavaScript
 
 ```JS
-/* For this project, we’re going to add two always-present buttons below the countdown in the timer.
+/* For this project, we’re going to add two always-present buttons
+below the countdown in the timer.
 One button will say Start when the timer is stopped, and Pause when it’s running.
 Clicking it starts or stops the timer without resetting the time. */
 
-const timeValue = 10;
+const timeValue = 120;
 let timer;
 const Rue = function (selector, options) {
   this.elem = document.querySelector(selector);
