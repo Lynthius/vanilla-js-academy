@@ -139,7 +139,8 @@ date: 2020-12-11 18:25:46
 One button will say Start when the timer is stopped, and Pause when it’s running.
 Clicking it starts or stops the timer without resetting the time. */
 
-const timeValue = 120;
+const timeValue = 10;
+let timer;
 const Rue = function (selector, options) {
   this.elem = document.querySelector(selector);
   this.data = options.data;
@@ -148,41 +149,70 @@ const Rue = function (selector, options) {
 Rue.prototype.render = function () {
   this.elem.innerHTML = this.template(this.data);
 };
-  Rue.prototype.restartTimer = function () {
-    this.data.time = timeValue;
-    app.timer()
-}
-Rue.prototype.stopTimer = function () {
-  this.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
-}
-Rue.prototype.timer = function () {
-  const intervalCount = window.setInterval(function () {
-    if(!app) return;
-    app.data.time--
-    app.render();
-    if (app.data.time < 1) {
-      window.clearInterval(intervalCount)
-      app.stopTimer()
-    }
-  }, 1000);
-    app.render();
-};
-Rue.prototype.formatTime = function (time) {
+const formatTime = function (time) {
   let minutes = Math.floor(time / 60);
   let seconds = time % 60;
-  return `${(minutes.toString().padStart(2,'0'))}:${seconds.toString().padStart(2,'0')}`;
+  return `${(minutes.toString())}:${seconds.toString().padStart(2,'0')}`;
+}
+const startTimer = function (e) {
+  if (!e.target.hasAttribute('data-start-timer')) return;
+  if (app.data.time < 1) {
+    app.data.time = timeValue;
+  }
+  app.data.paused = false;
+  app.render();
+  stopTimer();
+  timer = setInterval(countdown, 1000);
+};
+const countdown = function () {
+  app.data.time--
+  if (app.data.time < 1) {
+    stopTimer();
+    app.data.paused = true;
+  }
+  app.render();
+}
+const stopTimer = function () {
+  clearInterval(timer)
+}
+const pauseTimer = function (e) {
+  if (!e.target.hasAttribute('data-pause-timer')) return;
+  stopTimer();
+  app.data.paused = true;
+  app.render();
+}
+const restartTimer = function (e) {
+  if (!e.target.hasAttribute('data-restart-timer') || app.data.time === timeValue) return;
+  stopTimer();
+  app.data.time = timeValue;
+  app.data.paused = false;
+  app.render();
+  timer = setInterval(countdown, 1000);
+}
+const clickHandler = function (e) {
+  startTimer(e);
+  restartTimer(e);
+  pauseTimer(e);
 }
 const app = new Rue('#app', {
   data: {
     time: timeValue,
+    paused: true,
+    altMsg: true
   },
   template: function (props) {
     if (!props) return;
-    let html = `<h2>You've got only <span class="counter">${app.formatTime(props.time)}</span> seconds!</h2>`;
+    if (props.time === 0 && props.altMsg) {
+      let html = `<h2>It's over, start again:</h2><button data-restart-timer class="button stop">Restart</button></div>`
+      return html;
+    }
+    let html = `<h2>You've got only <span class="counter">${formatTime(props.time)}</span> seconds!</h2>` +
+      (props.paused ? `<div class="buttons-container"><button data-start-timer class="button start">Start</button>` : `<div class="buttons-container"><button data-pause-timer class="button start">Pause</button>`) + `<button data-restart-timer class="button stop">Restart</button></div>`
     return html;
   }
 })
-app.timer();
+app.render();
+document.addEventListener('click', clickHandler);
 ```
 
 </div>
