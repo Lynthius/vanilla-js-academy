@@ -47,6 +47,7 @@ date: 2020-12-11 18:25:46
   const timeValue = 10;
   const clickHandler = function (e) {
     startTimer(e);
+    restartTimer(e);
     }
   const Rue = function (selector, options) {
     this.elem = document.querySelector(selector);
@@ -56,9 +57,9 @@ date: 2020-12-11 18:25:46
   Rue.prototype.render = function () {
     this.elem.innerHTML = this.template(this.data);
   };
-  // Rue.prototype.stopTimer = function () {
-  //   this.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
-  // }
+  const stopTimerMsg = function () {
+    app.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
+  }
   const startTimer = function (e) {
     if (!e.target.hasAttribute('data-start-timer')) return;
     app.data.paused = false;
@@ -73,10 +74,11 @@ date: 2020-12-11 18:25:46
   const stopTimer = function () {
     clearInterval(timer)
   }
-  const restartTimer = function () {
-    if (!event.target.hasAttribute('data-restart-timer')) return;
+  const restartTimer = function (e) {
+    if (!e.target.hasAttribute('data-restart-timer')) return;
+    stopTimer();
     app.data.time = timeValue;
-    app.data.paused = true;
+    app.data.paused = false;
     app.render();
     timer = setInterval(countdown, 1000);
   }
