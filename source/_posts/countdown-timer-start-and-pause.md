@@ -44,10 +44,9 @@ date: 2020-12-11 18:25:46
   </style>
   <div id="app" aria-live="polite"></div>
   <script>
-  const timeValue = 120;
+  const timeValue = 10;
   const clickHandler = function (e) {
-    app.timer(e);
-    app.restartTimer(e);
+    startTimer(e);
     }
   const Rue = function (selector, options) {
     this.elem = document.querySelector(selector);
@@ -57,32 +56,29 @@ date: 2020-12-11 18:25:46
   Rue.prototype.render = function () {
     this.elem.innerHTML = this.template(this.data);
   };
-   Rue.prototype.restartTimer = function () {
-    if (!e.target.hasAttribute('data-pause-timer')) return;
-     this.data.time = timeValue;
-     app.timer()
-  }
-  Rue.prototype.stopTimer = function () {
-    this.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
-  }
-  Rue.prototype.timer = function (e) {
+  // Rue.prototype.stopTimer = function () {
+  //   this.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
+  // }
+  const startTimer = function (e) {
     if (!e.target.hasAttribute('data-start-timer')) return;
-    this.data.paused = false;
-    const intervalCount = window.setInterval(function () {
-      if(!app) return;
-      app.data.time--
+    app.data.paused = false;
       app.render();
-      if (app.data.time < 1) {
-        window.clearInterval(intervalCount)
-        app.stopTimer();
-      }
-    }, 1000);
-      app.render();
+      timer = setInterval(countdown, 1000);
   };
   Rue.prototype.formatTime = function (time) {
     let minutes = Math.floor(time / 60);
     let seconds = time % 60;
     return `${(minutes.toString())}:${seconds.toString().padStart(2,'0')}`;
+  }
+  const stopTimer = function () {
+    clearInterval(timer)
+  }
+  const restartTimer = function () {
+    if (!event.target.hasAttribute('data-restart-timer')) return;
+    app.data.time = timeValue;
+    app.data.paused = true;
+    app.render();
+    timer = setInterval(countdown, 1000);
   }
   const countdown = function () {
     app.data.time--
@@ -99,7 +95,7 @@ date: 2020-12-11 18:25:46
     template: function (props) {
       if (!props) return;
       let html = `<h2>You've got only <span class="counter">${app.formatTime(props.time)}</span> seconds!</h2>` + 
-      (props.paused ? `<div class="buttons-container"><button data-start-timer class="button start">Start</button>` : `<div class="buttons-container"><button data-pause-timer class="button start">Pause</button>`) + `<button class="button stop">Restart</button></div>`
+      (props.paused ? `<div class="buttons-container"><button data-start-timer class="button start">Start</button>` : `<div class="buttons-container"><button data-pause-timer class="button start">Pause</button>`) + `<button data-restart-timer class="button stop">Restart</button></div>`
       return html;
     }
   })
@@ -122,8 +118,8 @@ date: 2020-12-11 18:25:46
 ## JavaScript
 
 ```JS
-/* For this project, we’re going to add two always-present buttons below the countdown in the timer. 
-One button will say Start when the timer is stopped, and Pause when it’s running. 
+/* For this project, we’re going to add two always-present buttons below the countdown in the timer.
+One button will say Start when the timer is stopped, and Pause when it’s running.
 Clicking it starts or stops the timer without resetting the time. */
 
 const timeValue = 120;
