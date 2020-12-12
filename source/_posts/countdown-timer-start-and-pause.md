@@ -45,10 +45,7 @@ date: 2020-12-11 18:25:46
   <div id="app" aria-live="polite"></div>
   <script>
   const timeValue = 10;
-  const clickHandler = function (e) {
-    startTimer(e);
-    restartTimer(e);
-    }
+  let timer;
   const Rue = function (selector, options) {
     this.elem = document.querySelector(selector);
     this.data = options.data;
@@ -57,38 +54,54 @@ date: 2020-12-11 18:25:46
   Rue.prototype.render = function () {
     this.elem.innerHTML = this.template(this.data);
   };
+     const stopTimer = function () {
+    clearInterval(timer)
+  }
+    const countdown = function () {
+    app.data.time--
+    if (app.data.time < 1) {
+      stopTimer();
+      app.data.paused = true;
+    }
+    app.render();
+  }
   const stopTimerMsg = function () {
     app.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
   }
-  const startTimer = function (e) {
-    if (!e.target.hasAttribute('data-start-timer')) return;
-    app.data.paused = false;
-      app.render();
-      timer = setInterval(countdown, 1000);
-  };
-  Rue.prototype.formatTime = function (time) {
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-    return `${(minutes.toString())}:${seconds.toString().padStart(2,'0')}`;
-  }
-  const stopTimer = function () {
-    clearInterval(timer)
-  }
-  const restartTimer = function (e) {
-    if (!e.target.hasAttribute('data-restart-timer')) return;
+    const restartTimer = function (e) {
+    if (!e.target.hasAttribute('data-restart-timer') || app.data.time === timeValue) return;
     stopTimer();
     app.data.time = timeValue;
     app.data.paused = false;
     app.render();
     timer = setInterval(countdown, 1000);
   }
-  const countdown = function () {
-    app.data.time--
+  const startTimer = function (e) {
+    if (!e.target.hasAttribute('data-start-timer')) return;
     if (app.data.time < 1) {
-      stopTimer();
+      app.data.time = timeValue;
     }
+    app.data.paused = false;
+    app.render();
+    stopTimer();
+    timer = setInterval(countdown, 1000);
+  };
+  Rue.prototype.formatTime = function (time) {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    return `${(minutes.toString())}:${seconds.toString().padStart(2,'0')}`;
+  }
+  const pauseTimer = function (e) {
+    if (!e.target.hasAttribute('data-pause-timer')) return;
+    stopTimer();
+    app.data.paused = true;
     app.render();
   }
+    const clickHandler = function (e) {
+    startTimer(e);
+    restartTimer(e);
+    pauseTimer(e);
+    }
   const app = new Rue('#app', {
     data: {
       time: timeValue,
