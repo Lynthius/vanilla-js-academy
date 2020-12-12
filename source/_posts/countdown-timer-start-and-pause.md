@@ -10,11 +10,18 @@ date: 2020-12-11 18:25:46
       margin-top: 20px;
     }
 
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 130px;
+    }
+
     .button {
         border-color: white;
         outline: none;
         border: none;
         margin-top: 5px;
+        min-width: 60px;
         padding: 5px 10px;
         border-radius: 3px;
         font-weight: 600px;
@@ -38,6 +45,10 @@ date: 2020-12-11 18:25:46
   <div id="app" aria-live="polite"></div>
   <script>
   const timeValue = 120;
+  const clickHandler = function (e) {
+    app.timer(e);
+    app.restartTimer(e);
+    }
   const Rue = function (selector, options) {
     this.elem = document.querySelector(selector);
     this.data = options.data;
@@ -47,20 +58,23 @@ date: 2020-12-11 18:25:46
     this.elem.innerHTML = this.template(this.data);
   };
    Rue.prototype.restartTimer = function () {
+    if (!e.target.hasAttribute('data-pause-timer')) return;
      this.data.time = timeValue;
      app.timer()
   }
   Rue.prototype.stopTimer = function () {
     this.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
   }
-  Rue.prototype.timer = function () {
+  Rue.prototype.timer = function (e) {
+    if (!e.target.hasAttribute('data-start-timer')) return;
+    this.data.paused = false;
     const intervalCount = window.setInterval(function () {
       if(!app) return;
       app.data.time--
       app.render();
       if (app.data.time < 1) {
         window.clearInterval(intervalCount)
-        app.stopTimer()
+        app.stopTimer();
       }
     }, 1000);
       app.render();
@@ -68,21 +82,30 @@ date: 2020-12-11 18:25:46
   Rue.prototype.formatTime = function (time) {
     let minutes = Math.floor(time / 60);
     let seconds = time % 60;
-    return `${(minutes.toString().padStart(2,'0'))}:${seconds.toString().padStart(2,'0')}`;
+    return `${(minutes.toString())}:${seconds.toString().padStart(2,'0')}`;
+  }
+  const countdown = function () {
+    app.data.time--
+    if (app.data.time < 1) {
+      stopTimer();
+    }
+    app.render();
   }
   const app = new Rue('#app', {
     data: {
       time: timeValue,
+      paused: true
     },
     template: function (props) {
       if (!props) return;
-      let html = `<h2>You've got only <span class="counter">${app.formatTime(props.time)}</span> seconds!</h2>`;
+      let html = `<h2>You've got only <span class="counter">${app.formatTime(props.time)}</span> seconds!</h2>` + 
+      (props.paused ? `<div class="buttons-container"><button data-start-timer class="button start">Start</button>` : `<div class="buttons-container"><button data-pause-timer class="button start">Pause</button>`) + `<button class="button stop">Restart</button></div>`
       return html;
     }
   })
-  app.timer();
+  app.render();
+  document.addEventListener('click', clickHandler)
   </script>
-
 </div>
 
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
