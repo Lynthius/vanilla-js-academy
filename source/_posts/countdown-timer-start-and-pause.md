@@ -44,7 +44,7 @@ date: 2020-12-11 18:25:46
   </style>
   <div id="app" aria-live="polite"></div>
   <script>
-    const timeValue = 10;
+    const timeValue = 120;
     let timer;
     const Rue = function (selector, options) {
       this.elem = document.querySelector(selector);
