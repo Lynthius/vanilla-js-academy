@@ -97,7 +97,6 @@ date: 2020-12-13 18:25:46
         app.data.time = timeValue;
       }
       app.data.paused = false;
-      // app.render();
       stopTimer();
       timer = setInterval(countdown, 1000);
     };
@@ -107,7 +106,6 @@ date: 2020-12-13 18:25:46
         stopTimer();
         app.data.paused = true;
       }
-      // app.render();
     }
     const stopTimer = function () {
       clearInterval(timer)
@@ -116,14 +114,12 @@ date: 2020-12-13 18:25:46
       if (!e.target.hasAttribute('data-pause-timer')) return;
       stopTimer();
       app.data.paused = true;
-      // app.render();
     }
     const restartTimer = function (e) {
       if (!e.target.hasAttribute('data-restart-timer') || app.data.time === timeValue) return;
       stopTimer();
       app.data.time = timeValue;
       app.data.paused = false;
-      // app.render();
       timer = setInterval(countdown, 1000);
     }
     const clickHandler = function (e) {
@@ -172,10 +168,42 @@ use Proxies and reactive data to automatically update the UI when you update you
 
 const timeValue = 120;
 let timer;
+const handler = function (instance) {
+  return {
+    get: function (obj, prop) {
+      if (['[object Object]', '[object Array]'].indexOf(Object.prototype.toString.call(obj[prop])) > -1) {
+        return new Proxy(obj[prop], handler(instance));
+      }
+      return obj[prop];
+      instance.render();
+    },
+    set: function (obj, prop, value) {
+      obj[prop] = value;
+      instance.render();
+      return true;
+    },
+    deleteProperty: function (obj, prop) {
+      delete obj[prop];
+      instance.render();
+      return true;
+    }
+  }
+}
 const Rue = function (selector, options) {
-  this.elem = document.querySelector(selector);
-  this.data = options.data;
-  this.template = options.template;
+  const _this = this;
+  _this.elem = document.querySelector(selector);
+  const _data = new Proxy(options.data, handler(this));
+  _this.template = options.template;
+  Object.defineProperty(this, 'data', {
+    get: function () {
+      return _data;
+    }, 
+    set: function (data) {
+      _data = new Proxy(data, handler(_this));
+      _this.render();
+      return true;
+    }
+  })
 };
 Rue.prototype.render = function () {
   this.elem.innerHTML = this.template(this.data);
@@ -191,7 +219,6 @@ const startTimer = function (e) {
     app.data.time = timeValue;
   }
   app.data.paused = false;
-  app.render();
   stopTimer();
   timer = setInterval(countdown, 1000);
 };
@@ -201,7 +228,6 @@ const countdown = function () {
     stopTimer();
     app.data.paused = true;
   }
-  app.render();
 }
 const stopTimer = function () {
   clearInterval(timer)
@@ -210,14 +236,12 @@ const pauseTimer = function (e) {
   if (!e.target.hasAttribute('data-pause-timer')) return;
   stopTimer();
   app.data.paused = true;
-  app.render();
 }
 const restartTimer = function (e) {
   if (!e.target.hasAttribute('data-restart-timer') || app.data.time === timeValue) return;
   stopTimer();
   app.data.time = timeValue;
   app.data.paused = false;
-  app.render();
   timer = setInterval(countdown, 1000);
 }
 const clickHandler = function (e) {
