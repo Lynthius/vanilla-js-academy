@@ -68,9 +68,20 @@ date: 2020-12-13 18:25:46
       }
     }
     const Rue = function (selector, options) {
-      this.elem = document.querySelector(selector);
-      this.data = options.data;
-      this.template = options.template;
+      const _this = this;
+      _this.elem = document.querySelector(selector);
+      const data = options.data;
+      _this.template = options.template;
+      Object.defineProperty(this, 'data', {
+        get: function () {
+          return _data;
+        }, 
+        set: function (data) {
+          _data = new Proxy(data, handler(_this));
+          _this.render();
+          return true;
+        }
+      })
     };
     Rue.prototype.render = function () {
       this.elem.innerHTML = this.template(this.data);
