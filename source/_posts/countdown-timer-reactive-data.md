@@ -70,7 +70,7 @@ date: 2020-12-13 18:25:46
     const Rue = function (selector, options) {
       const _this = this;
       _this.elem = document.querySelector(selector);
-      const data = options.data;
+      const _data = new Proxy(options.data, handler(this));
       _this.template = options.template;
       Object.defineProperty(this, 'data', {
         get: function () {
@@ -97,7 +97,7 @@ date: 2020-12-13 18:25:46
         app.data.time = timeValue;
       }
       app.data.paused = false;
-      app.render();
+      // app.render();
       stopTimer();
       timer = setInterval(countdown, 1000);
     };
@@ -107,7 +107,7 @@ date: 2020-12-13 18:25:46
         stopTimer();
         app.data.paused = true;
       }
-      app.render();
+      // app.render();
     }
     const stopTimer = function () {
       clearInterval(timer)
@@ -116,14 +116,14 @@ date: 2020-12-13 18:25:46
       if (!e.target.hasAttribute('data-pause-timer')) return;
       stopTimer();
       app.data.paused = true;
-      app.render();
+      // app.render();
     }
     const restartTimer = function (e) {
       if (!e.target.hasAttribute('data-restart-timer') || app.data.time === timeValue) return;
       stopTimer();
       app.data.time = timeValue;
       app.data.paused = false;
-      app.render();
+      // app.render();
       timer = setInterval(countdown, 1000);
     }
     const clickHandler = function (e) {
