@@ -8,15 +8,28 @@ date: 2020-12-16 17:55:05
   <style type="text/css">
   </style>
 
+  <h1>Explore</h1>
+  <p>Explore cool, quirky places in your own backyard.</p>
+  <div id="app">Loading...</div>
+
   <script src="https://cdn.jsdelivr.net/npm/reefjs@7/dist/reef.js"></script>
   <script>
     var app = new Reef('#app', {
-    data: {},
-    template: function (props) {
-      return 'Hi there!';
-    }
+      data: {},
+      template: function (props) {
+        console.log(props)
+        let html = '<ul>' + props.posts.map(function (post) {
+          return `<li>${post.place}</li><p>${post.description}</p><img src="${post.img}">`;
+        }).join('') + '</ul>';
+        return html;
+      }
     });
-    app.render();
+    fetch('https://vanillajsacademy.com/api/places.json').then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      app.data.posts = data;
+    });
+
   </script>
 
 </div>
