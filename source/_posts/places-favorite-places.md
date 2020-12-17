@@ -45,6 +45,11 @@ date: 2020-12-17 17:55:05
       }
     }
 
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+
     .miniature-container {
       max-width: 380px;
     }
@@ -52,6 +57,16 @@ date: 2020-12-17 17:55:05
     .minature {
       height: auto;
       max-width: 100%;
+    }
+
+    .fave-btn {
+      color: #ffffff;
+      font-size: 30px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      padding: 0 14px;
     }
   </style>
 
@@ -65,7 +80,7 @@ date: 2020-12-17 17:55:05
       template: function (props) {
         if (props.posts && props.posts.length) {
           let html = '<div class="container">' + props.posts.map(function (post) {
-            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><h2 class="title">${post.place}</h2><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button class="fave-btn" aria-label="favorite" aria-pressed="false" title="Add to favorite!">&#9825;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
           }).join('') + '</div>';
           return html;
         }
