@@ -1,6 +1,6 @@
 ---
-title: 33. Places
-date: 2020-12-15 17:55:05
+title: 34. Places - Favorite Places
+date: 2020-12-17 17:55:05
 ---
 
 <div class="output-container">
@@ -106,10 +106,10 @@ date: 2020-12-15 17:55:05
 ## JavaScript
 
 ```JS
-/* In today’s project, we’re going to build an app that
-lets you find interesting things to do near where you live.
-I have a simple API setup with some data from the quirkiest state
-in the United States: Rhode Island. */
+/* For each place, add a “favorite” button. Give the button a different appearance
+when the place is “favorited” versus when it’s not. When the user revisits the page,
+their favorites should reload. You do not need to filter
+or show only the favorite anywhere (that’s a future project). */
 
 var app = new Reef('#app', {
   data: {},
