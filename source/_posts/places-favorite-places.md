@@ -92,12 +92,13 @@ date: 2020-12-17 17:55:05
 
   <script src="https://cdn.jsdelivr.net/npm/reefjs@7/dist/reef.js"></script>
   <script>
-    var app = new Reef('#app', {
+    const favesID = "favoritePlace";
+    const app = new Reef('#app', {
       data: {},
       template: function (props) {
         if (props.posts && props.posts.length) {
           let html = '<div class="container">' + props.posts.map(function (post) {
-            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button data-fave="${post.id}" class="fave-btn" aria-label="add ${post.place} to favorite" aria-pressed="s" title="Add to favorite!">&#x2665;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button data-fave="${post.id}" class="fave-btn" aria-label="add ${post.place} to favorite" aria-pressed="${props.faves[post.id]}" title="Add to favorite!">&#x2665;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
           }).join('') + '</div>';
           return html;
         }
@@ -110,8 +111,8 @@ date: 2020-12-17 17:55:05
       const favesObj = faves ? JSON.parse(faves) : {};
       return favesObj;
     }
-    const saveFaves = function () {
-      localStorage.setItem(favesId, JSON.stringify(faves));
+    const saveFaves = function (faves) {
+      localStorage.setItem(favesID, JSON.stringify(faves));
     }
     const getPosts = function () {
       fetch('https://vanillajsacademy.com/api/places.json').then(function (response) {
@@ -132,10 +133,10 @@ date: 2020-12-17 17:55:05
       if (!postPlace) return;
       console.log(postPlace);
       app.data.faves[postPlace] = app.data.faves[postPlace] ? false : true;
+      saveFaves(app.data.faves);
     }
     getPosts();
     document.addEventListener('click', clickHandler);
-    // document.addEventListener('render', renderHandler);
   </script>
 
 </div>
@@ -160,12 +161,13 @@ when the place is “favorited” versus when it’s not. When the user revisits
 their favorites should reload. You do not need to filter
 or show only the favorite anywhere (that’s a future project). */
 
-var app = new Reef('#app', {
+const favesID = "favoritePlace";
+const app = new Reef('#app', {
   data: {},
   template: function (props) {
     if (props.posts && props.posts.length) {
       let html = '<div class="container">' + props.posts.map(function (post) {
-        return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><h2 class="title">${post.place}</h2><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+        return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button data-fave="${post.id}" class="fave-btn" aria-label="add ${post.place} to favorite" aria-pressed="${props.faves[post.id]}" title="Add to favorite!">&#x2665;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
       }).join('') + '</div>';
       return html;
     }
@@ -173,6 +175,14 @@ var app = new Reef('#app', {
     return html;
   }
 });
+const getFaves = function () {
+  const faves = localStorage.getItem(favesID);
+  const favesObj = faves ? JSON.parse(faves) : {};
+  return favesObj;
+}
+const saveFaves = function (faves) {
+  localStorage.setItem(favesID, JSON.stringify(faves));
+}
 const getPosts = function () {
   fetch('https://vanillajsacademy.com/api/places.json').then(function (response) {
     if (response.ok) {
@@ -180,13 +190,22 @@ const getPosts = function () {
     }
     return Promise.reject(response);
   }).then(function (data) {
+    app.data.faves = getFaves();
     app.data.posts = data;
   }).catch(function (error) {
     console.warn(error);
     app.data.posts = null;
   })
 }
+const clickHandler = function (e) {
+  const postPlace = e.target.getAttribute('data-fave');
+  if (!postPlace) return;
+  console.log(postPlace);
+  app.data.faves[postPlace] = app.data.faves[postPlace] ? false : true;
+  saveFaves(app.data.faves);
+}
 getPosts();
+document.addEventListener('click', clickHandler);
 ```
 
 </div>
