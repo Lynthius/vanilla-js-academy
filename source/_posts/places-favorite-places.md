@@ -61,12 +61,29 @@ date: 2020-12-17 17:55:05
 
     .fave-btn {
       color: #ffffff;
-      font-size: 30px;
+      font-size: 26px;
+      font-family: "system-ui";
       background-color: transparent;
       border: none;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
       cursor: pointer;
       outline: none;
-      padding: 0 14px;
+    }
+
+    .fave-btn[aria-pressed="true"] {
+      color: #8e45ff;
+    }
+
+    .fave-btn:focus {
+      border: red;
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .fave-btn:active {
+      color: #8e45ff;
     }
   </style>
 
@@ -80,7 +97,7 @@ date: 2020-12-17 17:55:05
       template: function (props) {
         if (props.posts && props.posts.length) {
           let html = '<div class="container">' + props.posts.map(function (post) {
-            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button class="fave-btn" aria-label="favorite" aria-pressed="false" title="Add to favorite!">&#9825;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button class="fave-btn" aria-label="add ${post.place} to favorite" aria-pressed="false" title="Add to favorite!">&#x2665;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
           }).join('') + '</div>';
           return html;
         }
@@ -102,6 +119,11 @@ date: 2020-12-17 17:55:05
       })
     }
     getPosts();
+    const handleBtnState = function () {
+      faveBtn.setAttribute('aria-pressed', true);
+      // faveBtn.setAttribute('aria-pressed', false);
+    }
+    faveBtn.addEventListener('clicl', handleBtnState);
   </script>
 
 </div>
