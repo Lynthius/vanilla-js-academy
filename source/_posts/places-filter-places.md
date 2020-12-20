@@ -59,7 +59,7 @@ date: 2020-12-19 17:55:05
       max-width: 100%;
     }
 
-    .fave-btn {
+    .add-btn {
       color: #ffffff;
       font-size: 26px;
       font-family: "system-ui";
@@ -72,17 +72,17 @@ date: 2020-12-19 17:55:05
       outline: none;
     }
 
-    .fave-btn[aria-pressed="true"] {
+    .add-btn[aria-pressed="true"] {
       color: #8e45ff;
     }
 
-    .fave-btn:focus {
+    .add-btn:focus {
       border: red;
       outline: none;
       box-shadow: 0 0 3px 1px #8e45ff;
     }
 
-    .fave-btn:active {
+    .add-btn:active {
       color: #8e45ff;
     }
   </style>
@@ -117,7 +117,11 @@ date: 2020-12-19 17:55:05
       template: function (props) {
         if (props.posts && props.posts.length) {
           let html = '<div class="container">' + props.posts.map(function (post) {
-            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button data-fave="${post.id}" class="fave-btn" aria-label="add ${post.place} to favorite" aria-pressed="${props.faves[post.id]}" title="Add to favorite!">&#x2665;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2>
+            <div class="buttons">
+              <button data-type="faves" data-id="${post.id}" class="add-btn" aria-label="add ${post.place} to favorite" aria-pressed="${props.faves[post.id]}" title="Add to favorite!">&#x2665;</button>
+              <button data-type="visited" data-id="${post.id}" class="add-btn" aria-label="add ${post.place} to visited" aria-pressed="${props.visited[post.id]}" title="Add to visited!">&#9745;</button>
+            </div></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
           }).join('') + '</div>';
           return html;
         }
