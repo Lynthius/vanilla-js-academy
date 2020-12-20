@@ -129,7 +129,8 @@ date: 2020-12-19 17:55:05
         return html;
       }
     });
-    const getFaves = function () {
+    const getFromLocal = function (prop) {
+      const faves = localStorage.getItem(favesID);
       const faves = localStorage.getItem(favesID);
       const favesObj = faves ? JSON.parse(faves) : {};
       return favesObj;
@@ -144,7 +145,9 @@ date: 2020-12-19 17:55:05
         }
         return Promise.reject(response);
       }).then(function (data) {
-        app.data.faves = getFaves();
+        app.data.faves = getFromLocal(favesID);
+        app.data.visited = getFromLocal(visitedID);
+        app.data.filter = 'all';
         app.data.posts = data;
       }).catch(function (error) {
         console.warn(error);
@@ -152,11 +155,10 @@ date: 2020-12-19 17:55:05
       })
     }
     const clickHandler = function (e) {
-      const postPlace = e.target.getAttribute('data-fave');
-      if (!postPlace) return;
-      console.log(postPlace);
-      app.data.faves[postPlace] = app.data.faves[postPlace] ? false : true;
-      saveFaves(app.data.faves);
+      const postType = e.target.getAttribute('data-type');
+      const postID = e.target.getAttribute('data-id');
+      if (!postType || !postID) return;
+      app.data.postType[postID] = app.data.postType[postID] ? false : true;
     }
     getPosts();
     document.addEventListener('click', clickHandler);
