@@ -118,7 +118,7 @@ date: 2020-12-19 17:55:05
       template: function (props) {
         if (props.posts && props.posts.length) {
           let html = '<div class="container">' + props.posts.map(function (post) {
-            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2>
+            return `<div class="post-container ${getHidden(post, props)}"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2>
             <div class="buttons">
               <button data-type="faves" data-id="${post.id}" class="add-btn" aria-label="add ${post.place} to favorite" aria-pressed="${props.faves[post.id]}" title="Add to favorite!">&#x2665;</button>
               <button data-type="visited" data-id="${post.id}" class="add-btn" aria-label="add ${post.place} to visited" aria-pressed="${props.visited[post.id]}" title="Add to visited!">&#9745;</button>
@@ -154,6 +154,11 @@ date: 2020-12-19 17:55:05
         app.data.posts = null;
       })
     }
+    const getHidden = function (post, props) {
+      if (props.filter === 'not-visited' && props.visited[place.id]) return 'hidden';
+      if (props[props.filter] && !props[props.filter][place.id]) return 'hidden';
+      return '';
+    }
     const clickHandler = function (e) {
       const postType = e.target.getAttribute('data-type');
       const postID = e.target.getAttribute('data-id');
@@ -161,6 +166,10 @@ date: 2020-12-19 17:55:05
       app.data[postType][postID] = app.data[postType][postID] ? false : true;
       saveToLocal(app.data.faves, favesID);
       saveToLocal(app.data.visited, visitedID);
+    }
+    const changeHandler = function (e) {
+      if (!e.target.closest('.filters')) return;
+      app.data.filter = e.target.value;
     }
     getPosts();
     document.addEventListener('click', clickHandler);
