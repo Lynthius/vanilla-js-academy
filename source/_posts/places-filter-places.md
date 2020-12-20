@@ -85,6 +85,10 @@ date: 2020-12-19 17:55:05
     .add-btn:active {
       color: #8e45ff;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
 
   <p>Explore cool, quirky places in your own backyard.</p>
@@ -155,8 +159,8 @@ date: 2020-12-19 17:55:05
       })
     }
     const getHidden = function (post, props) {
-      if (props.filter === 'not-visited' && props.visited[place.id]) return 'hidden';
-      if (props[props.filter] && !props[props.filter][place.id]) return 'hidden';
+      if (props.filter === 'not-visited' && props.visited[post.id]) return 'hidden';
+      if (props[props.filter] && !props[props.filter][post.id]) return 'hidden';
       return '';
     }
     const clickHandler = function (e) {
