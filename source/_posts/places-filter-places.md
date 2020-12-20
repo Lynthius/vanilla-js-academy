@@ -67,7 +67,7 @@ date: 2020-12-19 17:55:05
       border: none;
       height: 40px;
       width: 40px;
-      border-radius: 50%;
+      border-radius: 2px;
       cursor: pointer;
       outline: none;
     }
@@ -111,7 +111,8 @@ date: 2020-12-19 17:55:05
 
   <script src="https://cdn.jsdelivr.net/npm/reefjs@7/dist/reef.js"></script>
   <script>
-    const favesID = "favoritePlace";
+    const favesID = "favoritePlaces";
+    const visitedID = "visitedPlaces";
     const app = new Reef('#app', {
       data: {},
       template: function (props) {
@@ -129,14 +130,13 @@ date: 2020-12-19 17:55:05
         return html;
       }
     });
-    const getFromLocal = function (prop) {
-      const faves = localStorage.getItem(favesID);
-      const faves = localStorage.getItem(favesID);
-      const favesObj = faves ? JSON.parse(faves) : {};
-      return favesObj;
+    const getFromLocal = function (id) {
+      const saved = localStorage.getItem(id);
+      const savedObj = saved ? JSON.parse(saved) : {};
+      return savedObj;
     }
-    const saveFaves = function (faves) {
-      localStorage.setItem(favesID, JSON.stringify(faves));
+    const saveToLocal = function (items, id) {
+      localStorage.setItem(id, JSON.stringify(items));
     }
     const getPosts = function () {
       fetch('https://vanillajsacademy.com/api/places.json').then(function (response) {
@@ -158,10 +158,13 @@ date: 2020-12-19 17:55:05
       const postType = e.target.getAttribute('data-type');
       const postID = e.target.getAttribute('data-id');
       if (!postType || !postID) return;
-      app.data.postType[postID] = app.data.postType[postID] ? false : true;
+      app.data[postType][postID] = app.data[postType][postID] ? false : true;
+      saveToLocal(app.data.faves, favesID);
+      saveToLocal(app.data.visited, visitedID);
     }
     getPosts();
     document.addEventListener('click', clickHandler);
+    document.addEventListener('change', changeHandler);
   </script>
 
 </div>
