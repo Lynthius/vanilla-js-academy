@@ -224,6 +224,69 @@ Like the “Favorites” button, visited locations should be saved between visit
 When the user selects one of the filters,
 change the UI to only show locations that match the filter criteria. */
 
+const favesID = "favoritePlaces";
+const visitedID = "visitedPlaces";
+const app = new Reef('#app', {
+  data: {},
+  template: function (props) {
+    if (props.posts && props.posts.length) {
+      let html = '<div class="container">' + props.posts.map(function (post) {
+        return `<div class="post-container ${getHidden(post, props)}"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2>
+        <div class="buttons">
+          <button data-type="faves" data-id="${post.id}" class="add-btn" aria-label="add ${post.place} to favorite" aria-pressed="${props.faves[post.id]}" title="Add to favorite!">&#x2665;</button>
+          <button data-type="visited" data-id="${post.id}" class="add-btn" aria-label="add ${post.place} to visited" aria-pressed="${props.visited[post.id]}" title="Add to visited!">&#9745;</button>
+        </div></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+      }).join('') + '</div>';
+      return html;
+    }
+    let html = '<p>Unable to find any places right now.</p>'
+    return html;
+  }
+});
+const getFromLocal = function (id) {
+  const saved = localStorage.getItem(id);
+  const savedObj = saved ? JSON.parse(saved) : {};
+  return savedObj;
+}
+const saveToLocal = function (items, id) {
+  localStorage.setItem(id, JSON.stringify(items));
+}
+const getPosts = function () {
+  fetch('https://vanillajsacademy.com/api/places.json').then(function (response) {
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(response);
+  }).then(function (data) {
+    app.data.faves = getFromLocal(favesID);
+    app.data.visited = getFromLocal(visitedID);
+    app.data.filter = 'all';
+    app.data.posts = data;
+  }).catch(function (error) {
+    console.warn(error);
+    app.data.posts = null;
+  })
+}
+const getHidden = function (post, props) {
+  if (props.filter === 'not-visited' && props.visited[post.id]) return 'hidden';
+  if (props[props.filter] && !props[props.filter][post.id]) return 'hidden';
+  return '';
+}
+const clickHandler = function (e) {
+  const postType = e.target.getAttribute('data-type');
+  const postID = e.target.getAttribute('data-id');
+  if (!postType || !postID) return;
+  app.data[postType][postID] = app.data[postType][postID] ? false : true;
+  saveToLocal(app.data.faves, favesID);
+  saveToLocal(app.data.visited, visitedID);
+}
+const changeHandler = function (e) {
+  if (!e.target.closest('.filters')) return;
+  app.data.filter = e.target.value;
+}
+getPosts();
+document.addEventListener('click', clickHandler);
+document.addEventListener('change', changeHandler);
 ```
 
 </div>
