@@ -78,6 +78,7 @@
         <section id="main">
   
 <<<<<<< HEAD
+<<<<<<< HEAD
     <article id="post-announcing-the-count" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/vanilla-js-academy/2020/10/22/announcing-the-count/" class="article-date">
@@ -88,6 +89,12 @@
     <a href="/vanilla-js-academy/2020/10/26/random-ron-without-duplicates/" class="article-date">
   <time datetime="2020-10-25T23:00:00.000Z" itemprop="datePublished">2020-10-26</time>
 >>>>>>> refs/remotes/origin/main
+=======
+    <article id="post-debugging-broken-code" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/" class="article-date">
+  <time datetime="2020-11-25T18:05:32.000Z" itemprop="datePublished">2020-11-25</time>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 </a>
   </div>
   <div class="article-inner">
@@ -98,10 +105,14 @@
   
     <h1 itemprop="name">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <a class="article-title" href="/vanilla-js-academy/2020/10/22/announcing-the-count/">06. Announcing the Count</a>
 =======
       <a class="article-title" href="/vanilla-js-academy/2020/10/26/random-ron-without-duplicates/">08. Random Ron without duplicates</a>
 >>>>>>> refs/remotes/origin/main
+=======
+      <a class="article-title" href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     </h1>
   
 
@@ -112,6 +123,7 @@
         <div class="output-container">
 
   <style type="text/css">
+<<<<<<< HEAD
 <<<<<<< HEAD
     .label {
     display: block;
@@ -216,51 +228,42 @@
   <p>
     <button class="fetch-button">More Ron</button>
   </p>
-
-  <script>
-    const fetchBtn = document.querySelector('.fetch-button');
-    const quoteOutput = document.querySelector('.quote-output');
-    const quoteContainer = document.querySelector('.quote-container');
-
-    const quotesArr = [];
-
-    // Get a fresh quote and render it into the DOM
-    var getQuote = function () {
-      // Get a Ron Swanson quote
-      fetch('http://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
+=======
+   .row {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            text-align: center;
         }
-      }).then(function (data) {
-        console.log(data[0]);
-        if (quotesArr.length === 50) {
-          quotesArr.shift()
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
+
+        .grid {
+            min-height: 6em;
+            padding: 1em;
         }
 
-        if (quotesArr.indexOf(data[0]) > -1) {
-          getQuote()
-          alterGradient()
-          return;
+        /**
+         * Make sure images scale
+         */
+        img {
+            height: auto;
+            max-width: 100%;
         }
-        quotesArr.push(data[0])
-        quoteOutput.innerHTML = `<p class="quote-paragraph"> ${quotesArr[quotesArr.length - 1]}</p>`;
 
-        console.log(quotesArr);
-      }).catch(function (error) {
-        quoteOutput.innerHTML =
-          '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
-      });
-    };
-
-    function getQuote() {
-      fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes').then(function (response) {
-        if (response.ok) {
-          return response.json()
-        } else {
-          return Promise.reject(response);
+        /**
+         * Scale image to the full width of the page
+         */
+        .img-full {
+            width: 100%;
         }
+
+        /**
+         * Style buttons to not look like buttons
+         */
+        [data-monster-id] {
+            background-color: transparent;
+            border: 0;
+        }
+<<<<<<< HEAD
       }).then(function (data) {
         renderQuote(data)
         alterGradient()
@@ -277,6 +280,147 @@
     getQuote()
     fetchBtn.addEventListener('click', getQuote, false);
 >>>>>>> refs/remotes/origin/main
+=======
+  </style>
+   <div id="app" aria-live="polite"></div>
+    <footer>
+      <hr>
+      <p class="text-small text-muted">Icons by <a target="_blank" rel="noopener" href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/28460/">Eliricon</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/82823/">April Yang</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1062009/">tk66</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/2236082">iconcheese</a>, <br>and <a target="_blank" rel="noopener" href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
+    </footer>
+  <script>
+    // The monsters and socks
+    var monsters = [
+      'monster1',
+      'monster2',
+      'monster3',
+      'monster4',
+      'monster5',
+      'monster6',
+      'monster7',
+      'monster8',
+      'monster9',
+      'monster10',
+      'monster11',
+      'sock'
+    ];
+    var app = document.querySelector('#app');
+    // The number of monsters who have been found
+    var count;
+    /**
+    * Randomly shuffle an array
+    * https://stackoverflow.com/a/2450976/1293256
+    * @param  {Array} array The array to shuffle
+    * @return {String}      The first item in the shuffled array
+    */
+    var shuffle = function (array) {
+      var currentIndex = array.length;
+      var temporaryValue, randomIndex;
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
+    };
+    /**
+    * Render the grid of monsters onto the game board
+    */
+    var renderMonsters = function () {
+      // Reset the number of monsters who have been found
+      found = 0;
+      // Shuffle the monsters array
+      shuffle(monsters);
+      // Create the HTML and inject it into the DOM
+      // A button element is focusable and conveys to screen readers that it can be clicked
+      // The data-monster-id stores the index of the monster in our array
+      app.innerHTML =
+        '<p>Click a door to reveal a monster. Try not to find the sock.</p>' +
+        '<div class="row">' +
+        monsters.map(function (monster, index) {
+          var html =
+            '<div class="grid">' +
+            '<button data-monster-id="' + index + '">' +
+            '<img alt="Click the door to see what\'s behind it" src="./img/door.svg">' +
+            '</button>' +
+            '</div>';
+          return html;
+        }).join('') +
+        '</div>';
+    };
+    /**
+    * Render a new UI when the player loses
+    */
+    var renderLost = function () {
+      app.innerHTML =
+        '<img class="img-full" alt="" src="https://media.giphy.com/media/13zUNhE9WZspMc/giphy.gif">' +
+        '<h2>Oops, you found a sock!</h2>' +
+        '<p>' +
+        '<button class="btn" data-monster-play-again>Play Again</button>' +
+        '</p>';
+    };
+    /**
+    * Render a new UI when the player wins
+    */
+    var renderWon = function () {
+      app.innerHTML =
+        '<img class="img-full" alt="" src="https://media.giphy.com/media/1242bJFCbb3FxC/giphy.gif">' +
+        '<h2>You won!</h2>' +
+        '<p>You found all of the monsters. Congrats!</p>' +
+        '<p>' +
+        '<button data-monster-play-again>Play Again</button>' +
+        '</p>';
+    };
+    /**
+    * Handle click events
+    * @param  {Event} event The event object
+    */
+    var clickHandler = function (event) {
+      // If a "play again" button was clicked, reset the UI and end the callback function
+      // if (event.target.hasAttribute('[data-monster-play-again]')) { <---- broken code !!!
+      if (event.target.hasAttribute('data-monster-play-again')) {
+        renderMonsters();
+        return;
+      }
+      // Check if clicked element or it's parent has a [data-monster-id] attribute
+      // If not, it's not a monster
+      // return and stop running our callback function
+      // var monster = event.target.closest('data-monster-id'); <---- broken code !!!
+      var monster = event.target.closest('[data-monster-id]');
+      if (!monster) return;
+      // Get the monster's index in the array
+      var id = monster.getAttribute('data-monster-id');
+      // If the door reveals a sock, render the lost UI
+      // Then, end the callback function
+      // if (monsters[id] = 'socks') { <---- broken code !!!
+      if (monsters[id] === 'sock') {
+        renderLost();
+        return;
+      }
+      // Update the HTML for the button's parent element
+      // This will replace the button so that the content can't be clicked again
+      // We'll use the id to get the monster from our shuffled array
+      monster.parentNode.innerHTML = '<img alt="' + monsters[id] + '" src="./img/' + monsters[id] + '.svg">';
+      // Increase the number of monsters who have been found by 1
+      found++;
+      // If the number of monsters found is equal to the total number (-1 for the sock)
+      // then all monsters have been found and we can render the win UI
+      if (found === (monsters.length - 1)) {
+        renderWon();
+      }
+    };
+    //
+    // Inits & Event Listeners
+    //
+    // Render the initial game board
+    renderMonsters();
+    // Listen for click events
+    document.addEventListener('click', clickHandler, false);
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </script>
 
 </div>
@@ -284,19 +428,27 @@
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;text&quot;</span>&gt;</span>Enter your text below.<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">&quot;textarea&quot;</span> <span class="attr">id</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">aria-live</span>=<span class="string">&quot;polite&quot;</span>&gt;</span>You&#x27;ve written <span class="tag">&lt;<span class="name">strong</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;word-count&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span> words<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> and <span class="tag">&lt;<span class="name">strong</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;character-count&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span> characters<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 =======
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Show some random quote.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;quote-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">aria-live</span>=<span class="string">&quot;polite&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;quote-mark&quot;</span>&gt;</span><span class="symbol">&amp;ldquo;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;quote-output&quot;</span>&gt;</span>Waiting for a new quote...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;fetch-button&quot;</span>&gt;</span>More Ron<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 <div class="js-container">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Changes to the content in #word-count and #character-count </span></span><br><span class="line"><span class="comment">should be announced to screen reader users. Test this with an actual screen reader</span></span><br><span class="line"><span class="comment">to hear how the announcements are actually made. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> textArea = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#text&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> countCharOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#character-count&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> countWordOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#word-count&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> wordsArr = textArea.value.split(<span class="regexp">/[\n\r\s]+/g</span>).filter(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.length &gt; <span class="number">0</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  countCharOutput.textContent = textArea.value.length;</span><br><span class="line">  countWordOutput.textContent = wordsArr.length;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">textArea.addEventListener(<span class="string">&#x27;input&#x27;</span>, counter);</span><br></pre></td></tr></table></figure>
 =======
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Modify it so that if the same quote gets returned from the API</span></span><br><span class="line"><span class="comment">in the last 50 quotes, you skip it and fetch another one instead. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fetchBtn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.fetch-button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> quoteOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.quote-output&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> quoteContainer = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.quote-container&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> quotesArr = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getQuote = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;http://ron-swanson-quotes.herokuapp.com/v2/quotes&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">if</span> (quotesArr.length === <span class="number">50</span>) &#123;</span><br><span class="line">      quotesArr.shift()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (quotesArr.indexOf(data[<span class="number">0</span>]) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">      getQuote()</span><br><span class="line">      alterGradient()</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    quotesArr.push(data[<span class="number">0</span>])</span><br><span class="line">    quoteOutput.innerHTML = <span class="string">`&lt;p class=&quot;quote-paragraph&quot;&gt; <span class="subst">$&#123;quotesArr[quotesArr.length - <span class="number">1</span>]&#125;</span>&lt;/p&gt;`</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(quotesArr);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    quoteOutput.innerHTML =</span><br><span class="line">      <span class="string">&#x27;[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.&#x27;</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQuote</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;https://ron-swanson-quotes.herokuapp.com/v2/quotes&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    renderQuote(data)</span><br><span class="line">    alterGradient()</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span> err;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alterGradient</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  quoteContainer.style.background = <span class="string">`linear-gradient(<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">90</span> - <span class="number">35</span>)) + <span class="number">90</span>&#125;</span>deg, rgba(142,69,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">255</span> - <span class="number">100</span>)) + <span class="number">255</span>&#125;</span>,1), <span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">20</span> - <span class="number">10</span>)) + <span class="number">20</span>&#125;</span>%, rgba(74,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">90</span> - <span class="number">60</span>)) + <span class="number">90</span>&#125;</span>,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">280</span> - <span class="number">140</span>)) + <span class="number">280</span>&#125;</span>,.8) <span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">40</span> - <span class="number">30</span>)) + <span class="number">40</span>&#125;</span>%, rgba(142,69,255,1) 83%)`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getQuote()</span><br><span class="line">fetchBtn.addEventListener(<span class="string">&#x27;click&#x27;</span>, getQuote, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 
@@ -311,10 +463,14 @@
   <nav id="page-nav">
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/12/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/vanilla-js-academy/page/14/">14</a><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/14/">Next</a>
 =======
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/12/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/vanilla-js-academy/page/14/">14</a><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/14/">Next</a>
 >>>>>>> refs/remotes/origin/main
+=======
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/12/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/vanilla-js-academy/page/14/">14</a><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/14/">Next</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </nav>
 
 </section>
@@ -333,7 +489,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -347,7 +503,70 @@
         
           <li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
+        
+          <li>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
           </li>
         

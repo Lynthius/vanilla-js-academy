@@ -78,6 +78,7 @@
         <section id="main">
   
 <<<<<<< HEAD
+<<<<<<< HEAD
     <article id="post-table-of-contents-missing-ids" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/vanilla-js-academy/2020/11/11/table-of-contents-missing-ids/" class="article-date">
@@ -88,6 +89,12 @@
     <a href="/vanilla-js-academy/2020/11/15/weather-app/" class="article-date">
   <time datetime="2020-11-14T23:00:00.000Z" itemprop="datePublished">2020-11-15</time>
 >>>>>>> refs/remotes/origin/main
+=======
+    <article id="post-places" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/12/15/places/" class="article-date">
+  <time datetime="2020-12-15T16:55:05.000Z" itemprop="datePublished">2020-12-15</time>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 </a>
   </div>
   <div class="article-inner">
@@ -98,10 +105,14 @@
   
     <h1 itemprop="name">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <a class="article-title" href="/vanilla-js-academy/2020/11/11/table-of-contents-missing-ids/">16. Table of Contents - Missing IDs</a>
 =======
       <a class="article-title" href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
 >>>>>>> refs/remotes/origin/main
+=======
+      <a class="article-title" href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     </h1>
   
 
@@ -112,6 +123,7 @@
         <div class="output-container">
 
   <style type="text/css">
+<<<<<<< HEAD
 <<<<<<< HEAD
     html {
       scroll-behavior:smooth
@@ -185,99 +197,100 @@
     render();
 =======
     #app {
+=======
+  .article-entry ul, .article-entry ol, .article-entry dl {
+      margin-top: 0;
+    }
+
+    .category {
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
       margin-top: 10px;
     }
 
-    .weather_container {
+    .title {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .post-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      margin: 20px 0;
     }
 
-    .weather_icon {
-      margin: 0 !important;
-      padding: 0 !important;
+    @media screen and (max-width: 860px) {
+      .post-container {
+        flex-direction: column;
+        margin: 20px auto;
+        text-align: center;
+      }
     }
 
-    .weather_temperature {
-      letter-spacing: 1.5px;
-      font-size: 3.2em !important;
-      margin: 0 !important;
+    .info-container {
+      margin-left: 40px;
     }
 
-    .weather_city-name {
-      font-size: 2.4em !important;
-      margin: 10px 0 0 !important;
+     @media screen and (max-width: 860px) {
+      .info-container {
+        margin-left: 0;
+      }
     }
 
-    .weather_desc {
-      text-transform: uppercase;
-      color: #8e45ff;
-      margin: 10px 0 0 !important;
+    .miniature-container {
+      max-width: 380px;
     }
 
+    .minature {
+      height: auto;
+      max-width: 100%;
+    }
   </style>
 
-  <div id="app">Checking the weather near you...</div>
+  <p>Explore cool, quirky places in your own backyard.</p>
+  <div id="app">Loading...</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/reefjs@7/dist/reef.js"></script>
   <script>
-    const app = document.querySelector('#app');
-    const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
-    const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
-    let userCity;
-
-    const sanitizeHTML = function (str) {
-      return str.replace(/[^\w. ]/gi, function (c) {
-        return '&#' + c.charCodeAt(0) + ';';
-      });
-    }
-
-    const render = function (icon, temp, city, sky) {
-      app.innerHTML = (`
-      <div class="weather_container">
-        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${sanitizeHTML(icon)}@2x.png"></div>
-        <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${sanitizeHTML(city)}</h4>
-        <p class="weather_desc">${sanitizeHTML(sky)}</p>
-      </div>
-      `)
-    };
-
-    const getWeatherInfo = function () {
-      fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKeyIp}`).then(function (response) {
+    var app = new Reef('#app', {
+      data: {},
+      template: function (props) {
+        if (props.posts && props.posts.length) {
+          let html = '<div class="container">' + props.posts.map(function (post) {
+            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><h2 class="title">${post.place}</h2><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+          }).join('') + '</div>';
+          return html;
+        }
+        let html = '<p>Unable to find any places right now.</p>'
+        return html;
+      }
+    });
+    const getPosts = function () {
+      fetch('https://vanillajsacademy.com/api/places.json').then(function (response) {
         if (response.ok) {
           return response.json();
-        } else {
-          return Promise.reject(response);
         }
+        return Promise.reject(response);
       }).then(function (data) {
-        userCity = data.city;
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=metric`);
-      }).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (userData) {
-        userIcon = userData.weather[0].icon;
-        userTemp = userData.main.temp;
-        userCity = userData.name;
-        userSky = userData.weather[0].description;
-
-        render(userIcon, userTemp, userCity, userSky);
-      }).catch(function (err) {
-        console.warn(err);
-        app.textContent = "Something went wrong...";
+        app.data.posts = data;
+      }).catch(function (error) {
+        console.warn(error);
+        app.data.posts = null;
       })
     }
+<<<<<<< HEAD
 
     getWeatherInfo();
 >>>>>>> refs/remotes/origin/main
+=======
+    getPosts();
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </script>
 
 </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
@@ -287,15 +300,24 @@
 
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Checking the weather near you...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
+
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Explore cool, quirky places in your own backyard.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 <div class="js-container">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* The markup has been modified so that certain headings don’t have IDs on them. </span></span><br><span class="line"><span class="comment">When creating your table of contents, if the heading doesn’t have an ID to link to, </span></span><br><span class="line"><span class="comment">create one and assign it to the heading. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> headings = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;h2&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> content = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#table-of-contents&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> headingsArr = <span class="built_in">Array</span>.prototype.slice.call(headings);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  content.innerHTML = <span class="string">&#x27;&lt;ol&gt;&#x27;</span> + headingsArr.map(<span class="function"><span class="params">heading</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`&lt;li&gt;&lt;a href=&quot;#<span class="subst">$&#123;heading.id ? heading.id : createID(heading)&#125;</span>&quot;&gt;<span class="subst">$&#123;heading.textContent&#125;</span>&lt;/a&gt;&lt;/li&gt;`</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/ol&gt;&#x27;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createID = <span class="function"><span class="keyword">function</span> (<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="string">`<span class="subst">$&#123;title.innerText.replace(<span class="regexp">/\s/g</span>, <span class="string">&#x27;-&#x27;</span>).toLowerCase()&#125;</span>`</span>;</span><br><span class="line">  <span class="keyword">return</span> title.id = id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render();</span><br></pre></td></tr></table></figure>
 =======
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For today’s project, we’re going to build an app that gets a user’s location</span></span><br><span class="line"><span class="comment">and displays their current weather information. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> apiKeyIp = <span class="string">&#x27;d9f7add9f68440818a0659381720a532&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> apiKeyWeather = <span class="string">&#x27;5e995a3338fe2917188f0f98d08abcec&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> userCity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">icon, temp, city, sky</span>) </span>&#123;</span><br><span class="line">  app.innerHTML = (<span class="string">`</span></span><br><span class="line"><span class="string">  &lt;div class=&quot;weather_container&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;weather_icon&quot;&gt;&lt;img src=&quot;http://openweathermap.org/img/wn/<span class="subst">$&#123;icon&#125;</span>@2x.png&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;h3 class=&quot;weather_temperature&quot;&gt;<span class="subst">$&#123;<span class="built_in">Math</span>.round(temp)&#125;</span> &amp;#x2103;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;h4 class=&quot;weather_city-name&quot;&gt;<span class="subst">$&#123;city&#125;</span>&lt;/h4&gt;</span></span><br><span class="line"><span class="string">    &lt;p class=&quot;weather_desc&quot;&gt;<span class="subst">$&#123;sky&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getWeatherInfo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">`https://api.ipgeolocation.io/ipgeo?apiKey=<span class="subst">$&#123;apiKeyIp&#125;</span>`</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    userCity = data.city;</span><br><span class="line">    <span class="keyword">return</span> fetch(<span class="string">`http://api.openweathermap.org/data/2.5/weather?q=<span class="subst">$&#123;userCity&#125;</span>&amp;appid=<span class="subst">$&#123;apiKeyWeather&#125;</span>&amp;units=metric`</span>);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">userData</span>) </span>&#123;</span><br><span class="line">    userIcon = userData.weather[<span class="number">0</span>].icon;</span><br><span class="line">    userTemp = userData.main.temp;</span><br><span class="line">    userCity = userData.name;</span><br><span class="line">    userSky = userData.weather[<span class="number">0</span>].description;</span><br><span class="line"></span><br><span class="line">    render(userIcon, userTemp, userCity, userSky);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(err);</span><br><span class="line">    app.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getWeatherInfo();</span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* In today’s project, we’re going to build an app that</span></span><br><span class="line"><span class="comment">lets you find interesting things to do near where you live.</span></span><br><span class="line"><span class="comment">I have a simple API setup with some data from the quirkiest state</span></span><br><span class="line"><span class="comment">in the United States: Rhode Island. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Reef(<span class="string">&#x27;#app&#x27;</span>, &#123;</span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line">  template: <span class="function"><span class="keyword">function</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (props.posts &amp;&amp; props.posts.length) &#123;</span><br><span class="line">      <span class="keyword">let</span> html = <span class="string">&#x27;&lt;div class=&quot;container&quot;&gt;&#x27;</span> + props.posts.map(<span class="function"><span class="keyword">function</span> (<span class="params">post</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;post-container&quot;&gt;&lt;div class=&quot;miniature-container&quot;&gt;&lt;img class=&quot;minature&quot; src=&quot;<span class="subst">$&#123;post.img&#125;</span>&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;info-container&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;<span class="subst">$&#123;post.place&#125;</span>&lt;/h2&gt;&lt;p&gt;<span class="subst">$&#123;post.description&#125;</span>&lt;/p&gt;&lt;p&gt;&lt;em&gt;<span class="subst">$&#123;post.location&#125;</span>&lt;/em&gt;&lt;/p&gt;&lt;a href=<span class="subst">$&#123;post.url&#125;</span> target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;`</span>;</span><br><span class="line">      &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">      <span class="keyword">return</span> html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> html = <span class="string">&#x27;&lt;p&gt;Unable to find any places right now.&lt;/p&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> getPosts = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;https://vanillajsacademy.com/api/places.json&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    app.data.posts = data;</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(error);</span><br><span class="line">    app.data.posts = <span class="literal">null</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">getPosts();</span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 
@@ -310,10 +332,14 @@
   <nav id="page-nav">
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/2/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><a class="page-number" href="/vanilla-js-academy/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/vanilla-js-academy/page/4/">4</a><a class="page-number" href="/vanilla-js-academy/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/4/">Next</a>
 =======
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/2/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><a class="page-number" href="/vanilla-js-academy/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/vanilla-js-academy/page/4/">4</a><a class="page-number" href="/vanilla-js-academy/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/4/">Next</a>
 >>>>>>> refs/remotes/origin/main
+=======
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/2/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><a class="page-number" href="/vanilla-js-academy/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/vanilla-js-academy/page/4/">4</a><a class="page-number" href="/vanilla-js-academy/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/4/">Next</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </nav>
 
 </section>
@@ -332,7 +358,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -346,7 +372,70 @@
         
           <li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
+        
+          <li>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
           </li>
         

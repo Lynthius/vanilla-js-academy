@@ -78,6 +78,7 @@
         <section id="main">
   
 <<<<<<< HEAD
+<<<<<<< HEAD
     <article id="post-latest-3-NYT-top-stories-on-few-categories" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/vanilla-js-academy/2020/10/30/latest-3-NYT-top-stories-on-few-categories/" class="article-date">
@@ -88,6 +89,12 @@
     <a href="/vanilla-js-academy/2020/11/03/monster-shuffle/" class="article-date">
   <time datetime="2020-11-02T23:00:00.000Z" itemprop="datePublished">2020-11-03</time>
 >>>>>>> refs/remotes/origin/main
+=======
+    <article id="post-api-cache" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/12/03/api-cache/" class="article-date">
+  <time datetime="2020-12-03T17:48:32.000Z" itemprop="datePublished">2020-12-03</time>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 </a>
   </div>
   <div class="article-inner">
@@ -98,10 +105,14 @@
   
     <h1 itemprop="name">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <a class="article-title" href="/vanilla-js-academy/2020/10/30/latest-3-NYT-top-stories-on-few-categories/">10. Latest 3 top stories on few categories</a>
 =======
       <a class="article-title" href="/vanilla-js-academy/2020/11/03/monster-shuffle/">12. Monster Shuffle</a>
 >>>>>>> refs/remotes/origin/main
+=======
+      <a class="article-title" href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     </h1>
   
 
@@ -112,6 +123,7 @@
         <div class="output-container">
 
   <style type="text/css">
+<<<<<<< HEAD
 <<<<<<< HEAD
     #app {
       margin-top: 10px;
@@ -205,105 +217,111 @@
       place-items: center;
       padding: 2rem 0 2rem 0;
       gap: 2rem 0;
+=======
+    #app {
+      margin-top: 10px;
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     }
 
-    .grid {
-      min-height: 6em;
-      padding: 1em;
+    .article {
+      margin: 0;
     }
 
-    img {
-      height: 100%;
-      width: 24%;
+    .title {
+      list-style-type: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
 
-    .button {
-      border-color: white;
-      outline: none;
-      border: none;
-      margin-top: 5px;
-      padding: 5px 10px;
-      border-radius: 3px;
-      font-weight: 600px;
-      cursor: pointer;
-    }
-
-    .button:focus {
-      border: red;
-      outline: none;
-      box-shadow: 0 0 3px 1px #8e45ff;
-    }
-
-    .button:active {
-      color: #8e45ff;
+    .container {
+      display: flex;
+      flex-direction: column;
     }
   </style>
-
-<p>  <button class="button" value="monsters">Click to load and Shuffle!</button></p>
   <div id="app">
+    Loading...
   </div>
-
-  <footer>
-    <p class="text-small text-muted">Icons by 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/28460/">Eliricon</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/82823/">April Yang</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1062009/">tk66</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/2236082">iconcheese</a>,<br/> 
-      and <a target="_blank" rel="noopener" href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
-  </footer>
-
   <script>
-    const shuffleBtn = document.querySelector('.button');
-    const app = document.querySelector('#app');
-
-    const monsters = [
-      'monster1',
-      'monster2',
-      'monster3',
-      'monster4',
-      'monster5',
-      'monster6',
-      'monster7',
-      'monster8',
-      'monster9',
-      'monster10',
-      'monster11',
-      'sock'
-    ];
-
-    const render = function () {
-      app.innerHTML = '<div class="row">' + monsters.map(monster => {
-        return (`
-          <div class="grid" aria-live="polite"><img alt= "A picture of ${monster}" src="../img/${monster}.svg"/></div>
-        `)
-      }).join('') + '</div>';
+    const appOutput = document.querySelector('#app');
+    let storageID;
+    var numberOfArticles = 2;
+    const sanitizeHTML = function (str) {
+      return str.replace(/[^\w. ]/gi, function (c) {
+        return '&#' + c.charCodeAt(0) + ';';
+      })
     };
-
-    const shuffleArr = function (arr) {
-      var currentIndex = arr.length;
-      var temporaryValue, randomIndex;
-
-      while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        temporaryValue = arr[currentIndex];
-        arr[currentIndex] = arr[randomIndex];
-        arr[randomIndex] = temporaryValue;
-      }
-      render();
-      return arr;
+    const isDataValid = function (saved, expirationDate) {
+      if (!saved || !saved.data || !saved.timestamp) return false;
+      const difference = new Date().getTime() - saved.timestamp;
+      return difference < expirationDate;
     }
+    const saveData = function (data) {
+      const cache = {
+        data: data,
+        timestamp: new Date().getTime()
+      }
+      localStorage.setItem(storageID, JSON.stringify(cache));
+    }
+<<<<<<< HEAD
 
     shuffleBtn.addEventListener('click', function() {
       shuffleArr(monsters);
 >>>>>>> refs/remotes/origin/main
     });
+=======
+    const getData = function () {
+      const saved = JSON.parse(localStorage.getItem(storageID));
+      if (!saved) return;
+      if(isDataValid(saved, 1000 * 10)) {
+        return saved.data;
+      }
+    }
+    const render = function (articles) {
+      appOutput.innerHTML = '<h3 class="category">Pirate articles:</h3>' + articles.map(function(article) {
+        return (`
+            <div class="container">
+              <ul class="title">
+                <li> <strong>Title:</strong> ${sanitizeHTML(article.title)}</li>
+                <li> <strong>Author:</strong> ${sanitizeHTML(article.author)}</li>
+                <li> <strong>Publication date:</strong> ${sanitizeHTML(article.pubdate)}</li>
+              </ul>
+              <div class="article"><p>${sanitizeHTML(article.article)}</p></div>
+            </div>
+            <hr>
+            <br>
+            `);
+      }).join('');
+    }
+    const getFirstFewArticles = function (articles) {
+      return articles.slice(0, numberOfArticles);
+    }
+    const getNews = function () {
+      // Check for valid cached data,
+      // If exist, use it
+      const saved = getData();
+      if (saved) {
+        render(saved);
+        console.log("Loaded from cache");
+        return;
+      }
+      fetch('https://vanillajsacademy.com/api/pirates.json').then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then(function(data) {
+        const articles = getFirstFewArticles(data.articles);
+        saveData(articles);
+        render(articles);
+        console.log("Fetched from API");
+      }).catch(function (error) {
+        console.log("something went wrong", error);
+        appOutput.textContent = "Something went wrong...";
+      })
+    }
+    getNews();
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </script>
 
 </div>
@@ -311,19 +329,27 @@
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;placeholder&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 =======
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;monsters&quot;</span>&gt;</span>Click to load and Shuffle!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-small text-muted&quot;</span>&gt;</span>Icons by </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/door/311732/&quot;</span>&gt;</span>Jamie Dickinson<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/184225/&quot;</span>&gt;</span>Nicky Knicky<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/1510400/&quot;</span>&gt;</span>Alvaro Cabrera<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/28460/&quot;</span>&gt;</span>Eliricon<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/82823/&quot;</span>&gt;</span>April Yang<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/1062009/&quot;</span>&gt;</span>tk66<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/24990/&quot;</span>&gt;</span>Alex WaZa<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/37212/&quot;</span>&gt;</span>Husein Aziz<span class="tag">&lt;/<span class="name">a</span>&gt;</span>, </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/2236082&quot;</span>&gt;</span>iconcheese<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,<span class="tag">&lt;<span class="name">br</span>/&gt;</span> </span><br><span class="line">    and <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/socks/38451/&quot;</span>&gt;</span>Yazmin Alanis<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  Loading...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 <div class="js-container">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Get articles from three to five categories, then render the API data</span></span><br><span class="line"><span class="comment">into markup and inject it into the #app element. Instead of rendering all of the articles,</span></span><br><span class="line"><span class="comment">use the first five from each category. Add a heading before each section so that you know</span></span><br><span class="line"><span class="comment">what category the articles are from. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> apiKey = <span class="string">&#x27;T6l8P8ICK6XZr1u3OeA0qoGUFrEcSM5R&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> sections = [<span class="string">&#x27;Technology&#x27;</span>, <span class="string">&#x27;Science&#x27;</span>, <span class="string">&#x27;Magazine&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> articleNum = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">articles, section</span>) </span>&#123;</span><br><span class="line">  appOutput.innerHTML += <span class="string">&#x27;&lt;h3 class=&quot;category&quot;&gt;&#x27;</span> + section + <span class="string">&#x27;:&#x27;</span> + <span class="string">&#x27;&lt;/h3&gt;&#x27;</span> + articles.map(<span class="function"><span class="keyword">function</span> (<span class="params">article</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">            &lt;div class=&quot;container&quot;&gt;</span></span><br><span class="line"><span class="string">              &lt;ul class=&quot;title&quot;&gt;</span></span><br><span class="line"><span class="string">              &lt;li&gt;<span class="subst">$&#123;article.title&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">              &lt;a class=&quot;link&quot; href=&quot;<span class="subst">$&#123;article.url&#125;</span>&quot; target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;</span></span><br><span class="line"><span class="string">              &lt;/ul&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;br&gt;</span></span><br><span class="line"><span class="string">            `</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getLastNStories = <span class="function"><span class="keyword">function</span> (<span class="params">articles</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> articles.slice(<span class="number">0</span>, articleNum)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getStories = <span class="function"><span class="keyword">function</span> (<span class="params">section</span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">`https://api.nytimes.com/svc/topstories/v2/<span class="subst">$&#123;section&#125;</span>.json?api-key=<span class="subst">$&#123;apiKey&#125;</span>`</span>).then(</span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">response, resolve</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">        <span class="keyword">return</span> response.json();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> lastNStories = getLastNStories(data.results);</span><br><span class="line">    render(lastNStories, section);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;something went wrong&quot;</span>, response);</span><br><span class="line">    appOutput.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">sections.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">section</span>) </span>&#123;</span><br><span class="line">  getStories(section);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 =======
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Each monster (or sock) has a matching SVG in the source code.</span></span><br><span class="line"><span class="comment">For example, there’s a monster3 in the array, and a monster3.svg in the source code.</span></span><br><span class="line"><span class="comment">Shuffle the array of monsters, and render the matching SVG files into the #app element. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shuffleBtn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> monsters = [</span><br><span class="line">  <span class="string">&#x27;monster1&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster2&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster3&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster4&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster5&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster6&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster7&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster8&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster9&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster10&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster11&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;sock&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  app.innerHTML = <span class="string">&#x27;&lt;div class=&quot;row&quot;&gt;&#x27;</span> + monsters.map(<span class="function"><span class="params">monster</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div class=&quot;grid&quot; aria-live=&quot;polite&quot;&gt;&lt;img alt= &quot;A picture of <span class="subst">$&#123;monster&#125;</span>&quot; src=&quot;../img/<span class="subst">$&#123;monster&#125;</span>.svg&quot;/&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>)</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shuffleArr = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> currentIndex = arr.length;</span><br><span class="line">  <span class="keyword">var</span> temporaryValue, randomIndex;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (<span class="number">0</span> !== currentIndex) &#123;</span><br><span class="line">    randomIndex = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * currentIndex);</span><br><span class="line">    currentIndex -= <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    temporaryValue = arr[currentIndex];</span><br><span class="line">    arr[currentIndex] = arr[randomIndex];</span><br><span class="line">    arr[randomIndex] = temporaryValue;</span><br><span class="line">  &#125;</span><br><span class="line">  render();</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">shuffleBtn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  shuffleArr(monsters);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Cache the API data in localStorage for a short time, </span></span><br><span class="line"><span class="comment">and use that instead of making a fresh API call on subsequent visits or page reloads. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> storageID;</span><br><span class="line"><span class="keyword">var</span> numberOfArticles = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">const</span> sanitizeHTML = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.replace(<span class="regexp">/[^\w. ]/gi</span>, <span class="function"><span class="keyword">function</span> (<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&amp;#&#x27;</span> + c.charCodeAt(<span class="number">0</span>) + <span class="string">&#x27;;&#x27;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> isDataValid = <span class="function"><span class="keyword">function</span> (<span class="params">saved, expirationDate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!saved || !saved.data || !saved.timestamp) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">const</span> difference = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - saved.timestamp;</span><br><span class="line">  <span class="keyword">return</span> difference &lt; expirationDate;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> saveData = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> cache = &#123;</span><br><span class="line">    data: data,</span><br><span class="line">    timestamp: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">localStorage</span>.setItem(storageID, <span class="built_in">JSON</span>.stringify(cache));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getData = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> saved = <span class="built_in">JSON</span>.parse(<span class="built_in">localStorage</span>.getItem(storageID));</span><br><span class="line">  <span class="keyword">if</span> (!saved) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">if</span> (isDataValid(saved, <span class="number">1000</span> * <span class="number">10</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> saved.data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">articles</span>) </span>&#123;</span><br><span class="line">  appOutput.innerHTML = <span class="string">&#x27;&lt;h3 class=&quot;category&quot;&gt;Pirate articles:&lt;/h3&gt;&#x27;</span> + articles.map(<span class="function"><span class="keyword">function</span> (<span class="params">article</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div class=&quot;container&quot;&gt;</span></span><br><span class="line"><span class="string">          &lt;ul class=&quot;title&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;li&gt; &lt;strong&gt;Title:&lt;/strong&gt; <span class="subst">$&#123;sanitizeHTML(article.title)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">            &lt;li&gt; &lt;strong&gt;Author:&lt;/strong&gt; <span class="subst">$&#123;sanitizeHTML(article.author)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">            &lt;li&gt; &lt;strong&gt;Publication date:&lt;/strong&gt; <span class="subst">$&#123;sanitizeHTML(article.pubdate)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">          &lt;/ul&gt;</span></span><br><span class="line"><span class="string">          &lt;div class=&quot;article&quot;&gt;&lt;p&gt;<span class="subst">$&#123;sanitizeHTML(article.article)&#125;</span>&lt;/p&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;hr&gt;</span></span><br><span class="line"><span class="string">        &lt;br&gt;</span></span><br><span class="line"><span class="string">        `</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getFirstFewArticles = <span class="function"><span class="keyword">function</span> (<span class="params">articles</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> articles.slice(<span class="number">0</span>, numberOfArticles);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getNews = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Check for valid cached data,</span></span><br><span class="line">  <span class="comment">// If exist, use it</span></span><br><span class="line">  <span class="keyword">const</span> saved = getData();</span><br><span class="line">  <span class="keyword">if</span> (saved) &#123;</span><br><span class="line">    render(saved);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;Loaded from cache&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  fetch(<span class="string">&#x27;https://vanillajsacademy.com/api/pirates.json&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> articles = getFirstFewArticles(data.articles);</span><br><span class="line">    saveData(articles);</span><br><span class="line">    render(articles);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;Fetched from API&quot;</span>);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;something went wrong&quot;</span>, error);</span><br><span class="line">    appOutput.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">getNews();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 
@@ -338,10 +364,14 @@
   <nav id="page-nav">
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/8/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/7/">7</a><a class="page-number" href="/vanilla-js-academy/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/vanilla-js-academy/page/10/">10</a><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/10/">Next</a>
 =======
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/8/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/7/">7</a><a class="page-number" href="/vanilla-js-academy/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/vanilla-js-academy/page/10/">10</a><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/10/">Next</a>
 >>>>>>> refs/remotes/origin/main
+=======
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/8/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/7/">7</a><a class="page-number" href="/vanilla-js-academy/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/vanilla-js-academy/page/10/">10</a><a class="page-number" href="/vanilla-js-academy/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/10/">Next</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </nav>
 
 </section>
@@ -360,7 +390,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -374,7 +404,70 @@
         
           <li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
+        
+          <li>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
           </li>
         

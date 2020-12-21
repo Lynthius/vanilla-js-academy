@@ -78,6 +78,7 @@
         <section id="main">
   
 <<<<<<< HEAD
+<<<<<<< HEAD
     <article id="post-toggling-passwords-in-multiple-forms" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/vanilla-js-academy/2020/10/16/toggling-passwords-in-multiple-forms/" class="article-date">
@@ -88,6 +89,12 @@
     <a href="/vanilla-js-academy/2020/10/20/character-and-word-count/" class="article-date">
   <time datetime="2020-10-19T22:00:00.000Z" itemprop="datePublished">2020-10-20</time>
 >>>>>>> refs/remotes/origin/main
+=======
+    <article id="post-helper-library" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/11/19/helper-library/" class="article-date">
+  <time datetime="2020-11-19T19:27:19.000Z" itemprop="datePublished">2020-11-19</time>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 </a>
   </div>
   <div class="article-inner">
@@ -98,10 +105,14 @@
   
     <h1 itemprop="name">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <a class="article-title" href="/vanilla-js-academy/2020/10/16/toggling-passwords-in-multiple-forms/">03. Toggling passwords in multiple forms</a>
 =======
       <a class="article-title" href="/vanilla-js-academy/2020/10/20/character-and-word-count/">05. Character and Word Count</a>
 >>>>>>> refs/remotes/origin/main
+=======
+      <a class="article-title" href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     </h1>
   
 
@@ -112,6 +123,7 @@
         <div class="output-container">
 
   <style type="text/css">
+<<<<<<< HEAD
     .label {
 <<<<<<< HEAD
       display: block;
@@ -137,6 +149,8 @@
       box-shadow: 0 0 3px 1px #8e45ff;
     }
 
+=======
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     .button {
       border-color: white;
       outline: none;
@@ -146,6 +160,7 @@
       border-radius: 3px;
       font-weight: 600px;
       cursor: pointer;
+<<<<<<< HEAD
     }
 
     .button:focus {
@@ -239,31 +254,113 @@
     .textarea {
       min-width: 400px;
       min-height: 80px;
+=======
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     }
 
-     .textarea:focus {
+    .button:focus {
+      border: red;
       outline: none;
       box-shadow: 0 0 3px 1px #8e45ff;
     }
-  </style>
 
-<p>  <label class="label" for="text">Enter your text below.</label><br>  <textarea class="textarea" id="text"></textarea></p>
-  <p>You've written <strong><span id="word-count">0</span> words</strong> and <strong><span id="character-count">0</span> characters</strong>.</p>
+    .button:active {
+      color: #8e45ff;
+    }
+
+    .btn-blue {
+      background-color: #0088cc;
+      color: #ffffff;
+    }
+
+    .btn-purple {
+      background-color: rebeccapurple;
+      color: #ffffff;
+    }
+  </style>
+  <p>
+    <button class="btn-blue button" id="button-1">Button 1</button>
+    <button class="btn-blue button here-is-johnny" id="button-2">Button 2</button>
+    <button class="btn-blue button" id="button-3">Button 3</button>
+    <button class="btn-blue button" id="button-4">Button 4</button>
+    <button class="btn-blue button" id="button-5">Button 5</button>
+    <button class="btn-blue button here-is-johnny" id="button-6">Button 6</button>
+  </p>
 
   <script>
-    const textArea = document.querySelector('#text');
-    const countCharOutput = document.querySelector('#character-count');
-    const countWordOutput = document.querySelector('#word-count');
+    const btns = document.querySelectorAll('.button');
+    const btn2 = document.querySelector('#button-2');
 
-    function counter() {
-      const wordsArr = textArea.value.split(/[\n\r\s]+/g).filter(item => {
-        return item.length > 0;
-      });
-      countCharOutput.textContent = textArea.value.length;
-      countWordOutput.textContent = wordsArr.length;
-    };
+    const helperMethod = (function () {
 
-    textArea.addEventListener('input', counter);
+      // Hold public methdos here
+      const methods = {};
+
+      // Private methods
+      const nodeToArr = function (node) {
+        return Array.prototype.slice.call(node);
+      };
+
+      const getFirstMatch = function (element, match) {
+        return element.closest(match);
+      };
+
+      const getAllMatches = function (match) {
+        return nodeToArr(document.querySelectorAll(match));
+      };
+
+      const addClassToElem = function (elements, newClass) {
+        if (nodeToArr(elements).length == 0) {
+        return elements.classList.add(newClass);
+        } else {
+          return nodeToArr(elements).map(element => {
+            element.classList.add(newClass);
+          })
+        }
+      };
+
+      const removeClassFromElement = function (elements, newClass) {
+        if (nodeToArr(elements).length == 0) {
+        return elements.classList.remove(newClass);
+        } else {
+          return nodeToArr(elements).map(element => {
+            element.classList.remove(newClass);
+          })
+        }
+      };
+
+      // Public methods
+      methods.transformToArray = function (node) {
+        return nodeToArr(node);
+      };
+
+      methods.firstMatch = function (element, match) {
+        return getFirstMatch(element, match);
+      };
+
+      methods.allMatches = function (match) {
+        return getAllMatches(match);
+      };
+
+      methods.addClass = function (elements, newClass) {
+        return addClassToElem(elements, newClass);
+      };
+
+      methods.removeClass = function (elements, newClass) {
+        return removeClassFromElement(elements, newClass);
+      }
+
+      return methods;
+    })();
+
+    // Check the console logs in dev tools
+    console.log('helperMethod.transformToArray(btns)', helperMethod.transformToArray(btns));
+    console.log('helperMethod.firstMatch(btn2, ".here-is-johnny")', helperMethod.firstMatch(btn2, '.here-is-johnny'));
+    console.log('helperMethod.allMatches(".here-is-johnny")', helperMethod.allMatches('.here-is-johnny'));
+
+    // Add and remove classes
+    helperMethod.addClass(btns, 'btn-purple');
+    helperMethod.removeClass(btn2, 'btn-purple');
   </script>
 >>>>>>> refs/remotes/origin/main
 
@@ -272,19 +369,27 @@
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Change Username<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Enter your username and password to change your username.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span>Username<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;password&quot;</span>&gt;</span>Password<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;show-password&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;show-password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;show-password&quot;</span> <span class="attr">data-pw-toggle</span>=<span class="string">&quot;#password&quot;</span>&gt;</span></span><br><span class="line">        Show password</span><br><span class="line">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Change Username<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Change Password<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Enter your current password and new password below.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;current-password&quot;</span>&gt;</span>Current Password<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;current-password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;current-password&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;new-password&quot;</span>&gt;</span>New Password<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;new-password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;new-password&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;show-passwords&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;show-passwords&quot;</span> <span class="attr">id</span>=<span class="string">&quot;show-passwords&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">data-pw-toggle</span>=<span class="string">&quot;#current-password, #new-password&quot;</span>&gt;</span></span><br><span class="line">        Show passwords</span><br><span class="line">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Change Passwords<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 =======
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;text&quot;</span>&gt;</span>Enter your text below.<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">&quot;textarea&quot;</span> <span class="attr">id</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>You&#x27;ve written <span class="tag">&lt;<span class="name">strong</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;word-count&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span> words<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> and <span class="tag">&lt;<span class="name">strong</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;character-count&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span> characters<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-1&quot;</span>&gt;</span>Button 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button here-is-johnny&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-2&quot;</span>&gt;</span>Button 2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-3&quot;</span>&gt;</span>Button 3<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-4&quot;</span>&gt;</span>Button 4<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-5&quot;</span>&gt;</span>Button 5<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button here-is-johnny&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-6&quot;</span>&gt;</span>Button 6<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 <div class="js-container">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* In the first form, the #show-password checkbox should toggle </span></span><br><span class="line"><span class="comment">the #password field visibility. In the second form, the #show-passwords checkbox</span></span><br><span class="line"><span class="comment">should toggle the visibility of the #current-password and #new-password fields. */</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e.target.matches(<span class="string">&#x27;[data-pw-toggle]&#x27;</span>)) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> passwords = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">document</span>.querySelectorAll(</span><br><span class="line">    e.target.getAttribute(<span class="string">&#x27;data-pw-toggle&#x27;</span>)));</span><br><span class="line"></span><br><span class="line">  passwords.forEach(<span class="function"><span class="params">password</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target.checked) &#123;</span><br><span class="line">      password.type = <span class="string">&#x27;text&#x27;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      password.type = <span class="string">&#x27;password&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 =======
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* As the user types or pastes content in, the text of the #word-count</span></span><br><span class="line"><span class="comment">and #character-count elements should be updated to show how many words</span></span><br><span class="line"><span class="comment">and characters are in the #text field. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> textArea = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#text&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> countCharOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#character-count&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> countWordOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#word-count&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> wordsArr = textArea.value.split(<span class="regexp">/[\n\r\s]+/g</span>).filter(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.length &gt; <span class="number">0</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  countCharOutput.textContent = textArea.value.length;</span><br><span class="line">  countWordOutput.textContent = wordsArr.length;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">textArea.addEventListener(<span class="string">&#x27;input&#x27;</span>, counter);</span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* In today’s project, we’re going to create a helper library. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;.button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> btn2 = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#button-2&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> helperMethod = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Hold public methdos here</span></span><br><span class="line">  <span class="keyword">const</span> methods = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Private methods</span></span><br><span class="line">  <span class="keyword">const</span> nodeToArr = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(node);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> getFirstMatch = <span class="function"><span class="keyword">function</span> (<span class="params">element, match</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> element.closest(match);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> getAllMatches = <span class="function"><span class="keyword">function</span> (<span class="params">match</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> nodeToArr(<span class="built_in">document</span>.querySelectorAll(match));</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> addClassToElem = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nodeToArr(elements).length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> elements.classList.add(newClass);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> nodeToArr(elements).map(<span class="function"><span class="params">element</span> =&gt;</span> &#123;</span><br><span class="line">        element.classList.add(newClass);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> removeClassFromElement = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nodeToArr(elements).length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> elements.classList.remove(newClass);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> nodeToArr(elements).map(<span class="function"><span class="params">element</span> =&gt;</span> &#123;</span><br><span class="line">        element.classList.remove(newClass);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Public methods</span></span><br><span class="line">  methods.transformToArray = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> nodeToArr(node);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.firstMatch = <span class="function"><span class="keyword">function</span> (<span class="params">element, match</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getFirstMatch(element, match);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.allMatches = <span class="function"><span class="keyword">function</span> (<span class="params">match</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getAllMatches(match);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.addClass = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> addClassToElem(elements, newClass);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  methods.removeClass = <span class="function"><span class="keyword">function</span> (<span class="params">elements, newClass</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> removeClassFromElement(elements, newClass);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> methods;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the console logs in dev tools</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;helperMethod.transformToArray(btns)&#x27;</span>, helperMethod.transformToArray(btns));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;helperMethod.firstMatch(btn2, &quot;.here-is-johnny&quot;)&#x27;</span>, helperMethod.firstMatch(btn2, <span class="string">&#x27;.here-is-johnny&#x27;</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;helperMethod.allMatches(&quot;.here-is-johnny&quot;)&#x27;</span>, helperMethod.allMatches(<span class="string">&#x27;.here-is-johnny&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add and remove classes</span></span><br><span class="line">helperMethod.addClass(btns, <span class="string">&#x27;btn-purple&#x27;</span>);</span><br><span class="line">helperMethod.removeClass(btn2, <span class="string">&#x27;btn-purple&#x27;</span>);</span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 
@@ -299,10 +404,14 @@
   <nav id="page-nav">
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/15/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/14/">14</a><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/vanilla-js-academy/page/17/">17</a><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/17/">Next</a>
 =======
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/15/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/14/">14</a><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/vanilla-js-academy/page/17/">17</a><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/17/">Next</a>
 >>>>>>> refs/remotes/origin/main
+=======
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/15/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/14/">14</a><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/vanilla-js-academy/page/17/">17</a><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/17/">Next</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </nav>
 
 </section>
@@ -321,7 +430,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -335,7 +444,70 @@
         
           <li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
+        
+          <li>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
           </li>
         

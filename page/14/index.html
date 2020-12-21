@@ -78,6 +78,7 @@
         <section id="main">
   
 <<<<<<< HEAD
+<<<<<<< HEAD
     <article id="post-character-and-word-count" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/vanilla-js-academy/2020/10/20/character-and-word-count/" class="article-date">
@@ -88,6 +89,12 @@
     <a href="/vanilla-js-academy/2020/10/24/random-ron/" class="article-date">
   <time datetime="2020-10-23T22:00:00.000Z" itemprop="datePublished">2020-10-24</time>
 >>>>>>> refs/remotes/origin/main
+=======
+    <article id="post-dom-manipulation-library-with-chaining" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/" class="article-date">
+  <time datetime="2020-11-23T19:27:19.000Z" itemprop="datePublished">2020-11-23</time>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 </a>
   </div>
   <div class="article-inner">
@@ -98,10 +105,14 @@
   
     <h1 itemprop="name">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <a class="article-title" href="/vanilla-js-academy/2020/10/20/character-and-word-count/">05. Character and Word Count</a>
 =======
       <a class="article-title" href="/vanilla-js-academy/2020/10/24/random-ron/">07. Random Ron</a>
 >>>>>>> refs/remotes/origin/main
+=======
+      <a class="article-title" href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     </h1>
   
 
@@ -112,6 +123,7 @@
         <div class="output-container">
 
   <style type="text/css">
+<<<<<<< HEAD
 <<<<<<< HEAD
     .label {
     display: block;
@@ -149,6 +161,9 @@
     textArea.addEventListener('input', counter);
 =======
     .fetch-button {
+=======
+    .button {
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
       border-color: white;
       outline: none;
       border: none;
@@ -159,66 +174,37 @@
       cursor: pointer;
     }
 
-    .fetch-button:focus {
+    .button:focus {
       border: red;
       outline: none;
       box-shadow: 0 0 3px 1px #8e45ff;
     }
 
-    .fetch-button:active {
+    .button:active {
       color: #8e45ff;
     }
 
-     .quote-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgb(142,69,255);
-      background: linear-gradient(63deg, rgba(142,69,255,1) 16%, rgba(74,62,184,1) 49%, rgba(142,69,255,1) 83%);
-      border-radius: 3px;
-      padding: 8px;
-      min-height: 200px;
-      width: 98%;
-      font-size: 16px;
+    .btn-blue {
+      background-color: #0088cc;
+      color: #ffffff;
     }
 
-    .quote-output {
-      text-align: center;
-      color: white;
-      font-size: 16px;
-      font-family: 'helvetica';
-    }
-
-    .quote-mark{
-      position: absolute;
-      top: 0;
-      left: 20px;
-      color: rgba(250,250,250 ,1);
-      font-size: 90px;
-      font-family: 'lato';
-    }
-
-    .quote-paragraph {
-      padding: 0 60px;
-      font-size: 16px;
-      font-family: 'helvetica';
+    .btn-purple {
+      background-color: rebeccapurple;
+      color: #ffffff;
     }
   </style>
-
-  <p>Show some random quote.</p>
-
-  <div class="quote-container">
-    <blockquote aria-live="polite">
-      <span class="quote-mark">&ldquo;</span><span class="quote-output">Waiting for a new quote...</span>
-    </blockquote>
-  </div>
-
   <p>
-    <button class="fetch-button">More Ron</button>
+    <button class="btn-blue button" id="button-1">Button 1</button>
+    <button class="btn-blue button here-is-johnny" id="button-2">Button 2</button>
+    <button class="btn-blue button" id="button-3">Button 3</button>
+    <button class="btn-blue button" id="button-4">Button 4</button>
+    <button class="btn-blue button" id="button-5">Button 5</button>
+    <button class="btn-blue button here-is-johnny" id="button-6">Button 6</button>
   </p>
 
   <script>
+<<<<<<< HEAD
     const fetchBtn = document.querySelector('.fetch-button');
     const quoteOutput = document.querySelector('.quote-output');
     const quoteContainer = document.querySelector('.quote-container');
@@ -251,6 +237,59 @@
 
     fetchBtn.addEventListener('click', getQuote);
 >>>>>>> refs/remotes/origin/main
+=======
+    const $ = (function () {
+
+      // Create Constructor function here
+      const Constructor = function (selector) {
+        this.elements = document.querySelectorAll(selector);
+      };
+
+      // Immutable copy of the matching elements
+      Constructor.prototype.items = function () {
+        return Array.prototype.slice.call(this.elements);
+      };
+
+      // Get first item
+      Constructor.prototype.first = function () {
+        return this.elements[0];
+      }
+
+      // Get last item
+      Constructor.prototype.last = function () {
+        return this.elements[this.elements.length - 1];
+      }
+
+      // Add class to element
+      Constructor.prototype.addClass = function (newClass) {
+        this.items().forEach(element => {
+          element.classList.add(newClass);
+        })
+        return this;
+      };
+
+      // Remove class from element
+      Constructor.prototype.removeClass = function (newClass) {
+        this.items().forEach(element => {
+          element.classList.remove(newClass);
+        })
+        return this;
+      };
+
+      return Constructor;
+    })();
+
+    // Create new instance
+    const btns = new $('.button');
+
+    // Check the console logs in dev tools
+    console.log('$.items()', btns.items());
+    console.log('$.first()', btns.first());
+    console.log('$.last()', btns.last());
+
+    // Add and remove class
+    btns.addClass('btn-purple').removeClass('btn-blue');
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </script>
 
 </div>
@@ -258,20 +297,28 @@
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;text&quot;</span>&gt;</span>Enter your text below.<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">&quot;textarea&quot;</span> <span class="attr">id</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>You&#x27;ve written <span class="tag">&lt;<span class="name">strong</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;word-count&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span> words<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> and <span class="tag">&lt;<span class="name">strong</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;character-count&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span> characters<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 =======
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Show some random quote.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;quote-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">aria-live</span>=<span class="string">&quot;polite&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;quote-mark&quot;</span>&gt;</span><span class="symbol">&amp;ldquo;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;quote-output&quot;</span>&gt;</span>Waiting for a new quote...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;fetch-button&quot;</span>&gt;</span>More Ron<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
+=======
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-1&quot;</span>&gt;</span>Button 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button here-is-johnny&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-2&quot;</span>&gt;</span>Button 2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-3&quot;</span>&gt;</span>Button 3<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-4&quot;</span>&gt;</span>Button 4<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-5&quot;</span>&gt;</span>Button 5<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn-blue button here-is-johnny&quot;</span> <span class="attr">id</span>=<span class="string">&quot;button-6&quot;</span>&gt;</span>Button 6<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 <div class="js-container">
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* As the user types or pastes content in, the text of the #word-count</span></span><br><span class="line"><span class="comment">and #character-count elements should be updated to show how many words</span></span><br><span class="line"><span class="comment">and characters are in the #text field. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> textArea = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#text&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> countCharOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#character-count&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> countWordOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#word-count&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> wordsArr = textArea.value.split(<span class="regexp">/[\n\r\s]+/g</span>).filter(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.length &gt; <span class="number">0</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  countCharOutput.textContent = textArea.value.length;</span><br><span class="line">  countWordOutput.textContent = wordsArr.length;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">textArea.addEventListener(<span class="string">&#x27;input&#x27;</span>, counter);</span><br></pre></td></tr></table></figure>
 =======
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* When the page loads, a random quote from the Ron Swanson Quotes API</span></span><br><span class="line"><span class="comment">should be displayed in the blockquote element. When the More Ron button is clicked,</span></span><br><span class="line"><span class="comment">a new quote from the API should replace the current one. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fetchBtn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.fetch-button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> quoteOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.quote-output&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> quoteContainer = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.quote-container&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQuote</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;https://ron-swanson-quotes.herokuapp.com/v2/quotes&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    renderQuote(data)</span><br><span class="line">    alterGradient()</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span> err;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">renderQuote</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  quoteOutput.innerHTML = <span class="string">`&lt;p class=&quot;quote-paragraph&quot;&gt; <span class="subst">$&#123;data[<span class="number">0</span>]&#125;</span>&lt;/p&gt;`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alterGradient</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  quoteContainer.style.background = <span class="string">`linear-gradient(<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">90</span> - <span class="number">35</span>)) + <span class="number">90</span>&#125;</span>deg, rgba(142,69,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">255</span> - <span class="number">100</span>)) + <span class="number">255</span>&#125;</span>,1), <span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">20</span> - <span class="number">10</span>)) + <span class="number">20</span>&#125;</span>%, rgba(74,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">90</span> - <span class="number">60</span>)) + <span class="number">90</span>&#125;</span>,<span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">280</span> - <span class="number">140</span>)) + <span class="number">280</span>&#125;</span>,.8) <span class="subst">$&#123;<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">40</span> - <span class="number">30</span>)) + <span class="number">40</span>&#125;</span>%, rgba(142,69,255,1) 83%)`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getQuote()</span><br><span class="line"></span><br><span class="line">fetchBtn.addEventListener(<span class="string">&#x27;click&#x27;</span>, getQuote);</span><br></pre></td></tr></table></figure>
 >>>>>>> refs/remotes/origin/main
 
+=======
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Modify any methods that you can to support chaining. </span></span><br><span class="line"><span class="comment">Ideally, the methods to add and remove classes should be chainable.*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> $ = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create Constructor function here</span></span><br><span class="line">  <span class="keyword">const</span> Constructor = <span class="function"><span class="keyword">function</span> (<span class="params">selector</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.elements = <span class="built_in">document</span>.querySelectorAll(selector);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Immutable copy of the matching elements</span></span><br><span class="line">  Constructor.prototype.items = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">this</span>.elements);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get first item</span></span><br><span class="line">  Constructor.prototype.first = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.elements[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get last item</span></span><br><span class="line">  Constructor.prototype.last = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.elements[<span class="built_in">this</span>.elements.length - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Add class to element</span></span><br><span class="line">  Constructor.prototype.addClass = <span class="function"><span class="keyword">function</span> (<span class="params">newClass</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.items().forEach(<span class="function"><span class="params">element</span> =&gt;</span> &#123;</span><br><span class="line">      element.classList.add(newClass);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Remove class from element</span></span><br><span class="line">  Constructor.prototype.removeClass = <span class="function"><span class="keyword">function</span> (<span class="params">newClass</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.items().forEach(<span class="function"><span class="params">element</span> =&gt;</span> &#123;</span><br><span class="line">      element.classList.remove(newClass);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Constructor;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create new instance</span></span><br><span class="line"><span class="keyword">const</span> btns = <span class="keyword">new</span> $(<span class="string">&#x27;.button&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the console logs in dev tools</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;$.items()&#x27;</span>, btns.items());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;$.first()&#x27;</span>, btns.first());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;$.last()&#x27;</span>, btns.last());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add and remove class</span></span><br><span class="line">btns.addClass(<span class="string">&#x27;btn-purple&#x27;</span>).removeClass(<span class="string">&#x27;btn-blue&#x27;</span>);</span><br></pre></td></tr></table></figure>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 </div>
 
       
@@ -285,10 +332,14 @@
   <nav id="page-nav">
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/13/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><a class="page-number" href="/vanilla-js-academy/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><a class="page-number" href="/vanilla-js-academy/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/15/">Next</a>
 =======
     <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/13/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><a class="page-number" href="/vanilla-js-academy/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><a class="page-number" href="/vanilla-js-academy/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/15/">Next</a>
 >>>>>>> refs/remotes/origin/main
+=======
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/13/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/12/">12</a><a class="page-number" href="/vanilla-js-academy/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/vanilla-js-academy/page/15/">15</a><a class="page-number" href="/vanilla-js-academy/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/15/">Next</a>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </nav>
 
 </section>
@@ -307,7 +358,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -321,7 +372,70 @@
         
           <li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
+        
+          <li>
+>>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
           </li>
         
