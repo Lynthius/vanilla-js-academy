@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-find-the-monsters-track-wins" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-countdown-timer" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/11/07/find-the-monsters-track-wins/" class="article-date">
-  <time datetime="2020-11-06T23:00:00.000Z" itemprop="datePublished">2020-11-07</time>
+    <a href="/vanilla-js-academy/2020/12/07/countdown-timer/" class="article-date">
+  <time datetime="2020-12-07T17:25:46.000Z" itemprop="datePublished">2020-12-07</time>
 </a>
   </div>
   <div class="article-inner">
@@ -74,7 +74,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/vanilla-js-academy/2020/11/07/find-the-monsters-track-wins/">14. Find the Monsters - Track Wins</a>
+      <a class="article-title" href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
     </h1>
   
 
@@ -85,188 +85,88 @@
         <div class="output-container">
 
   <style type="text/css">
-    .row {
-      display: grid;
-      background-color: wheat;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      grid-auto-rows: 100px;
-      place-items: center;
-      padding: 2rem 0 2rem 0;
-      gap: 2rem 0;
-    }
-
-    .grid {
-      min-height: 6em;
-      padding: 1em;
-    }
-
-    img {
-      height: 100%;
+    #app {
+      margin-top: 20px;
     }
 
     .button {
-      border-color: white;
-      outline: none;
-      border: none;
-      margin-top: 5px;
-      padding: 5px 10px;
-      border-radius: 3px;
-      font-weight: 600px;
-      cursor: pointer;
-    }
+        border-color: white;
+        outline: none;
+        border: none;
+        margin-top: 5px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-weight: 600px;
+        cursor: pointer;
+      }
 
-    .button:focus {
-      outline: none;
-      box-shadow: 0 0 3px 1px #8e45ff;
-    }
+      .button:focus {
+        border: red;
+        outline: none;
+        box-shadow: 0 0 3px 1px #8e45ff;
+      }
 
-    .button:active {
-      color: #8e45ff;
-    }
+      .button:active {
+        color: #8e45ff;
+      }
 
-    .show_button {
-      cursor: pointer;
-      border: 0;
-      background-color: transparent;
-      padding: .5rem .5rem;
-    }
-
-    .show_button:active {
-      color: #8e45ff;
-    }
-
-    .show_button:focus {
-      outline: 0; 
-      box-shadow: 0 0 3px 1px #8e45ff;
-    }
-
-    .show_button:hover {
-      outline: 0; 
-      box-shadow: 0 0 3px 1px #8e45ff;
-    }
-
-    .score {
-      font-weight: bold;
-    }
-
+      .counter {
+        color: #8e45ff;
+      }
   </style>
-
-<p>  <button class="button" value="monsters">Click to load and play!</button></p>
-  <p class="score" aria-live="polite">Score: 0</p>
-  <div id="app"></div>
-
-  <footer>
-    <p class="text-small text-muted">Icons by 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/28460/">Eliricon</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/82823/">April Yang</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1062009/">tk66</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>, 
-      <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/2236082">iconcheese</a>,<br/> 
-      and <a target="_blank" rel="noopener" href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
-  </footer>
-
+  <div id="app" aria-live="polite"></div>
   <script>
-    const shuffleBtn = document.querySelector('.button');
-    const app = document.querySelector('#app');
-    const scoreInfo = document.querySelector('.score');
-    let score = 0;
-
-    const monsters = [
-      'monster1',
-      'monster2',
-      'monster3',
-      'monster4',
-      'monster5',
-      'monster6',
-      'monster7',
-      'monster8',
-      'monster9',
-      'monster10',
-      'monster11',
-      'sock'
-    ];
-
-    const render = function () {
-      app.innerHTML = '<p>Click a door to reveal a monster. Try not to find the sock.</p><div class="row">' + monsters.map(monster => {
-        return (`
-          <div class="grid" aria-live="polite"><button class="show_button" data-id="${monster}"><img alt= "Click this picture of door to see monster" src="../img/door.svg"/></button></div>
-        `)
-      }).join('') + '</div>';
-    };
-
-    const shuffleArr = function (arr) {
-      var currentIndex = arr.length;
-      var temporaryValue, randomIndex;
-
-      while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        temporaryValue = arr[currentIndex];
-        arr[currentIndex] = arr[randomIndex];
-        arr[randomIndex] = temporaryValue;
+  const timeValue = 60;
+  const Rue = function (selector, options) {
+    this.elem = document.querySelector(selector);
+    this.data = options.data;
+    this.template = options.template;
+  };
+  Rue.prototype.render = function () {
+    this.elem.innerHTML = this.template(this.data);
+  };
+   Rue.prototype.restartTimer = function () {
+     this.data.time = timeValue;
+     app.timer()
+  }
+  Rue.prototype.stopTimer = function () {
+    this.elem.innerHTML = `<h2>It's over, start again:</h2><button onclick="app.restartTimer()" class="button">Start Again</button>`
+  }
+  Rue.prototype.timer = function () {
+    const intervalCount = window.setInterval(function () {
+      if(!app) return;
+      app.data.time--
+      app.render();
+      if (app.data.time < 1) {
+        window.clearInterval(intervalCount)
+        app.stopTimer()
       }
-      score = 0;
-      scoreInfo.textContent = `Score: ${score}`;
-      render();
-      return arr;
+    }, 1000);
+      app.render();
+  };
+  const app = new Rue('#app', {
+    data: {
+      time: timeValue,
+    },
+    template: function (props) {
+      if (!props) return;
+      let html = `<h2>You've got only <span class="counter">${props.time}</span> seconds!</h2>`;
+      return html;
     }
-
-    const replaceTargetElement = function (e) {
-      const monster = e.target.closest('[data-id]');
-      if (!monster) return;
-      const monsterID = monster.getAttribute('data-id');
-      monster.parentNode.innerHTML = `<img alt="A picture of ${monsterID}" src="../img/${monsterID}.svg"/>`
-      if (monsterID !== "sock") {
-        goodPick();
-      } else {
-        wrongPick();
-      }
-    }
-
-    const goodPick = function () {
-      score++
-      if (score >= 11) {
-        scoreInfo.innerHTML = `<p class="score">Score: ${score}, Congrats, you have won!</p>`;
-        endGame();
-        return;
-      }
-      scoreInfo.textContent = `Score: ${score}`;
-    }
-
-    const wrongPick = function () {
-      score = 0;
-      scoreInfo.innerHTML = `<p class="score">Score: ${score}, Ups, you have lose. Try again.</p>`;
-      endGame();
-      return;
-    }
-
-    const endGame = function () {
-      const pickLeft = Array.from(document.querySelectorAll('[data-id]'));
-      pickLeft.forEach(pick => pick.remove());
-    }
-
-    document.addEventListener('click', replaceTargetElement);
-
-    shuffleBtn.addEventListener('click', function () {
-      shuffleArr(monsters);
-    });
+  })
+  app.timer();
   </script>
 
 </div>
 
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;monsters&quot;</span>&gt;</span>Click to load and play!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;score&quot;</span> <span class="attr">aria-live</span>=<span class="string">&quot;polite&quot;</span>&gt;</span>Score: 0<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-small text-muted&quot;</span>&gt;</span>Icons by</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/door/311732/&quot;</span>&gt;</span>Jamie Dickinson<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/184225/&quot;</span>&gt;</span>Nicky Knicky<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/1510400/&quot;</span>&gt;</span>Alvaro Cabrera<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/28460/&quot;</span>&gt;</span>Eliricon<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/82823/&quot;</span>&gt;</span>April Yang<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/1062009/&quot;</span>&gt;</span>tk66<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/24990/&quot;</span>&gt;</span>Alex WaZa<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/37212/&quot;</span>&gt;</span>Husein Aziz<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/monster/2236082&quot;</span>&gt;</span>iconcheese<span class="tag">&lt;/<span class="name">a</span>&gt;</span>,<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    and <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://thenounproject.com/term/socks/38451/&quot;</span>&gt;</span>Yazmin Alanis<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span> <span class="attr">aria-live</span>=<span class="string">&quot;polite&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 </div>
 <div class="js-container">
 
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* If the user finds the sock before they’ve found all of the monsters,</span></span><br><span class="line"><span class="comment">display a message letting them know they lost. If they find all of the monsters,</span></span><br><span class="line"><span class="comment">display a message letting them know they’ve won.</span></span><br><span class="line"><span class="comment">Either way, show a button that they can click to play again. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shuffleBtn = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.button&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> scoreInfo = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.score&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> score = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> monsters = [</span><br><span class="line">  <span class="string">&#x27;monster1&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster2&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster3&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster4&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster5&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster6&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster7&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster8&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster9&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster10&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;monster11&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;sock&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  app.innerHTML = <span class="string">&#x27;&lt;p&gt;Click a door to reveal a monster. Try not to find the sock.&lt;/p&gt;&lt;div class=&quot;row&quot;&gt;&#x27;</span> + monsters.map(<span class="function"><span class="params">monster</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">          &lt;div class=&quot;grid&quot; aria-live=&quot;polite&quot;&gt;&lt;button class=&quot;show_button&quot; data-id=&quot;<span class="subst">$&#123;monster&#125;</span>&quot;&gt;&lt;img alt= &quot;Click this picture of door to see monster&quot; src=&quot;../img/door.svg&quot;/&gt;&lt;/button&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">        `</span>)</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> shuffleArr = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> currentIndex = arr.length;</span><br><span class="line">  <span class="keyword">var</span> temporaryValue, randomIndex;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (<span class="number">0</span> !== currentIndex) &#123;</span><br><span class="line">    randomIndex = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * currentIndex);</span><br><span class="line">    currentIndex -= <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    temporaryValue = arr[currentIndex];</span><br><span class="line">    arr[currentIndex] = arr[randomIndex];</span><br><span class="line">    arr[randomIndex] = temporaryValue;</span><br><span class="line">  &#125;</span><br><span class="line">  score = <span class="number">0</span>;</span><br><span class="line">  scoreInfo.textContent = <span class="string">`Score: <span class="subst">$&#123;score&#125;</span>`</span>;</span><br><span class="line">  render();</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> replaceTargetElement = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> monster = e.target.closest(<span class="string">&#x27;[data-id]&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (!monster) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">const</span> monsterID = monster.getAttribute(<span class="string">&#x27;data-id&#x27;</span>);</span><br><span class="line">  monster.parentNode.innerHTML = <span class="string">`&lt;img alt=&quot;A picture of <span class="subst">$&#123;monsterID&#125;</span>&quot; src=&quot;../img/<span class="subst">$&#123;monsterID&#125;</span>.svg&quot;/&gt;`</span></span><br><span class="line">  <span class="keyword">if</span> (monsterID !== <span class="string">&quot;sock&quot;</span>) &#123;</span><br><span class="line">    goodPick();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    wrongPick();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> goodPick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  score++</span><br><span class="line">  <span class="keyword">if</span> (score &gt;= <span class="number">11</span>) &#123;</span><br><span class="line">    scoreInfo.innerHTML = <span class="string">`&lt;p class=&quot;score&quot;&gt;Score: <span class="subst">$&#123;score&#125;</span>, Congrats, you have won!&lt;/p&gt;`</span>;</span><br><span class="line">    endGame();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  scoreInfo.textContent = <span class="string">`Score: <span class="subst">$&#123;score&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wrongPick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  score = <span class="number">0</span>;</span><br><span class="line">  scoreInfo.innerHTML = <span class="string">`&lt;p class=&quot;score&quot;&gt;Score: <span class="subst">$&#123;score&#125;</span>, Ups, you have lose. Try again.&lt;/p&gt;`</span>;</span><br><span class="line">  endGame();</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> endGame = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> pickLeft = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;[data-id]&#x27;</span>));</span><br><span class="line">  pickLeft.forEach(<span class="function"><span class="params">pick</span> =&gt;</span> pick.remove());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;click&#x27;</span>, replaceTargetElement);</span><br><span class="line"></span><br><span class="line">shuffleBtn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  shuffleArr(monsters);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Use state-based UI to create the timer, and countdown from 60 seconds to 0 once a second. </span></span><br><span class="line"><span class="comment">When the timer is done, stop the countdown and provide a way for users to start it again. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> timeValue = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">const</span> Rue = <span class="function"><span class="keyword">function</span> (<span class="params">selector, options</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.elem = <span class="built_in">document</span>.querySelector(selector);</span><br><span class="line">  <span class="built_in">this</span>.data = options.data;</span><br><span class="line">  <span class="built_in">this</span>.template = options.template;</span><br><span class="line">&#125;;</span><br><span class="line">Rue.prototype.render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.elem.innerHTML = <span class="built_in">this</span>.template(<span class="built_in">this</span>.data);</span><br><span class="line">&#125;;</span><br><span class="line">  Rue.prototype.restartTimer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.data.time = timeValue;</span><br><span class="line">    app.timer()</span><br><span class="line">&#125;</span><br><span class="line">Rue.prototype.stopTimer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.elem.innerHTML = <span class="string">`&lt;h2&gt;It&#x27;s over, start again:&lt;/h2&gt;&lt;button onclick=&quot;app.restartTimer()&quot; class=&quot;button&quot;&gt;Start Again&lt;/button&gt;`</span></span><br><span class="line">&#125;</span><br><span class="line">Rue.prototype.timer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> intervalCount = <span class="built_in">window</span>.setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!app) <span class="keyword">return</span>;</span><br><span class="line">    app.data.time--</span><br><span class="line">    app.render();</span><br><span class="line">    <span class="keyword">if</span> (app.data.time &lt; <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">window</span>.clearInterval(intervalCount)</span><br><span class="line">      app.stopTimer()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">    app.render();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Rue(<span class="string">&#x27;#app&#x27;</span>, &#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    time: timeValue,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="function"><span class="keyword">function</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!props) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">let</span> html = <span class="string">`&lt;h2&gt;You&#x27;ve got only &lt;span class=&quot;counter&quot;&gt;<span class="subst">$&#123;props.time&#125;</span>&lt;/span&gt; seconds!&lt;/h2&gt;`</span>;</span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">app.timer();</span><br></pre></td></tr></table></figure>
 
 </div>
 
@@ -280,7 +180,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/6/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/5/">5</a><a class="page-number" href="/vanilla-js-academy/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/vanilla-js-academy/page/8/">8</a><a class="page-number" href="/vanilla-js-academy/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/8/">Next</a>
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/6/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/5/">5</a><a class="page-number" href="/vanilla-js-academy/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/vanilla-js-academy/page/8/">8</a><a class="page-number" href="/vanilla-js-academy/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/8/">Next</a>
   </nav>
 
 </section>
@@ -299,7 +199,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -310,6 +210,66 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
         
           <li>
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>

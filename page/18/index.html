@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-toggling-passwords-in-multiple-forms" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-weather-app" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/10/16/toggling-passwords-in-multiple-forms/" class="article-date">
-  <time datetime="2020-10-15T22:00:00.000Z" itemprop="datePublished">2020-10-16</time>
+    <a href="/vanilla-js-academy/2020/11/15/weather-app/" class="article-date">
+  <time datetime="2020-11-14T23:00:00.000Z" itemprop="datePublished">2020-11-15</time>
 </a>
   </div>
   <div class="article-inner">
@@ -74,7 +74,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/vanilla-js-academy/2020/10/16/toggling-passwords-in-multiple-forms/">03. Toggling passwords in multiple forms</a>
+      <a class="article-title" href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
     </h1>
   
 
@@ -85,134 +85,107 @@
         <div class="output-container">
 
   <style type="text/css">
-    .label {
-      display: block;
-      width: 100%;
-      margin-bottom: 6px;
+    #app {
+      margin-top: 10px;
     }
 
-    .input {
-      margin-bottom: 1em;
-      border: none;
-      border-radius: 3px;
-      padding: 3px 4px;
-      min-width: 100px;
+    .weather_container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .input:focus {
-      outline: none;
-      box-shadow: 0 0 3px 1px #8e45ff;
+    .weather_icon {
+      margin: 0 !important;
+      padding: 0 !important;
     }
 
-    .checkbox:focus {
-      outline: none;
-      box-shadow: 0 0 3px 1px #8e45ff;
+    .weather_temperature {
+      letter-spacing: 1.5px;
+      font-size: 3.2em !important;
+      margin: 0 !important;
     }
 
-    .button {
-      border-color: white;
-      outline: none;
-      border: none;
-      margin-top: 5px;
-      padding: 5px 10px;
-      border-radius: 3px;
-      font-weight: 600px;
-      cursor: pointer;
+    .weather_city-name {
+      font-size: 2.4em !important;
+      margin: 10px 0 0 !important;
     }
 
-    .button:focus {
-      border: red;
-      outline: none;
-      box-shadow: 0 0 3px 1px #8e45ff;
-    }
-
-    .button:active {
+    .weather_desc {
+      text-transform: uppercase;
       color: #8e45ff;
+      margin: 10px 0 0 !important;
     }
 
-    [type="checkbox"] {
-      margin-bottom: 0;
-      margin-right: 0.25em;
-      cursor: pointer;
-    }
   </style>
 
-  <h2>Change Username</h2>
+  <div id="app">Checking the weather near you...</div>
 
-  <p>Enter your username and password to change your username.</p>
+  <script>
+    const app = document.querySelector('#app');
+    const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
+    const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
+    let userCity;
 
-  <form>
-    <div>
-      <label class="label" for="username">Username</label>
-      <input autocomplete="off" class="input" type="text" name="username" id="username">
-    </div>
-    <div>
-      <label class="label" for="password">Password</label>
-      <input autocomplete="off" class="input" type="password" name="password" id="password">
-    </div>
-    <div>
-      <label class="label" for="show-password">
-        <input class="checkbox" type="checkbox" name="show-password" id="show-password" data-pw-toggle="#password">
-        Show password
-      </label>
-    </div>
-    <p>
-      <button class="button" type="submit">Change Username</button>
-    </p>
-  </form>
-
-  <h2>Change Password</h2>
-
-  <p>Enter your current password and new password below.</p>
-
-  <form>
-    <div>
-      <label class="label" for="current-password">Current Password</label>
-      <input autocomplete="off" class="input" type="password" name="current-password" id="current-password">
-    </div>
-    <div>
-      <label class="label" for="new-password">New Password</label>
-      <input autocomplete="off" class="input" type="password" name="new-password" id="new-password">
-    </div>
-    <div>
-      <label class="label" for="show-passwords">
-        <input class="checkbox" type="checkbox" name="show-passwords" id="show-passwords"
-          data-pw-toggle="#current-password, #new-password">
-        Show passwords
-      </label>
-    </div>
-    <p>
-      <button class="button" type="submit">Change Passwords</button>
-    </p>
-  </form>
-
-<script>
-  document.addEventListener('click', function (e) {
-  if (!e.target.matches('[data-pw-toggle]')) return;
-
-  const passwords = Array.prototype.slice.call(document.querySelectorAll(e.target.getAttribute(
-    'data-pw-toggle')));
-
-  passwords.forEach(password => {
-    if (e.target.checked) {
-      password.type = 'text';
-    } else {
-      password.type = 'password';
+    const sanitizeHTML = function (str) {
+      return str.replace(/[^\w. ]/gi, function (c) {
+        return '&#' + c.charCodeAt(0) + ';';
+      });
     }
-  })
-});
-</script>
+
+    const render = function (icon, temp, city, sky) {
+      app.innerHTML = (`
+      <div class="weather_container">
+        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${sanitizeHTML(icon)}@2x.png"></div>
+        <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
+        <h4 class="weather_city-name">${sanitizeHTML(city)}</h4>
+        <p class="weather_desc">${sanitizeHTML(sky)}</p>
+      </div>
+      `)
+    };
+
+    const getWeatherInfo = function () {
+      fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKeyIp}`).then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then(function (data) {
+        userCity = data.city;
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=metric`);
+      }).then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then(function (userData) {
+        userIcon = userData.weather[0].icon;
+        userTemp = userData.main.temp;
+        userCity = userData.name;
+        userSky = userData.weather[0].description;
+
+        render(userIcon, userTemp, userCity, userSky);
+      }).catch(function (err) {
+        console.warn(err);
+        app.textContent = "Something went wrong...";
+      })
+    }
+
+    getWeatherInfo();
+  </script>
 
 </div>
 
-<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 40px;">
 
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Change Username<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Enter your username and password to change your username.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span>Username<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;password&quot;</span>&gt;</span>Password<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;show-password&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;show-password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;show-password&quot;</span> <span class="attr">data-pw-toggle</span>=<span class="string">&quot;#password&quot;</span>&gt;</span></span><br><span class="line">        Show password</span><br><span class="line">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Change Username<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Change Password<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Enter your current password and new password below.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;current-password&quot;</span>&gt;</span>Current Password<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;current-password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;current-password&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;new-password&quot;</span>&gt;</span>New Password<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;new-password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;new-password&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;show-passwords&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;show-passwords&quot;</span> <span class="attr">id</span>=<span class="string">&quot;show-passwords&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">data-pw-toggle</span>=<span class="string">&quot;#current-password, #new-password&quot;</span>&gt;</span></span><br><span class="line">        Show passwords</span><br><span class="line">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Change Passwords<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Checking the weather near you...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 </div>
 <div class="js-container">
 
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* In the first form, the #show-password checkbox should toggle </span></span><br><span class="line"><span class="comment">the #password field visibility. In the second form, the #show-passwords checkbox</span></span><br><span class="line"><span class="comment">should toggle the visibility of the #current-password and #new-password fields. */</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e.target.matches(<span class="string">&#x27;[data-pw-toggle]&#x27;</span>)) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> passwords = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">document</span>.querySelectorAll(</span><br><span class="line">    e.target.getAttribute(<span class="string">&#x27;data-pw-toggle&#x27;</span>)));</span><br><span class="line"></span><br><span class="line">  passwords.forEach(<span class="function"><span class="params">password</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target.checked) &#123;</span><br><span class="line">      password.type = <span class="string">&#x27;text&#x27;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      password.type = <span class="string">&#x27;password&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For today’s project, we’re going to build an app that gets a user’s location</span></span><br><span class="line"><span class="comment">and displays their current weather information. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> apiKeyIp = <span class="string">&#x27;d9f7add9f68440818a0659381720a532&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> apiKeyWeather = <span class="string">&#x27;5e995a3338fe2917188f0f98d08abcec&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> userCity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">icon, temp, city, sky</span>) </span>&#123;</span><br><span class="line">  app.innerHTML = (<span class="string">`</span></span><br><span class="line"><span class="string">  &lt;div class=&quot;weather_container&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;weather_icon&quot;&gt;&lt;img src=&quot;http://openweathermap.org/img/wn/<span class="subst">$&#123;icon&#125;</span>@2x.png&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;h3 class=&quot;weather_temperature&quot;&gt;<span class="subst">$&#123;<span class="built_in">Math</span>.round(temp)&#125;</span> &amp;#x2103;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;h4 class=&quot;weather_city-name&quot;&gt;<span class="subst">$&#123;city&#125;</span>&lt;/h4&gt;</span></span><br><span class="line"><span class="string">    &lt;p class=&quot;weather_desc&quot;&gt;<span class="subst">$&#123;sky&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getWeatherInfo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">`https://api.ipgeolocation.io/ipgeo?apiKey=<span class="subst">$&#123;apiKeyIp&#125;</span>`</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    userCity = data.city;</span><br><span class="line">    <span class="keyword">return</span> fetch(<span class="string">`http://api.openweathermap.org/data/2.5/weather?q=<span class="subst">$&#123;userCity&#125;</span>&amp;appid=<span class="subst">$&#123;apiKeyWeather&#125;</span>&amp;units=metric`</span>);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">userData</span>) </span>&#123;</span><br><span class="line">    userIcon = userData.weather[<span class="number">0</span>].icon;</span><br><span class="line">    userTemp = userData.main.temp;</span><br><span class="line">    userCity = userData.name;</span><br><span class="line">    userSky = userData.weather[<span class="number">0</span>].description;</span><br><span class="line"></span><br><span class="line">    render(userIcon, userTemp, userCity, userSky);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(err);</span><br><span class="line">    app.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getWeatherInfo();</span><br></pre></td></tr></table></figure>
 
 </div>
 
@@ -226,7 +199,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/17/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/16/">16</a><a class="page-number" href="/vanilla-js-academy/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/vanilla-js-academy/page/19/">19</a><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/19/">Next</a>
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/17/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/16/">16</a><a class="page-number" href="/vanilla-js-academy/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/vanilla-js-academy/page/19/">19</a><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/19/">Next</a>
   </nav>
 
 </section>
@@ -245,7 +218,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -256,6 +229,66 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
         
           <li>
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>

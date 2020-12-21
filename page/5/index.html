@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-table-of-contents-missing-ids" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-countdown-timer-start-and-pause" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/11/11/table-of-contents-missing-ids/" class="article-date">
-  <time datetime="2020-11-10T23:00:00.000Z" itemprop="datePublished">2020-11-11</time>
+    <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/" class="article-date">
+  <time datetime="2020-12-11T17:25:46.000Z" itemprop="datePublished">2020-12-11</time>
 </a>
   </div>
   <div class="article-inner">
@@ -74,7 +74,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/vanilla-js-academy/2020/11/11/table-of-contents-missing-ids/">16. Table of Contents - Missing IDs</a>
+      <a class="article-title" href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
     </h1>
   
 
@@ -85,88 +85,129 @@
         <div class="output-container">
 
   <style type="text/css">
-    html {
-      scroll-behavior:smooth
+    #app {
+      margin-top: 20px;
     }
 
-    h2:target {
-      text-decoration: underline;
-      color: white;
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 130px;
     }
+
+    .button {
+        border-color: white;
+        outline: none;
+        border: none;
+        margin-top: 5px;
+        min-width: 60px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-weight: 600px;
+        cursor: pointer;
+      }
+
+      .button:focus {
+        border: red;
+        outline: none;
+        box-shadow: 0 0 3px 1px #8e45ff;
+      }
+
+      .button:active {
+        color: #8e45ff;
+      }
+
+      .counter {
+        color: #8e45ff;
+      }
   </style>
-
-  <div id="table-of-contents"></div>
-  <div class="html-container" style="border-top: .5px solid grey; margin-top: 26px;">
-    <h2>Cat O'Nine Tails</h2>
-    <p>Cat o'nine tails Pieces of Eight swab carouser tackle. Pink hornswaggle gabion Sea Legs Davy Jones' Locker.</p>
-    <p>Hang the jib Nelsons folly trysail ahoy prow. Transom strike colors scallywag aft league.</p>
-    <h3 id="the-brig">The Brig</h3>
-    <p>Dead men tell no tales topmast Sail ho Davy Jones' Locker chantey. Wherry fluke pillage rope's end brig.</p>
-    <h4>Privateer</h4>
-    <p>Tack topgallant draft line flogging. Maroon overhaul grog blossom Privateer main sheet.</p>
-    <p>Provost me cackle fruit Corsair Cat o'nine tails. Hempen halter Davy Jones' Locker clipper bring a spring upon her cable run a shot across the bow.</p>
-    <h2>Ahoy</h2>
-    <p>Booty squiffy wench overhaul ahoy. Parrel Pirate Round long clothes long boat come about.</p>
-    <p>Squiffy jack crow's nest bilged on her anchor barkadeer. Snow bucko mizzen six pounders tack.</p>
-    <h3 id="man-of-war">Man-of-War</h3>
-    <p>Lee lad nipperkin avast pressgang. Man-of-war prow ho Sail ho landlubber or just lubber.</p>
-    <p>Ho no prey, no pay fire ship salmagundi capstan. Hail-shot doubloon wherry loaded to the gunwalls cutlass.</p>
-    <h2 id="corsair">Corsair</h2>
-    <p>Corsair chantey hardtack ahoy snow. Maroon cog galleon topmast tender.</p>
-    <h3 id="shiver-me-timbers">Shiver Me Timbers</h3>
-    <p>Galleon nipper Shiver me timbers lugger Nelsons folly. Wench ballast scurvy man-of-war hearties.</p>
-    <p>Poop deck clap of thunder Corsair grog hornswaggle. Dead men tell no tales brigantine long clothes black spot sutler.</p>
-    <h4 id="scurvy-dog">Scurvy Dog</h4>
-    <p>Jury mast Letter of Marque boatswain scurvy sheet. Jolly boat plunder jack starboard Pirate Round.</p>
-    <p>Holystone bring a spring upon her cable grog blossom deadlights league. Lanyard gabion reef sails booty gaff.</p>
-    <h4>Sea Legs</h4>
-    <p>Sea Legs to go on account skysail Yellow Jack heave down. Spanker heave down yawl starboard barque.</p>
-    <p>To go on account hulk swing the lead heave to tack. Fore fire in the hole prow run a rig Jack Ketch.</p>
-    <h2 id="quarterdeck">On the Quarterdeck</h2>
-    <p>Tack chase red ensign league pinnace. Holystone quarterdeck me boatswain rope's end.</p>
-    <p>Sink me lanyard Pieces of Eight starboard black spot. Blimey heave down crimp mutiny matey.</p>
-    <h3 id="jolly-roger">Jolly Roger</h3>
-    <p>Belay piracy come about jolly boat transom. Heave to gally snow Arr wherry.</p>
-    <p>Sutler Davy Jones' Locker ahoy walk the plank lugger. Jolly Roger matey hornswaggle Privateer marooned.</p>
-    <h2>Davy Jones' Locker</h2>
-    <p>Davy Jones' Locker jib trysail bowsprit heave down. Transom square-rigged clipper Jack Ketch chandler.</p>
-    <p>Square-rigged yawl execution dock sloop American Main. Six pounders red ensign lugger heave to dead men tell no tales.</p>
-    <h3 id="sloop">Sloop</h3>
-    <p>Spanker rutters Arr sloop pinnace. List crimp swab Blimey grog.</p>
-    <p>Shiver me timbers hulk black jack Pirate Round clap of thunder. Scuppers six pounders carouser spirits jib.</p>
-    <footer>
-        <em>Text provided by <a target="_blank" rel="noopener" href="https://pirateipsum.me/">Pirate Ipsum</a>.</em>
-    </footer>
-
+  <div id="app" aria-live="polite"></div>
   <script>
-    const headings = document.querySelectorAll('h2');
-    const content = document.querySelector('#table-of-contents');
-    const headingsArr = Array.prototype.slice.call(headings);
-
-    const render = function () {
-      content.innerHTML = '<ol>' + headingsArr.map(heading => {
-        return (`<li><a href="#${heading.id ? heading.id : createID(heading)}">${heading.textContent}</a></li>`);
-      }).join('') + '</ol>';
+    const timeValue = 120;
+    let timer;
+    const Rue = function (selector, options) {
+      this.elem = document.querySelector(selector);
+      this.data = options.data;
+      this.template = options.template;
     };
-
-        const createID = function (title) {
-            const id = `${title.innerText.replace(/\s/g, '-').toLowerCase()}`;
-            return title.id = id;
+    Rue.prototype.render = function () {
+      this.elem.innerHTML = this.template(this.data);
+    };
+    const formatTime = function (time) {
+      let minutes = Math.floor(time / 60);
+      let seconds = time % 60;
+      return `${(minutes.toString())}:${seconds.toString().padStart(2,'0')}`;
+    }
+    const startTimer = function (e) {
+      if (!e.target.hasAttribute('data-start-timer')) return;
+      if (app.data.time < 1) {
+        app.data.time = timeValue;
+      }
+      app.data.paused = false;
+      app.render();
+      stopTimer();
+      timer = setInterval(countdown, 1000);
+    };
+    const countdown = function () {
+      app.data.time--
+      if (app.data.time < 1) {
+        stopTimer();
+        app.data.paused = true;
+      }
+      app.render();
+    }
+    const stopTimer = function () {
+      clearInterval(timer)
+    }
+    const pauseTimer = function (e) {
+      if (!e.target.hasAttribute('data-pause-timer')) return;
+      stopTimer();
+      app.data.paused = true;
+      app.render();
+    }
+    const restartTimer = function (e) {
+      if (!e.target.hasAttribute('data-restart-timer') || app.data.time === timeValue) return;
+      stopTimer();
+      app.data.time = timeValue;
+      app.data.paused = false;
+      app.render();
+      timer = setInterval(countdown, 1000);
+    }
+    const clickHandler = function (e) {
+      startTimer(e);
+      restartTimer(e);
+      pauseTimer(e);
+    }
+    const app = new Rue('#app', {
+      data: {
+        time: timeValue,
+        paused: true,
+        altMsg: true
+      },
+      template: function (props) {
+        if (!props) return;
+        if (props.time === 0 && props.altMsg) {
+          let html = `<h2>It's over, start again:</h2><button data-restart-timer class="button stop">Restart</button></div>`
+          return html;
         }
-
-    render();
+        let html = `<h2>You've got only <span class="counter">${formatTime(props.time)}</span> seconds!</h2>` +
+          (props.paused ? `<div class="buttons-container"><button data-start-timer class="button start">Start</button>` : `<div class="buttons-container"><button data-pause-timer class="button start">Pause</button>`) + `<button data-restart-timer class="button stop">Restart</button></div>`
+        return html;
+      }
+    })
+    app.render();
+    document.addEventListener('click', clickHandler);
   </script>
-
 </div>
 
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;table-of-contents&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;html-container&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border-top: .5px solid grey; margin-top: 26px;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;cat-o-nine-tails&quot;</span>&gt;</span>Cat O&#x27;Nine Tails<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Cat o&#x27;nine tails Pieces of Eight swab carouser tackle. Pink hornswaggle gabion Sea Legs Davy Jones&#x27; Locker.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hang the jib Nelsons folly trysail ahoy prow. Transom strike colors scallywag aft league.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;the-brig&quot;</span>&gt;</span>The Brig<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Dead men tell no tales topmast Sail ho Davy Jones&#x27; Locker chantey. Wherry fluke pillage rope&#x27;s end brig.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span> <span class="attr">id</span>=<span class="string">&quot;privateer&quot;</span>&gt;</span>Privateer<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Tack topgallant draft line flogging. Maroon overhaul grog blossom Privateer main sheet.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Provost me cackle fruit Corsair Cat o&#x27;nine tails. Hempen halter Davy Jones&#x27; Locker clipper bring a spring upon her cable run a shot across the bow.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;ahoy&quot;</span>&gt;</span>Ahoy<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Booty squiffy wench overhaul ahoy. Parrel Pirate Round long clothes long boat come about.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Squiffy jack crow&#x27;s nest bilged on her anchor barkadeer. Snow bucko mizzen six pounders tack.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;man-of-war&quot;</span>&gt;</span>Man-of-War<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lee lad nipperkin avast pressgang. Man-of-war prow ho Sail ho landlubber or just lubber.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Ho no prey, no pay fire ship salmagundi capstan. Hail-shot doubloon wherry loaded to the gunwalls cutlass.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;corsair&quot;</span>&gt;</span>Corsair<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Corsair chantey hardtack ahoy snow. Maroon cog galleon topmast tender.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;shiver-me-timbers&quot;</span>&gt;</span>Shiver Me Timbers<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Galleon nipper Shiver me timbers lugger Nelsons folly. Wench ballast scurvy man-of-war hearties.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Poop deck clap of thunder Corsair grog hornswaggle. Dead men tell no tales brigantine long clothes black spot sutler.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span> <span class="attr">id</span>=<span class="string">&quot;scurvy-dog&quot;</span>&gt;</span>Scurvy Dog<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Jury mast Letter of Marque boatswain scurvy sheet. Jolly boat plunder jack starboard Pirate Round.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Holystone bring a spring upon her cable grog blossom deadlights league. Lanyard gabion reef sails booty gaff.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span> <span class="attr">id</span>=<span class="string">&quot;sea-legs&quot;</span>&gt;</span>Sea Legs<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Sea Legs to go on account skysail Yellow Jack heave down. Spanker heave down yawl starboard barque.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>To go on account hulk swing the lead heave to tack. Fore fire in the hole prow run a rig Jack Ketch.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;quarterdeck&quot;</span>&gt;</span>On the Quarterdeck<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Tack chase red ensign league pinnace. Holystone quarterdeck me boatswain rope&#x27;s end.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Sink me lanyard Pieces of Eight starboard black spot. Blimey heave down crimp mutiny matey.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;jolly-roger&quot;</span>&gt;</span>Jolly Roger<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Belay piracy come about jolly boat transom. Heave to gally snow Arr wherry.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Sutler Davy Jones&#x27; Locker ahoy walk the plank lugger. Jolly Roger matey hornswaggle Privateer marooned.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;davy-jones-locker&quot;</span>&gt;</span>Davy Jones&#x27; Locker<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Davy Jones&#x27; Locker jib trysail bowsprit heave down. Transom square-rigged clipper Jack Ketch chandler.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Square-rigged yawl execution dock sloop American Main. Six pounders red ensign lugger heave to dead men tell no tales.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;sloop&quot;</span>&gt;</span>Sloop<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Spanker rutters Arr sloop pinnace. List crimp swab Blimey grog.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Shiver me timbers hulk black jack Pirate Round clap of thunder. Scuppers six pounders carouser spirits jib.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">em</span>&gt;</span>Text provided by <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://pirateipsum.me/&quot;</span>&gt;</span>Pirate Ipsum<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span> <span class="attr">aria-live</span>=<span class="string">&quot;polite&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 </div>
 <div class="js-container">
 
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* The markup has been modified so that certain headings don’t have IDs on them. </span></span><br><span class="line"><span class="comment">When creating your table of contents, if the heading doesn’t have an ID to link to, </span></span><br><span class="line"><span class="comment">create one and assign it to the heading. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> headings = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;h2&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> content = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#table-of-contents&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> headingsArr = <span class="built_in">Array</span>.prototype.slice.call(headings);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  content.innerHTML = <span class="string">&#x27;&lt;ol&gt;&#x27;</span> + headingsArr.map(<span class="function"><span class="params">heading</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`&lt;li&gt;&lt;a href=&quot;#<span class="subst">$&#123;heading.id ? heading.id : createID(heading)&#125;</span>&quot;&gt;<span class="subst">$&#123;heading.textContent&#125;</span>&lt;/a&gt;&lt;/li&gt;`</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/ol&gt;&#x27;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createID = <span class="function"><span class="keyword">function</span> (<span class="params">title</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="string">`<span class="subst">$&#123;title.innerText.replace(<span class="regexp">/\s/g</span>, <span class="string">&#x27;-&#x27;</span>).toLowerCase()&#125;</span>`</span>;</span><br><span class="line">  <span class="keyword">return</span> title.id = id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render();</span><br></pre></td></tr></table></figure>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For this project, we’re going to add two always-present buttons</span></span><br><span class="line"><span class="comment">below the countdown in the timer.</span></span><br><span class="line"><span class="comment">One button will say Start when the timer is stopped, and Pause when it’s running.</span></span><br><span class="line"><span class="comment">Clicking it starts or stops the timer without resetting the time. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> timeValue = <span class="number">120</span>;</span><br><span class="line"><span class="keyword">let</span> timer;</span><br><span class="line"><span class="keyword">const</span> Rue = <span class="function"><span class="keyword">function</span> (<span class="params">selector, options</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.elem = <span class="built_in">document</span>.querySelector(selector);</span><br><span class="line">  <span class="built_in">this</span>.data = options.data;</span><br><span class="line">  <span class="built_in">this</span>.template = options.template;</span><br><span class="line">&#125;;</span><br><span class="line">Rue.prototype.render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.elem.innerHTML = <span class="built_in">this</span>.template(<span class="built_in">this</span>.data);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> formatTime = <span class="function"><span class="keyword">function</span> (<span class="params">time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> minutes = <span class="built_in">Math</span>.floor(time / <span class="number">60</span>);</span><br><span class="line">  <span class="keyword">let</span> seconds = time % <span class="number">60</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;(minutes.toString())&#125;</span>:<span class="subst">$&#123;seconds.toString().padStart(<span class="number">2</span>,<span class="string">&#x27;0&#x27;</span>)&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> startTimer = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e.target.hasAttribute(<span class="string">&#x27;data-start-timer&#x27;</span>)) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">if</span> (app.data.time &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    app.data.time = timeValue;</span><br><span class="line">  &#125;</span><br><span class="line">  app.data.paused = <span class="literal">false</span>;</span><br><span class="line">  app.render();</span><br><span class="line">  stopTimer();</span><br><span class="line">  timer = <span class="built_in">setInterval</span>(countdown, <span class="number">1000</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> countdown = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  app.data.time--</span><br><span class="line">  <span class="keyword">if</span> (app.data.time &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    stopTimer();</span><br><span class="line">    app.data.paused = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  app.render();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> stopTimer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">clearInterval</span>(timer)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> pauseTimer = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e.target.hasAttribute(<span class="string">&#x27;data-pause-timer&#x27;</span>)) <span class="keyword">return</span>;</span><br><span class="line">  stopTimer();</span><br><span class="line">  app.data.paused = <span class="literal">true</span>;</span><br><span class="line">  app.render();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> restartTimer = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e.target.hasAttribute(<span class="string">&#x27;data-restart-timer&#x27;</span>) || app.data.time === timeValue) <span class="keyword">return</span>;</span><br><span class="line">  stopTimer();</span><br><span class="line">  app.data.time = timeValue;</span><br><span class="line">  app.data.paused = <span class="literal">false</span>;</span><br><span class="line">  app.render();</span><br><span class="line">  timer = <span class="built_in">setInterval</span>(countdown, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> clickHandler = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  startTimer(e);</span><br><span class="line">  restartTimer(e);</span><br><span class="line">  pauseTimer(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Rue(<span class="string">&#x27;#app&#x27;</span>, &#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    time: timeValue,</span><br><span class="line">    paused: <span class="literal">true</span>,</span><br><span class="line">    altMsg: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="function"><span class="keyword">function</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!props) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (props.time === <span class="number">0</span> &amp;&amp; props.altMsg) &#123;</span><br><span class="line">      <span class="keyword">let</span> html = <span class="string">`&lt;h2&gt;It&#x27;s over, start again:&lt;/h2&gt;&lt;button data-restart-timer class=&quot;button stop&quot;&gt;Restart&lt;/button&gt;&lt;/div&gt;`</span></span><br><span class="line">      <span class="keyword">return</span> html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> html = <span class="string">`&lt;h2&gt;You&#x27;ve got only &lt;span class=&quot;counter&quot;&gt;<span class="subst">$&#123;formatTime(props.time)&#125;</span>&lt;/span&gt; seconds!&lt;/h2&gt;`</span> +</span><br><span class="line">      (props.paused ? <span class="string">`&lt;div class=&quot;buttons-container&quot;&gt;&lt;button data-start-timer class=&quot;button start&quot;&gt;Start&lt;/button&gt;`</span> : <span class="string">`&lt;div class=&quot;buttons-container&quot;&gt;&lt;button data-pause-timer class=&quot;button start&quot;&gt;Pause&lt;/button&gt;`</span>) + <span class="string">`&lt;button data-restart-timer class=&quot;button stop&quot;&gt;Restart&lt;/button&gt;&lt;/div&gt;`</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">app.render();</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;click&#x27;</span>, clickHandler);</span><br></pre></td></tr></table></figure>
 
 </div>
 
@@ -180,7 +221,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/4/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><a class="page-number" href="/vanilla-js-academy/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/vanilla-js-academy/page/6/">6</a><a class="page-number" href="/vanilla-js-academy/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/6/">Next</a>
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/page/4/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><a class="page-number" href="/vanilla-js-academy/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/vanilla-js-academy/page/6/">6</a><a class="page-number" href="/vanilla-js-academy/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/6/">Next</a>
   </nav>
 
 </section>
@@ -199,7 +240,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -210,6 +251,66 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
         
           <li>
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>

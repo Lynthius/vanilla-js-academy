@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-weather-app-plugin" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-places-favorite-places" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/11/17/weather-app-plugin/" class="article-date">
-  <time datetime="2020-11-16T23:00:00.000Z" itemprop="datePublished">2020-11-17</time>
+    <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/" class="article-date">
+  <time datetime="2020-12-17T16:55:05.000Z" itemprop="datePublished">2020-12-17</time>
 </a>
   </div>
   <div class="article-inner">
@@ -74,7 +74,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/vanilla-js-academy/2020/11/17/weather-app-plugin/">19. Weather App Plugin</a>
+      <a class="article-title" href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
     </h1>
   
 
@@ -85,195 +85,149 @@
         <div class="output-container">
 
   <style type="text/css">
-    #app {
+  .article-entry ul, .article-entry ol, .article-entry dl {
+      margin-top: 0;
+    }
+
+    .category {
       margin-top: 10px;
     }
 
-    .weather_container {
+    .title {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .post-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      margin: 20px 0;
     }
 
-    .weather_icon {
-      margin: 0 !important;
-      padding: 0 !important;
+    @media screen and (max-width: 860px) {
+      .post-container {
+        flex-direction: column;
+        margin: 20px auto;
+        text-align: center;
+      }
     }
 
-    .weather_temperature {
-      letter-spacing: 1.5px;
-      font-size: 3.2em !important;
-      margin: 0 !important;
+    .info-container {
+      margin-left: 40px;
     }
 
-    .weather_city-name {
-      font-size: 2.4em !important;
-      margin: 10px 0 0 !important;
+     @media screen and (max-width: 860px) {
+      .info-container {
+        margin-left: 0;
+      }
     }
 
-    .weather_desc {
-      text-transform: uppercase;
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .miniature-container {
+      max-width: 380px;
+    }
+
+    .minature {
+      height: auto;
+      max-width: 100%;
+    }
+
+    .fave-btn {
+      color: #ffffff;
+      font-size: 26px;
+      font-family: "system-ui";
+      background-color: transparent;
+      border: none;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .fave-btn[aria-pressed="true"] {
       color: #8e45ff;
-      margin: 10px 0 0 !important;
     }
 
+    .fave-btn:focus {
+      border: red;
+      outline: none;
+      box-shadow: 0 0 3px 1px #8e45ff;
+    }
+
+    .fave-btn:active {
+      color: #8e45ff;
+    }
   </style>
 
-  <div id="app">Checking the weather near you...</div>
+  <p>Explore cool, quirky places in your own backyard.</p>
+  <div id="app">Loading...</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/reefjs@7/dist/reef.js"></script>
   <script>
-    const getWeather = function (options) {
-
-      // Default settings for weather app
-      const defaults = {
-        apiKeyIp: null,
-        apiKeyWeather: null,
-        selector: '#app',
-        convertTemp: false,
-        noWeather: 'Unable to get weather data at this time. Sorry!',
-        showIcon: true,
-        showTemp: true,
-        showCity: true,
-        showConditions: true,
-      };
-
-      // Merge user settings into default
-      const settings = Object.assign(defaults, options);
-
-      // Get the #app element to render content
-      const app = document.querySelector(settings.selector);
-
-      // Secure your data
-      const sanitizeHTML = function (str) {
-        const temp = document.createElement('div');
-        temp.textContent = str;
-        return temp.innerHTML;
-      }
-
-      // Convert Celcius to Farenheit and round value
-      const FarenheitToCelcius = function (temp) {
-        if (settings.convertTemp) {
-          return `${(Math.round((temp) * 9/5)) + 32} &#x2109`;
+    const favesID = "favoritePlace";
+    const app = new Reef('#app', {
+      data: {},
+      template: function (props) {
+        if (props.posts && props.posts.length) {
+          let html = '<div class="container">' + props.posts.map(function (post) {
+            return `<div class="post-container"><div class="miniature-container"><img class="minature" src="${post.img}" /></div><div class="info-container"><div class="header"><h2 class="title">${post.place}</h2><button data-fave="${post.id}" class="fave-btn" aria-label="add ${post.place} to favorite" aria-pressed="${props.faves[post.id]}" title="Add to favorite!">&#x2665;</button></div><p>${post.description}</p><p><em>${post.location}</em></p><a href=${post.url} target="_blank">Read more</a></div></div>`;
+          }).join('') + '</div>';
+          return html;
         }
-
-        return `${Math.round(temp)} &#x2103`;
-      };
-
-      // Get weather icon form fetch data
-      const getIcon = function (fetchData) {
-        if (!settings.showIcon) return '';
-
-        const html = `
-          <div class="weather_icon">
-            <img src="https://openweathermap.org/img/wn/${sanitizeHTML(fetchData.weather[0].icon)}@2x.png">
-          </div>`
+        let html = '<p>Unable to find any places right now.</p>'
         return html;
-      };
-
-      // Get weather temperature from fetch data
-      const getTemp = function (fetchData) {
-        if (!settings.showTemp) return '';
-
-        const html = `
-          <h3 class="weather_temperature">
-            ${FarenheitToCelcius(sanitizeHTML(fetchData.main.temp))};
-          </h3>`
-        return html;
-      };
-
-      // Get weather city location from fetch data
-      const getCity = function (fetchData) {
-        if (!settings.showCity) return '';
-
-        const html = `
-          <h4 class="weather_city-name">
-            ${sanitizeHTML(fetchData.name)}
-          </h4>`
-        return html;
-      };
-
-      // Get weather conditions from fetch data
-      const getConditions = function (fetchData) {
-        if (!settings.showConditions) return '';
-
-        const html = `
-          <p class="weather_desc">
-            ${sanitizeHTML(fetchData.weather[0].description)}
-          </p>`
-        return html;
-      };
-
-      // Render your weather data
-      const renderWeather = function (fetchData) {
-        app.innerHTML = (`
-      <div class="weather_container">
-        ${getIcon(fetchData)}
-        ${getTemp(fetchData)}
-        ${getCity(fetchData)}
-        ${getConditions(fetchData)}
-      </div>
-      `)
-      };
-
-      // Render warning info when renderWeather doesn't work
-      const renderNoWeather = function () {
-        app.innerHTML = settings.noWeather;
-      };
-
-      // Check for API
-      if (!settings.apiKeyIp || !settings.apiKeyWeather) {
-        console.warn('Please provide an API key.');
-        return;
       }
-
-      // Get the user's location by IP address
-      // Then, pass that into the weather API and get the current weather
-      fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${settings.apiKeyIp}`).then(function (response) {
+    });
+    const getFaves = function () {
+      const faves = localStorage.getItem(favesID);
+      const favesObj = faves ? JSON.parse(faves) : {};
+      return favesObj;
+    }
+    const saveFaves = function (faves) {
+      localStorage.setItem(favesID, JSON.stringify(faves));
+    }
+    const getPosts = function () {
+      fetch('https://vanillajsacademy.com/api/places.json').then(function (response) {
         if (response.ok) {
           return response.json();
-        } else {
-          return Promise.reject(response);
         }
+        return Promise.reject(response);
       }).then(function (data) {
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${data.city}&appid=${settings.apiKeyWeather}&units=metric`);
-      }).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (data) {
-        renderWeather(data);
-      }).catch(function (err) {
-        console.warn(err);
-        renderNoWeather();
+        app.data.faves = getFaves();
+        app.data.posts = data;
+      }).catch(function (error) {
+        console.warn(error);
+        app.data.posts = null;
       })
     }
-
-    // Init function - customize your settings
-    getWeather({
-      apiKeyIp: 'd9f7add9f68440818a0659381720a532', // Replace this with your API key
-      apiKeyWeather: '5e995a3338fe2917188f0f98d08abcec', // Replace this with your API key
-      selector: '#app',
-      convertTemp: false,
-      noWeather: 'Unable to get weather data at this time. Sorry!',
-      showIcon: true,
-      showTemp: true,
-      showCity: true,
-      showConditions: true,
-    });
+    const clickHandler = function (e) {
+      const postPlace = e.target.getAttribute('data-fave');
+      if (!postPlace) return;
+      console.log(postPlace);
+      app.data.faves[postPlace] = app.data.faves[postPlace] ? false : true;
+      saveFaves(app.data.faves);
+    }
+    getPosts();
+    document.addEventListener('click', clickHandler);
   </script>
 
 </div>
 
-<div class="html-container" style="border-top: .5px solid grey; margin-top: 40px;">
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
 
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Checking the weather near you...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Explore cool, quirky places in your own backyard.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 </div>
 <div class="js-container">
 
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Modify the script to let developers:</span></span><br><span class="line"><span class="comment">Pass in their own selector to render the weather into.</span></span><br><span class="line"><span class="comment">Decide whether to show temperatures in Fahrenheit of Celsius.</span></span><br><span class="line"><span class="comment">Change what message is shown.</span></span><br><span class="line"><span class="comment">Enable or disable the icon for the weather conditions.*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getWeather = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Default settings for weather app</span></span><br><span class="line">  <span class="keyword">const</span> defaults = &#123;</span><br><span class="line">    apiKeyIp: <span class="literal">null</span>,</span><br><span class="line">    apiKeyWeather: <span class="literal">null</span>,</span><br><span class="line">    selector: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    convertTemp: <span class="literal">false</span>,</span><br><span class="line">    noWeather: <span class="string">&#x27;Unable to get weather data at this time. Sorry!&#x27;</span>,</span><br><span class="line">    showIcon: <span class="literal">true</span>,</span><br><span class="line">    showTemp: <span class="literal">true</span>,</span><br><span class="line">    showCity: <span class="literal">true</span>,</span><br><span class="line">    showConditions: <span class="literal">true</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Merge user settings into default</span></span><br><span class="line">  <span class="keyword">const</span> settings = <span class="built_in">Object</span>.assign(defaults, options);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get the #app element to render content</span></span><br><span class="line">  <span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(settings.selector);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Secure your data</span></span><br><span class="line">  <span class="keyword">const</span> sanitizeHTML = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> temp = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">    temp.textContent = str;</span><br><span class="line">    <span class="keyword">return</span> temp.innerHTML;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Convert Celcius to Farenheit and round value</span></span><br><span class="line">  <span class="keyword">const</span> FarenheitToCelcius = <span class="function"><span class="keyword">function</span> (<span class="params">temp</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (settings.convertTemp) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;(<span class="built_in">Math</span>.round((temp) * <span class="number">9</span>/<span class="number">5</span>)) + <span class="number">32</span>&#125;</span> &amp;#x2109`</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.round(temp)&#125;</span> &amp;#x2103`</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get weather icon form fetch data</span></span><br><span class="line">  <span class="keyword">const</span> getIcon = <span class="function"><span class="keyword">function</span> (<span class="params">fetchData</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!settings.showIcon) <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> html = <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;div class=&quot;weather_icon&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;img src=&quot;https://openweathermap.org/img/wn/<span class="subst">$&#123;sanitizeHTML(fetchData.weather[<span class="number">0</span>].icon)&#125;</span>@2x.png&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;`</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get weather temperature from fetch data</span></span><br><span class="line">  <span class="keyword">const</span> getTemp = <span class="function"><span class="keyword">function</span> (<span class="params">fetchData</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!settings.showTemp) <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> html = <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;h3 class=&quot;weather_temperature&quot;&gt;</span></span><br><span class="line"><span class="string">        <span class="subst">$&#123;FarenheitToCelcius(sanitizeHTML(fetchData.main.temp))&#125;</span>;</span></span><br><span class="line"><span class="string">      &lt;/h3&gt;`</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get weather city location from fetch data</span></span><br><span class="line">  <span class="keyword">const</span> getCity = <span class="function"><span class="keyword">function</span> (<span class="params">fetchData</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!settings.showCity) <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> html = <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;h4 class=&quot;weather_city-name&quot;&gt;</span></span><br><span class="line"><span class="string">        <span class="subst">$&#123;sanitizeHTML(fetchData.name)&#125;</span></span></span><br><span class="line"><span class="string">      &lt;/h4&gt;`</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get weather conditions from fetch data</span></span><br><span class="line">  <span class="keyword">const</span> getConditions = <span class="function"><span class="keyword">function</span> (<span class="params">fetchData</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!settings.showConditions) <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> html = <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;p class=&quot;weather_desc&quot;&gt;</span></span><br><span class="line"><span class="string">        <span class="subst">$&#123;sanitizeHTML(fetchData.weather[<span class="number">0</span>].description)&#125;</span></span></span><br><span class="line"><span class="string">      &lt;/p&gt;`</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Render your weather data</span></span><br><span class="line">  <span class="keyword">const</span> renderWeather = <span class="function"><span class="keyword">function</span> (<span class="params">fetchData</span>) </span>&#123;</span><br><span class="line">    app.innerHTML = (<span class="string">`</span></span><br><span class="line"><span class="string">  &lt;div class=&quot;weather_container&quot;&gt;</span></span><br><span class="line"><span class="string">    <span class="subst">$&#123;getIcon(fetchData)&#125;</span></span></span><br><span class="line"><span class="string">    <span class="subst">$&#123;getTemp(fetchData)&#125;</span></span></span><br><span class="line"><span class="string">    <span class="subst">$&#123;getCity(fetchData)&#125;</span></span></span><br><span class="line"><span class="string">    <span class="subst">$&#123;getConditions(fetchData)&#125;</span></span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>)</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Render warning info when renderWeather doesn&#x27;t work</span></span><br><span class="line">  <span class="keyword">const</span> renderNoWeather = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    app.innerHTML = settings.noWeather;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Check for API</span></span><br><span class="line">  <span class="keyword">if</span> (!settings.apiKeyIp || !settings.apiKeyWeather) &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(<span class="string">&#x27;Please provide an API key.&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Get the user&#x27;s location by IP address</span></span><br><span class="line">  <span class="comment">// Then, pass that into the weather API and get the current weather</span></span><br><span class="line">  fetch(<span class="string">`https://api.ipgeolocation.io/ipgeo?apiKey=<span class="subst">$&#123;settings.apiKeyIp&#125;</span>`</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fetch(<span class="string">`https://api.openweathermap.org/data/2.5/weather?q=<span class="subst">$&#123;data.city&#125;</span>&amp;appid=<span class="subst">$&#123;settings.apiKeyWeather&#125;</span>&amp;units=metric`</span>);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    renderWeather(data);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(err);</span><br><span class="line">    renderNoWeather();</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Init function - customize your settings</span></span><br><span class="line">getWeather(&#123;</span><br><span class="line">  apiKeyIp: <span class="string">&#x27;d9f7add9f68440818a0659381720a532&#x27;</span>, <span class="comment">// Replace this with your API key</span></span><br><span class="line">  apiKeyWeather: <span class="string">&#x27;5e995a3338fe2917188f0f98d08abcec&#x27;</span>, <span class="comment">// Replace this with your API key</span></span><br><span class="line">  selector: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  convertTemp: <span class="literal">false</span>,</span><br><span class="line">  noWeather: <span class="string">&#x27;Unable to get weather data at this time. Sorry!&#x27;</span>,</span><br><span class="line">  showIcon: <span class="literal">true</span>,</span><br><span class="line">  showTemp: <span class="literal">true</span>,</span><br><span class="line">  showCity: <span class="literal">true</span>,</span><br><span class="line">  showConditions: <span class="literal">true</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For each place, add a “favorite” button. Give the button a different appearance</span></span><br><span class="line"><span class="comment">when the place is “favorited” versus when it’s not. When the user revisits the page,</span></span><br><span class="line"><span class="comment">their favorites should reload. You do not need to filter</span></span><br><span class="line"><span class="comment">or show only the favorite anywhere (that’s a future project). */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> favesID = <span class="string">&quot;favoritePlace&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Reef(<span class="string">&#x27;#app&#x27;</span>, &#123;</span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line">  template: <span class="function"><span class="keyword">function</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (props.posts &amp;&amp; props.posts.length) &#123;</span><br><span class="line">      <span class="keyword">let</span> html = <span class="string">&#x27;&lt;div class=&quot;container&quot;&gt;&#x27;</span> + props.posts.map(<span class="function"><span class="keyword">function</span> (<span class="params">post</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;post-container&quot;&gt;&lt;div class=&quot;miniature-container&quot;&gt;&lt;img class=&quot;minature&quot; src=&quot;<span class="subst">$&#123;post.img&#125;</span>&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;info-container&quot;&gt;&lt;div class=&quot;header&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;<span class="subst">$&#123;post.place&#125;</span>&lt;/h2&gt;&lt;button data-fave=&quot;<span class="subst">$&#123;post.id&#125;</span>&quot; class=&quot;fave-btn&quot; aria-label=&quot;add <span class="subst">$&#123;post.place&#125;</span> to favorite&quot; aria-pressed=&quot;<span class="subst">$&#123;props.faves[post.id]&#125;</span>&quot; title=&quot;Add to favorite!&quot;&gt;&amp;#x2665;&lt;/button&gt;&lt;/div&gt;&lt;p&gt;<span class="subst">$&#123;post.description&#125;</span>&lt;/p&gt;&lt;p&gt;&lt;em&gt;<span class="subst">$&#123;post.location&#125;</span>&lt;/em&gt;&lt;/p&gt;&lt;a href=<span class="subst">$&#123;post.url&#125;</span> target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;`</span>;</span><br><span class="line">      &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">      <span class="keyword">return</span> html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> html = <span class="string">&#x27;&lt;p&gt;Unable to find any places right now.&lt;/p&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> getFaves = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> faves = <span class="built_in">localStorage</span>.getItem(favesID);</span><br><span class="line">  <span class="keyword">const</span> favesObj = faves ? <span class="built_in">JSON</span>.parse(faves) : &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> favesObj;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> saveFaves = <span class="function"><span class="keyword">function</span> (<span class="params">faves</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">localStorage</span>.setItem(favesID, <span class="built_in">JSON</span>.stringify(faves));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getPosts = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;https://vanillajsacademy.com/api/places.json&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    app.data.faves = getFaves();</span><br><span class="line">    app.data.posts = data;</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(error);</span><br><span class="line">    app.data.posts = <span class="literal">null</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> clickHandler = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> postPlace = e.target.getAttribute(<span class="string">&#x27;data-fave&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (!postPlace) <span class="keyword">return</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(postPlace);</span><br><span class="line">  app.data.faves[postPlace] = app.data.faves[postPlace] ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line">  saveFaves(app.data.faves);</span><br><span class="line">&#125;</span><br><span class="line">getPosts();</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;click&#x27;</span>, clickHandler);</span><br></pre></td></tr></table></figure>
 
 </div>
 
@@ -287,7 +241,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/vanilla-js-academy/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="page-number current">2</span><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><a class="page-number" href="/vanilla-js-academy/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/20/">20</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/3/">Next</a>
+    <a class="extend prev" rel="prev" href="/vanilla-js-academy/">Prev</a><a class="page-number" href="/vanilla-js-academy/">1</a><span class="page-number current">2</span><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><a class="page-number" href="/vanilla-js-academy/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/3/">Next</a>
   </nav>
 
 </section>
@@ -306,7 +260,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
     </div>
   </div>
 
@@ -317,6 +271,66 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
         
           <li>
             <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>

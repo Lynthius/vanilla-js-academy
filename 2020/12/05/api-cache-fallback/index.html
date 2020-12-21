@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>28. API Cache - Fallback | Vanilla JS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#app {       margin-top: 10px;     }      .article {       margin: 0;     }      .title {       list-style-type: none !important;       padding: 0 !important;       margin: 0 !important;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="28. API Cache - Fallback">
+<meta property="og:url" content="http://lynthius.github.io/vanilla-js-academy/2020/12/05/api-cache-fallback/index.html">
+<meta property="og:site_name" content="Vanilla JS Academy">
+<meta property="og:description" content="#app {       margin-top: 10px;     }      .article {       margin: 0;     }      .title {       list-style-type: none !important;       padding: 0 !important;       margin: 0 !important;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-05T17:48:32.000Z">
+<meta property="article:modified_time" content="2020-12-05T16:05:11.866Z">
+<meta property="article:author" content="Tomasz Przyborowski">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/vanilla-js-academy/atom.xml" title="Vanilla JS Academy" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/vanilla-js-academy/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+
+
+    <h1 id="logo-wrap">
+      <a href="/vanilla-js-academy/" id="logo">Vanilla JS Academy</a>
+    </h1>
+
+  <div id="header-inner" class="inner">
+    <nav id="main-nav">
+      
+    </nav>
+    <nav id="sub-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+      <a class="main-nav-link" href="/vanilla-js-academy/">Home</a>
+      
+      <a class="main-nav-link" href="/vanilla-js-academy/archives">Archives</a>
+      
+      <a href="https://github.com/Lynthius" target="_blank" id="nav-github-btn" class="nav-icon"></a>
+      <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+    </nav>
+    <div id="search-form-wrap">
+      <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lynthius.github.io/vanilla-js-academy"></form>
+    </div>
+  </div>
+
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-api-cache-fallback" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/" class="article-date">
+  <time datetime="2020-12-05T17:48:32.000Z" itemprop="datePublished">2020-12-05</time>
+</a>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      28. API Cache - Fallback
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="output-container">
+
+  <style type="text/css">
+    #app {
+      margin-top: 10px;
+    }
+
+    .article {
+      margin: 0;
+    }
+
+    .title {
+      list-style-type: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+  <div id="app">
+    Loading...
+  </div>
+  <script>
+    const appOutput = document.querySelector('#app');
+    let storageID;
+    var numberOfArticles = 2;
+    const sanitizeHTML = function (str) {
+      return str.replace(/[^\w. ]/gi, function (c) {
+        return '&#' + c.charCodeAt(0) + ';';
+      })
+    };
+    const isDataValid = function (saved, expirationDate) {
+      if (!saved || !saved.data || !saved.timestamp) return false;
+      const difference = new Date().getTime() - saved.timestamp;
+      return difference < expirationDate;
+    }
+    const getEndpoint = function () {
+      const endpoint = 'https://vanillajsacademy.com/api/';
+      const random = Math.random();
+      if (random < 0.5) return endpoint + 'pirates.json';
+      return endpoint + 'fail.json';
+    };
+    const saveData = function (data) {
+      const cache = {
+        data: data,
+        timestamp: new Date().getTime()
+      }
+      localStorage.setItem(storageID, JSON.stringify(cache));
+    }
+    const getData = function (status) {
+      const saved = JSON.parse(localStorage.getItem(storageID));
+      if (!saved) return;
+      if(isDataValid(saved, 1000 * 3)) {
+        return saved.data;
+      } else if (status) {
+        console.log("Fallback function worked. Data loaded from cache.");
+        render(saved.data);
+      }
+    }
+    const render = function (articles) {
+      appOutput.innerHTML = '<h3 class="category">Pirate articles:</h3>' + articles.map(function(article) {
+        return (`
+            <div class="container">
+              <ul class="title">
+                <li> <strong>Title:</strong> ${sanitizeHTML(article.title)}</li>
+                <li> <strong>Author:</strong> ${sanitizeHTML(article.author)}</li>
+                <li> <strong>Publication date:</strong> ${sanitizeHTML(article.pubdate)}</li>
+              </ul>
+              <div class="article"><p>${sanitizeHTML(article.article)}</p></div>
+            </div>
+            <hr>
+            <br>
+            `);
+      }).join('');
+    }
+    const getFirstFewArticles = function (articles) {
+      return articles.slice(0, numberOfArticles);
+    }
+    const getNews = function () {
+      // Check for valid cached data,
+      // If exist, use it
+      const saved = getData();
+      if (saved) {
+        render(saved);
+        console.log("Loaded from cache");
+        return;
+      }
+      fetch(getEndpoint()).then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then(function(data) {
+        const articles = getFirstFewArticles(data.articles);
+        saveData(articles);
+        render(articles);
+        console.log("Fetched from API");
+      }).catch(function (error) {
+        console.log("something went wrong", error);
+        appOutput.textContent = "Something went wrong...";
+        const status = true;
+        getData(status);
+      })
+    }
+    getNews();
+  </script>
+
+</div>
+
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
+
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  Loading...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</div>
+<div class="js-container">
+
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* In today’s project, we’re going to modify our API cache script</span></span><br><span class="line"><span class="comment">to fallback to the cache if the API call fails—even if data has expired.</span></span><br><span class="line"><span class="comment">Showing something, even if it’s a bit out of date, is better than showing nothing at all.*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appOutput = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> storageID;</span><br><span class="line"><span class="keyword">var</span> numberOfArticles = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">const</span> sanitizeHTML = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.replace(<span class="regexp">/[^\w. ]/gi</span>, <span class="function"><span class="keyword">function</span> (<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&amp;#&#x27;</span> + c.charCodeAt(<span class="number">0</span>) + <span class="string">&#x27;;&#x27;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> isDataValid = <span class="function"><span class="keyword">function</span> (<span class="params">saved, expirationDate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!saved || !saved.data || !saved.timestamp) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">const</span> difference = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - saved.timestamp;</span><br><span class="line">  <span class="keyword">return</span> difference &lt; expirationDate;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> saveData = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> cache = &#123;</span><br><span class="line">    data: data,</span><br><span class="line">    timestamp: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">localStorage</span>.setItem(storageID, <span class="built_in">JSON</span>.stringify(cache));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getData = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> saved = <span class="built_in">JSON</span>.parse(<span class="built_in">localStorage</span>.getItem(storageID));</span><br><span class="line">  <span class="keyword">if</span> (!saved) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">if</span> (isDataValid(saved, <span class="number">1000</span> * <span class="number">10</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> saved.data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">articles</span>) </span>&#123;</span><br><span class="line">  appOutput.innerHTML = <span class="string">&#x27;&lt;h3 class=&quot;category&quot;&gt;Pirate articles:&lt;/h3&gt;&#x27;</span> + articles.map(<span class="function"><span class="keyword">function</span> (<span class="params">article</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div class=&quot;container&quot;&gt;</span></span><br><span class="line"><span class="string">          &lt;ul class=&quot;title&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;li&gt; &lt;strong&gt;Title:&lt;/strong&gt; <span class="subst">$&#123;sanitizeHTML(article.title)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">            &lt;li&gt; &lt;strong&gt;Author:&lt;/strong&gt; <span class="subst">$&#123;sanitizeHTML(article.author)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">            &lt;li&gt; &lt;strong&gt;Publication date:&lt;/strong&gt; <span class="subst">$&#123;sanitizeHTML(article.pubdate)&#125;</span>&lt;/li&gt;</span></span><br><span class="line"><span class="string">          &lt;/ul&gt;</span></span><br><span class="line"><span class="string">          &lt;div class=&quot;article&quot;&gt;&lt;p&gt;<span class="subst">$&#123;sanitizeHTML(article.article)&#125;</span>&lt;/p&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;hr&gt;</span></span><br><span class="line"><span class="string">        &lt;br&gt;</span></span><br><span class="line"><span class="string">        `</span>);</span><br><span class="line">  &#125;).join(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getFirstFewArticles = <span class="function"><span class="keyword">function</span> (<span class="params">articles</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> articles.slice(<span class="number">0</span>, numberOfArticles);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getNews = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Check for valid cached data,</span></span><br><span class="line">  <span class="comment">// If exist, use it</span></span><br><span class="line">  <span class="keyword">const</span> saved = getData();</span><br><span class="line">  <span class="keyword">if</span> (saved) &#123;</span><br><span class="line">    render(saved);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;Loaded from cache&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  fetch(<span class="string">&#x27;https://vanillajsacademy.com/api/pirates.json&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> articles = getFirstFewArticles(data.articles);</span><br><span class="line">    saveData(articles);</span><br><span class="line">    render(articles);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;Fetched from API&quot;</span>);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;something went wrong&quot;</span>, error);</span><br><span class="line">    appOutput.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">getNews();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div>
+
+      
+    </div>
+  </div>
+
+</article></section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/17/weather-app-plugin/">19. Weather App Plugin</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/13/table-of-contents-scope/">17. Table of Contents - Scope</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/11/table-of-contents-missing-ids/">16. Table of Contents - Missing IDs</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/09/table-of-contents/">15. Table of Contents</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/07/find-the-monsters-track-wins/">14. Find the Monsters - Track Wins</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/05/find-the-monsters/">13. Find the Monsters</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/03/monster-shuffle/">12. Monster Shuffle</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/01/sanitizing-the-NYT-api-data/">11. Sanitizing the NYT API Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/30/latest-3-NYT-top-stories-on-few-categories/">10. Latest 3 top stories on few categories</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/28/latest-5-NYT-top-stories/">09. Latest 5 top stories</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/26/random-ron-without-duplicates/">08. Random Ron without duplicates</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/24/random-ron/">07. Random Ron</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/22/announcing-the-count/">06. Announcing the Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/20/character-and-word-count/">05. Character and Word Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/18/character-count/">04. Character Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/16/toggling-passwords-in-multiple-forms/">03. Toggling passwords in multiple forms</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/14/toggling-multiple-passwords-fields/">02. Toggling multiple passwords fields</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/12/password-visibility/">01. Password visibility</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Tomasz Przyborowski<br>
+      <a href="https://www.tomaszprzyborowski.pl/" target="_blank">www.tomaszprzyborowski.pl</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/vanilla-js-academy/" class="mobile-nav-link">Home</a>
+  
+    <a href="/vanilla-js-academy/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/vanilla-js-academy/fancybox/jquery.fancybox.css">
+
+  
+<script src="/vanilla-js-academy/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/vanilla-js-academy/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

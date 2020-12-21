@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>23. Debugging Broken Code | Vanilla JS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content=".row {             display: grid;             grid-template-columns: auto auto auto;             text-align: center;         }          .grid {             min-height: 6em;             padding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="23. Debugging Broken Code">
+<meta property="og:url" content="http://lynthius.github.io/vanilla-js-academy/2020/11/25/debugging-broken-code/index.html">
+<meta property="og:site_name" content="Vanilla JS Academy">
+<meta property="og:description" content=".row {             display: grid;             grid-template-columns: auto auto auto;             text-align: center;         }          .grid {             min-height: 6em;             padding">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://lynthius.github.io/vanilla-js-academy/2020/11/25/debugging-broken-code/img/door.svg">
+<meta property="og:image" content="https://media.giphy.com/media/13zUNhE9WZspMc/giphy.gif">
+<meta property="og:image" content="https://media.giphy.com/media/1242bJFCbb3FxC/giphy.gif">
+<meta property="og:image" content="http://lynthius.github.io/vanilla-js-academy/2020/11/25/debugging-broken-code/img/">
+<meta property="article:published_time" content="2020-11-25T18:05:32.000Z">
+<meta property="article:modified_time" content="2020-11-25T18:53:18.682Z">
+<meta property="article:author" content="Tomasz Przyborowski">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lynthius.github.io/vanilla-js-academy/2020/11/25/debugging-broken-code/img/door.svg">
+  
+    <link rel="alternate" href="/vanilla-js-academy/atom.xml" title="Vanilla JS Academy" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/vanilla-js-academy/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+
+
+    <h1 id="logo-wrap">
+      <a href="/vanilla-js-academy/" id="logo">Vanilla JS Academy</a>
+    </h1>
+
+  <div id="header-inner" class="inner">
+    <nav id="main-nav">
+      
+    </nav>
+    <nav id="sub-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+      <a class="main-nav-link" href="/vanilla-js-academy/">Home</a>
+      
+      <a class="main-nav-link" href="/vanilla-js-academy/archives">Archives</a>
+      
+      <a href="https://github.com/Lynthius" target="_blank" id="nav-github-btn" class="nav-icon"></a>
+      <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+    </nav>
+    <div id="search-form-wrap">
+      <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lynthius.github.io/vanilla-js-academy"></form>
+    </div>
+  </div>
+
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-debugging-broken-code" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/" class="article-date">
+  <time datetime="2020-11-25T18:05:32.000Z" itemprop="datePublished">2020-11-25</time>
+</a>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      23. Debugging Broken Code
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="output-container">
+
+  <style type="text/css">
+   .row {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            text-align: center;
+        }
+
+        .grid {
+            min-height: 6em;
+            padding: 1em;
+        }
+
+        /**
+         * Make sure images scale
+         */
+        img {
+            height: auto;
+            max-width: 100%;
+        }
+
+        /**
+         * Scale image to the full width of the page
+         */
+        .img-full {
+            width: 100%;
+        }
+
+        /**
+         * Style buttons to not look like buttons
+         */
+        [data-monster-id] {
+            background-color: transparent;
+            border: 0;
+        }
+  </style>
+   <div id="app" aria-live="polite"></div>
+    <footer>
+      <hr>
+      <p class="text-small text-muted">Icons by <a target="_blank" rel="noopener" href="https://thenounproject.com/term/door/311732/">Jamie Dickinson</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/184225/">Nicky Knicky</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1510400/">Alvaro Cabrera</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/28460/">Eliricon</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/82823/">April Yang</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/1062009/">tk66</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/24990/">Alex WaZa</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/37212/">Husein Aziz</a>, <a target="_blank" rel="noopener" href="https://thenounproject.com/term/monster/2236082">iconcheese</a>, <br>and <a target="_blank" rel="noopener" href="https://thenounproject.com/term/socks/38451/">Yazmin Alanis</a>.</p>
+    </footer>
+  <script>
+    // The monsters and socks
+    var monsters = [
+      'monster1',
+      'monster2',
+      'monster3',
+      'monster4',
+      'monster5',
+      'monster6',
+      'monster7',
+      'monster8',
+      'monster9',
+      'monster10',
+      'monster11',
+      'sock'
+    ];
+    var app = document.querySelector('#app');
+    // The number of monsters who have been found
+    var count;
+    /**
+    * Randomly shuffle an array
+    * https://stackoverflow.com/a/2450976/1293256
+    * @param  {Array} array The array to shuffle
+    * @return {String}      The first item in the shuffled array
+    */
+    var shuffle = function (array) {
+      var currentIndex = array.length;
+      var temporaryValue, randomIndex;
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
+    };
+    /**
+    * Render the grid of monsters onto the game board
+    */
+    var renderMonsters = function () {
+      // Reset the number of monsters who have been found
+      found = 0;
+      // Shuffle the monsters array
+      shuffle(monsters);
+      // Create the HTML and inject it into the DOM
+      // A button element is focusable and conveys to screen readers that it can be clicked
+      // The data-monster-id stores the index of the monster in our array
+      app.innerHTML =
+        '<p>Click a door to reveal a monster. Try not to find the sock.</p>' +
+        '<div class="row">' +
+        monsters.map(function (monster, index) {
+          var html =
+            '<div class="grid">' +
+            '<button data-monster-id="' + index + '">' +
+            '<img alt="Click the door to see what\'s behind it" src="./img/door.svg">' +
+            '</button>' +
+            '</div>';
+          return html;
+        }).join('') +
+        '</div>';
+    };
+    /**
+    * Render a new UI when the player loses
+    */
+    var renderLost = function () {
+      app.innerHTML =
+        '<img class="img-full" alt="" src="https://media.giphy.com/media/13zUNhE9WZspMc/giphy.gif">' +
+        '<h2>Oops, you found a sock!</h2>' +
+        '<p>' +
+        '<button class="btn" data-monster-play-again>Play Again</button>' +
+        '</p>';
+    };
+    /**
+    * Render a new UI when the player wins
+    */
+    var renderWon = function () {
+      app.innerHTML =
+        '<img class="img-full" alt="" src="https://media.giphy.com/media/1242bJFCbb3FxC/giphy.gif">' +
+        '<h2>You won!</h2>' +
+        '<p>You found all of the monsters. Congrats!</p>' +
+        '<p>' +
+        '<button data-monster-play-again>Play Again</button>' +
+        '</p>';
+    };
+    /**
+    * Handle click events
+    * @param  {Event} event The event object
+    */
+    var clickHandler = function (event) {
+      // If a "play again" button was clicked, reset the UI and end the callback function
+      // if (event.target.hasAttribute('[data-monster-play-again]')) { <---- broken code !!!
+      if (event.target.hasAttribute('data-monster-play-again')) {
+        renderMonsters();
+        return;
+      }
+      // Check if clicked element or it's parent has a [data-monster-id] attribute
+      // If not, it's not a monster
+      // return and stop running our callback function
+      // var monster = event.target.closest('data-monster-id'); <---- broken code !!!
+      var monster = event.target.closest('[data-monster-id]');
+      if (!monster) return;
+      // Get the monster's index in the array
+      var id = monster.getAttribute('data-monster-id');
+      // If the door reveals a sock, render the lost UI
+      // Then, end the callback function
+      // if (monsters[id] = 'socks') { <---- broken code !!!
+      if (monsters[id] === 'sock') {
+        renderLost();
+        return;
+      }
+      // Update the HTML for the button's parent element
+      // This will replace the button so that the content can't be clicked again
+      // We'll use the id to get the monster from our shuffled array
+      monster.parentNode.innerHTML = '<img alt="' + monsters[id] + '" src="./img/' + monsters[id] + '.svg">';
+      // Increase the number of monsters who have been found by 1
+      found++;
+      // If the number of monsters found is equal to the total number (-1 for the sock)
+      // then all monsters have been found and we can render the win UI
+      if (found === (monsters.length - 1)) {
+        renderWon();
+      }
+    };
+    //
+    // Inits & Event Listeners
+    //
+    // Render the initial game board
+    renderMonsters();
+    // Listen for click events
+    document.addEventListener('click', clickHandler, false);
+  </script>
+
+</div>
+
+<div class="html-container" style="border-top: .5px solid grey; margin-top: 30px;">
+
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div>
+<div class="js-container">
+
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div>
+
+      
+    </div>
+  </div>
+
+</article></section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/vanilla-js-academy/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/17/places-favorite-places/">34. Places - Favorite Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/15/places/">33. Places</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/13/countdown-timer-reactive-data/">32. Countdown Timer - Reactive Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/11/countdown-timer-start-and-pause/">31. Countdown Timer - Start and Pause</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/09/countdown-timer-formatted/">30. Countdown Timer - Formatted</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/07/countdown-timer/">29. Countdown Timer</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/05/api-cache-fallback/">28. API Cache - Fallback</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/03/api-cache/">27. API Cache</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/12/01/autosave-other-field-types/">26. Autosave - Other Field Types</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/29/autosave-single-entry/">25. Autosave - Single Entry</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/27/autosave/">24. Autosave</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/25/debugging-broken-code/">23. Debugging Broken Code</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/23/dom-manipulation-library-with-chaining/">22. DOM Manipulation Library - Chaining</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/21/dom-manipulation-library/">21. DOM Manipulation Library</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/19/helper-library/">20. Helper Library</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/17/weather-app-plugin/">19. Weather App Plugin</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/13/table-of-contents-scope/">17. Table of Contents - Scope</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/11/table-of-contents-missing-ids/">16. Table of Contents - Missing IDs</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/09/table-of-contents/">15. Table of Contents</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/07/find-the-monsters-track-wins/">14. Find the Monsters - Track Wins</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/05/find-the-monsters/">13. Find the Monsters</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/03/monster-shuffle/">12. Monster Shuffle</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/11/01/sanitizing-the-NYT-api-data/">11. Sanitizing the NYT API Data</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/30/latest-3-NYT-top-stories-on-few-categories/">10. Latest 3 top stories on few categories</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/28/latest-5-NYT-top-stories/">09. Latest 5 top stories</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/26/random-ron-without-duplicates/">08. Random Ron without duplicates</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/24/random-ron/">07. Random Ron</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/22/announcing-the-count/">06. Announcing the Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/20/character-and-word-count/">05. Character and Word Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/18/character-count/">04. Character Count</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/16/toggling-passwords-in-multiple-forms/">03. Toggling passwords in multiple forms</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/14/toggling-multiple-passwords-fields/">02. Toggling multiple passwords fields</a>
+          </li>
+        
+          <li>
+            <a href="/vanilla-js-academy/2020/10/12/password-visibility/">01. Password visibility</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Tomasz Przyborowski<br>
+      <a href="https://www.tomaszprzyborowski.pl/" target="_blank">www.tomaszprzyborowski.pl</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/vanilla-js-academy/" class="mobile-nav-link">Home</a>
+  
+    <a href="/vanilla-js-academy/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/vanilla-js-academy/fancybox/jquery.fancybox.css">
+
+  
+<script src="/vanilla-js-academy/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/vanilla-js-academy/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
