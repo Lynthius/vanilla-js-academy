@@ -61,17 +61,10 @@
       <div class="outer">
         <section id="main">
   
-<<<<<<< HEAD
-    <article id="post-weather-app" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/vanilla-js-academy/2020/11/15/weather-app/" class="article-date">
-  <time datetime="2020-11-14T23:00:00.000Z" itemprop="datePublished">2020-11-15</time>
-=======
     <article id="post-places-filter-places" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/vanilla-js-academy/2020/12/19/places-filter-places/" class="article-date">
   <time datetime="2020-12-19T16:55:05.000Z" itemprop="datePublished">2020-12-19</time>
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 </a>
   </div>
   <div class="article-inner">
@@ -81,11 +74,7 @@
         
   
     <h1 itemprop="name">
-<<<<<<< HEAD
-      <a class="article-title" href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
-=======
       <a class="article-title" href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     </h1>
   
 
@@ -96,33 +85,6 @@
         <div class="output-container">
 
   <style type="text/css">
-<<<<<<< HEAD
-    #app {
-      margin-top: 10px;
-    }
-
-    .weather_container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .weather_icon {
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    .weather_temperature {
-      letter-spacing: 1.5px;
-      font-size: 3.2em !important;
-      margin: 0 !important;
-    }
-
-    .weather_city-name {
-      text-transform: uppercase;
-      font-size: 2em !important;
-      margin: 10px 0 0 !important;
-=======
   .article-entry ul, .article-entry ol, .article-entry dl {
       margin-top: 0;
     }
@@ -205,7 +167,6 @@
 
     .hidden {
       display: none;
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
     }
 
     .weather_desc {
@@ -215,11 +176,6 @@
     }
 
   </style>
-<<<<<<< HEAD
-
-  <div id="app">Checking the weather near you...</div>
-=======
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
   <p>Explore cool, quirky places in your own backyard.</p>
   <div class="filters">
@@ -245,54 +201,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/reefjs@7/dist/reef.js"></script>
   <script>
-<<<<<<< HEAD
-    const app = document.querySelector('#app');
-    const apiKeyIp = 'd9f7add9f68440818a0659381720a532';
-    const apiKeyWeather = '5e995a3338fe2917188f0f98d08abcec';
-    let userCity;
-
-    const render = function (icon, temp, city, sky) {
-      app.innerHTML = (`
-      <div class="weather_container">
-        <div class="weather_icon"><img src="https://openweathermap.org/img/wn/${icon}@2x.png"></div>
-        <h3 class="weather_temperature">${Math.round(temp)} &#x2103;</h3>
-        <h4 class="weather_city-name">${city}</h4>
-        <p class="weather_desc">${sky}</p>
-      </div>
-      `)
-    };
-
-    const getWeatherInfo = function () {
-      fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKeyIp}`).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (data) {
-        userCity = data.city;
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKeyWeather}&units=metric`);
-      }).then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      }).then(function (userData) {
-        userIcon = userData.weather[0].icon;
-        userTemp = userData.main.temp;
-        userCity = userData.name;
-        userSky = userData.weather[0].description;
-
-        render(userIcon, userTemp, userCity, userSky);
-      }).catch(function (err) {
-        console.warn(err);
-        app.textContent = "Something went wrong...";
-      })
-    }
-
-    getWeatherInfo();
-=======
     const favesID = "favoritePlaces";
     const visitedID = "visitedPlaces";
     const app = new Reef('#app', {
@@ -356,27 +264,18 @@
     getPosts();
     document.addEventListener('click', clickHandler);
     document.addEventListener('change', changeHandler);
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </script>
 
 </div>
 
 <div class="html-container" style="border-top: .5px solid grey; margin-top: 40px;">
 
-<<<<<<< HEAD
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Checking the weather near you...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-=======
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Explore cool, quirky places in your own backyard.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;filters&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">strong</span>&gt;</span>Filter:<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;view&quot;</span> <span class="attr">value</span>=<span class="string">&quot;all&quot;</span> <span class="attr">checked</span>&gt;</span></span><br><span class="line">		All Places</span><br><span class="line">	<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;view&quot;</span> <span class="attr">value</span>=<span class="string">&quot;faves&quot;</span>&gt;</span></span><br><span class="line">		Favorites</span><br><span class="line">	<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;view&quot;</span> <span class="attr">value</span>=<span class="string">&quot;visited&quot;</span>&gt;</span></span><br><span class="line">		Visited</span><br><span class="line">	<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;view&quot;</span> <span class="attr">value</span>=<span class="string">&quot;not-visited&quot;</span>&gt;</span></span><br><span class="line">		Not Visited</span><br><span class="line">	<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 <div class="js-container">
 
-<<<<<<< HEAD
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* For today’s project, we’re going to build an app that gets a user’s location</span></span><br><span class="line"><span class="comment">and displays their current weather information. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#app&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> apiKeyIp = <span class="string">&#x27;d9f7add9f68440818a0659381720a532&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> apiKeyWeather = <span class="string">&#x27;5e995a3338fe2917188f0f98d08abcec&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> userCity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> render = <span class="function"><span class="keyword">function</span> (<span class="params">icon, temp, city, sky</span>) </span>&#123;</span><br><span class="line">  app.innerHTML = (<span class="string">`</span></span><br><span class="line"><span class="string">  &lt;div class=&quot;weather_container&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;weather_icon&quot;&gt;&lt;img src=&quot;http://openweathermap.org/img/wn/<span class="subst">$&#123;icon&#125;</span>@2x.png&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;h3 class=&quot;weather_temperature&quot;&gt;<span class="subst">$&#123;<span class="built_in">Math</span>.round(temp)&#125;</span> &amp;#x2103;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;h4 class=&quot;weather_city-name&quot;&gt;<span class="subst">$&#123;city&#125;</span>&lt;/h4&gt;</span></span><br><span class="line"><span class="string">    &lt;p class=&quot;weather_desc&quot;&gt;<span class="subst">$&#123;sky&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getWeatherInfo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">`https://api.ipgeolocation.io/ipgeo?apiKey=<span class="subst">$&#123;apiKeyIp&#125;</span>`</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    userCity = data.city;</span><br><span class="line">    <span class="keyword">return</span> fetch(<span class="string">`http://api.openweathermap.org/data/2.5/weather?q=<span class="subst">$&#123;userCity&#125;</span>&amp;appid=<span class="subst">$&#123;apiKeyWeather&#125;</span>&amp;units=metric`</span>);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">userData</span>) </span>&#123;</span><br><span class="line">    userIcon = userData.weather[<span class="number">0</span>].icon;</span><br><span class="line">    userTemp = userData.main.temp;</span><br><span class="line">    userCity = userData.name;</span><br><span class="line">    userSky = userData.weather[<span class="number">0</span>].description;</span><br><span class="line"></span><br><span class="line">    render(userIcon, userTemp, userCity, userSky);</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(err);</span><br><span class="line">    app.textContent = <span class="string">&quot;Something went wrong...&quot;</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getWeatherInfo();</span><br></pre></td></tr></table></figure>
-=======
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Add a “Visited” button for users to mark off locations they’ve already been to.</span></span><br><span class="line"><span class="comment">Like the “Favorites” button, visited locations should be saved between visits.</span></span><br><span class="line"><span class="comment">When the user selects one of the filters,</span></span><br><span class="line"><span class="comment">change the UI to only show locations that match the filter criteria. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> favesID = <span class="string">&quot;favoritePlaces&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> visitedID = <span class="string">&quot;visitedPlaces&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Reef(<span class="string">&#x27;#app&#x27;</span>, &#123;</span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line">  template: <span class="function"><span class="keyword">function</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (props.posts &amp;&amp; props.posts.length) &#123;</span><br><span class="line">      <span class="keyword">let</span> html = <span class="string">&#x27;&lt;div class=&quot;container&quot;&gt;&#x27;</span> + props.posts.map(<span class="function"><span class="keyword">function</span> (<span class="params">post</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`&lt;div class=&quot;post-container <span class="subst">$&#123;getHidden(post, props)&#125;</span>&quot;&gt;&lt;div class=&quot;miniature-container&quot;&gt;&lt;img class=&quot;minature&quot; src=&quot;<span class="subst">$&#123;post.img&#125;</span>&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;info-container&quot;&gt;&lt;div class=&quot;header&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;<span class="subst">$&#123;post.place&#125;</span>&lt;/h2&gt;</span></span><br><span class="line"><span class="string">        &lt;div class=&quot;buttons&quot;&gt;</span></span><br><span class="line"><span class="string">          &lt;button data-type=&quot;faves&quot; data-id=&quot;<span class="subst">$&#123;post.id&#125;</span>&quot; class=&quot;add-btn&quot; aria-label=&quot;add <span class="subst">$&#123;post.place&#125;</span> to favorite&quot; aria-pressed=&quot;<span class="subst">$&#123;props.faves[post.id]&#125;</span>&quot; title=&quot;Add to favorite!&quot;&gt;&amp;#x2665;&lt;/button&gt;</span></span><br><span class="line"><span class="string">          &lt;button data-type=&quot;visited&quot; data-id=&quot;<span class="subst">$&#123;post.id&#125;</span>&quot; class=&quot;add-btn&quot; aria-label=&quot;add <span class="subst">$&#123;post.place&#125;</span> to visited&quot; aria-pressed=&quot;<span class="subst">$&#123;props.visited[post.id]&#125;</span>&quot; title=&quot;Add to visited!&quot;&gt;&amp;#9745;&lt;/button&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;&lt;/div&gt;&lt;p&gt;<span class="subst">$&#123;post.description&#125;</span>&lt;/p&gt;&lt;p&gt;&lt;em&gt;<span class="subst">$&#123;post.location&#125;</span>&lt;/em&gt;&lt;/p&gt;&lt;a href=<span class="subst">$&#123;post.url&#125;</span> target=&quot;_blank&quot;&gt;Read more&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;`</span>;</span><br><span class="line">      &#125;).join(<span class="string">&#x27;&#x27;</span>) + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">      <span class="keyword">return</span> html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> html = <span class="string">&#x27;&lt;p&gt;Unable to find any places right now.&lt;/p&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> getFromLocal = <span class="function"><span class="keyword">function</span> (<span class="params">id</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> saved = <span class="built_in">localStorage</span>.getItem(id);</span><br><span class="line">  <span class="keyword">const</span> savedObj = saved ? <span class="built_in">JSON</span>.parse(saved) : &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> savedObj;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> saveToLocal = <span class="function"><span class="keyword">function</span> (<span class="params">items, id</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">localStorage</span>.setItem(id, <span class="built_in">JSON</span>.stringify(items));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getPosts = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">&#x27;https://vanillajsacademy.com/api/places.json&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (response.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.json();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    app.data.faves = getFromLocal(favesID);</span><br><span class="line">    app.data.visited = getFromLocal(visitedID);</span><br><span class="line">    app.data.filter = <span class="string">&#x27;all&#x27;</span>;</span><br><span class="line">    app.data.posts = data;</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(error);</span><br><span class="line">    app.data.posts = <span class="literal">null</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> getHidden = <span class="function"><span class="keyword">function</span> (<span class="params">post, props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (props.filter === <span class="string">&#x27;not-visited&#x27;</span> &amp;&amp; props.visited[post.id]) <span class="keyword">return</span> <span class="string">&#x27;hidden&#x27;</span>;</span><br><span class="line">  <span class="keyword">if</span> (props[props.filter] &amp;&amp; !props[props.filter][post.id]) <span class="keyword">return</span> <span class="string">&#x27;hidden&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> clickHandler = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> postType = e.target.getAttribute(<span class="string">&#x27;data-type&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> postID = e.target.getAttribute(<span class="string">&#x27;data-id&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (!postType || !postID) <span class="keyword">return</span>;</span><br><span class="line">  app.data[postType][postID] = app.data[postType][postID] ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line">  saveToLocal(app.data.faves, favesID);</span><br><span class="line">  saveToLocal(app.data.visited, visitedID);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> changeHandler = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!e.target.closest(<span class="string">&#x27;.filters&#x27;</span>)) <span class="keyword">return</span>;</span><br><span class="line">  app.data.filter = e.target.value;</span><br><span class="line">&#125;</span><br><span class="line">getPosts();</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;click&#x27;</span>, clickHandler);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">&#x27;change&#x27;</span>, changeHandler);</span><br></pre></td></tr></table></figure>
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
 
 </div>
 
@@ -390,11 +289,7 @@
 
   <nav id="page-nav">
     
-<<<<<<< HEAD
-    <span class="page-number current">1</span><a class="page-number" href="/vanilla-js-academy/page/2/">2</a><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/18/">18</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/2/">Next</a>
-=======
     <span class="page-number current">1</span><a class="page-number" href="/vanilla-js-academy/page/2/">2</a><a class="page-number" href="/vanilla-js-academy/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/vanilla-js-academy/page/35/">35</a><a class="extend next" rel="next" href="/vanilla-js-academy/page/2/">Next</a>
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
   </nav>
 
 </section>
@@ -426,8 +321,6 @@
       <ul>
         
           <li>
-<<<<<<< HEAD
-=======
             <a href="/vanilla-js-academy/2020/12/19/places-filter-places/">35. Places - Filter Places</a>
           </li>
         
@@ -496,7 +389,6 @@
           </li>
         
           <li>
->>>>>>> 40f52ddbff7b95e12ac8bbe777f7115c1faafd08
             <a href="/vanilla-js-academy/2020/11/15/weather-app/">18. Weather App</a>
           </li>
         
